@@ -161,6 +161,10 @@ main{max-width: 800px; margin: auto;}
   display: grid; place-items: center; font-weight: bold;
 }
 
+.stripe{width: 32px; height: 22px; border-radius: 6px; margin: 2px auto; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 4px,#f28b49 4px 8px)}
+.noodle{width: 30px; height: 20px; border: 2.5px solid #e9cfa2; border-radius: 50%; margin: 2px auto; background: repeating-linear-gradient(0deg,#fff3d8 0 2px,#e3ba75 2px 3px)}
+
+/* オーダー取りゲーム用のコンパクトなスープ・辛さグリッド */
 .soups{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px}
 .soup{
   border: 1.5px solid var(--line);
@@ -174,7 +178,7 @@ main{max-width: 800px; margin: auto;}
 .soup.selected{border: 2px solid #ff4d80 !important; background: #fff0f5; box-shadow: 0 2px 8px rgba(255, 77, 128, 0.15);}
 .soup .emoji{font-size: 22px}
 .soup b{display: block; font-size: 10px; margin-top: 2px; color: #ff4d80;}
-.soup small{display: none;}
+.soup small{display: none;} /* 省スペースのため説明文を非表示に */
 
 .basket{display: grid; grid-template-columns: 1fr; gap: 8px}
 @media(min-width: 550px){.basket{grid-template-columns: 100px 1fr}}
