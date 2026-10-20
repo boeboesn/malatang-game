@@ -13,7 +13,8 @@ header{text-align:center;padding:18px;background:#fff0f4;border-bottom:2px solid
 header h1{margin:0;font-size:clamp(23px,5vw,34px)}
 header p{font-size:13px;margin:6px 0 0}
 main{max-width:1000px;margin:auto;padding:12px}
-.screen{display:none}.screen.active{display:block}
+.screen{display:none!important}
+.screen.active{display:block!important}
 .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px}
 .title{font-size:22px;margin:0 0 5px}
 .sub{font-size:13px;color:#916879;margin:0 0 14px}
@@ -218,4 +219,3 @@ function renderIngredients(){
   if(!grid) return;
   var h = "";
   for(var i=0; i<ingredients.length; i++){
-    var item = ingre
