@@ -221,4 +221,209 @@ function renderIngredients(){
   for(var i=0; i<ingredients.length; i++){
     var item = ingredients[i];
     if(curCat === "全部" || item[3] === curCat){
-      var isSe
+      var isSel = selIng.indexOf(i) !== -1;
+      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng('+i+')">'
+        + (isSel?'<span class="check">✓</span>':'')
+        + getIcon(item[1])
+        + '<span class="name">'+item[0]+'</span>'
+        + '<small>'+(item[2]?item[2]+'円':'無料')+'</small>'
+        + '</button>';
+    }
+  }
+  grid.innerHTML = h;
+  var cnt = document.getElementById("count");
+  if(cnt) cnt.innerText = "選んだ具材: " + selIng.length + "個";
+}
+
+function renderNoodles(){
+  var grid = document.getElementById("noodleGrid");
+  if(!grid) return;
+  var h = "";
+  for(var i=0; i<noodles.length; i++){
+    var item = noodles[i];
+    var isSel = selNod.indexOf(i) !== -1;
+    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleNod('+i+')">'
+      + (isSel?'<span class="check">✓</span>':'')
+      + getIcon(item[1])
+      + '<span class="name">'+item[0]+'</span>'
+      + '<small>'+(item[2]?item[2]+'円':'無料')+'</small>'
+      + '</button>';
+  }
+  grid.innerHTML = h;
+}
+
+function renderSoups(){
+  var grid = document.getElementById("soupGrid");
+  if(!grid) return;
+  var h = "";
+  for(var i=0; i<soups.length; i++){
+    var item = soups[i];
+    var isSel = (selSoup === i);
+    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="selectSoup('+i+')">'
+      + '<span class="emoji">'+item[1]+'</span>'
+      + '<b>'+item[0]+'</b>'
+      + '<small>'+item[2]+'円<br>'+item[3]+'</small>'
+      + '</button>';
+  }
+  grid.innerHTML = h;
+}
+
+function selectSoup(i){
+  selSoup = i;
+  renderSoups();
+}
+
+function toggleIng(i){
+  var idx = selIng.indexOf(i);
+  if(idx === -1) selIng.push(i);
+  else selIng.splice(idx, 1);
+  renderIngredients();
+}
+
+function toggleNod(i){
+  var idx = selNod.indexOf(i);
+  if(idx === -1) selNod.push(i);
+  else selNod.splice(idx, 1);
+  renderNoodles();
+}
+
+function go(sid){
+  var scs = document.querySelectorAll(".screen");
+  for(var i=0; i<scs.length; i++) scs[i].classList.remove("active");
+  var target = document.getElementById(sid);
+  if(target) target.classList.add("active");
+
+  var map = { start:0, ingredients:1, noodles:2, soups:3, basket:4, cooking:5, finish:6 };
+  var idx = map[sid] || 0;
+  var stps = document.querySelectorAll("#stepList .step");
+  for(var i=0; i<stps.length; i++){
+    if(i === idx) stps[i].classList.add("on");
+    else stps[i].classList.remove("on");
+  }
+
+  if(sid === 'ingredients'){ renderCats(); renderIngredients(); }
+  else if(sid === 'noodles'){ renderNoodles(); }
+  else if(sid === 'soups'){ renderSoups(); }
+  else if(sid === 'basket'){ renderBasket(); }
+}
+
+function renderBasket(){
+  var ingH = "", ingTot = 0;
+  for(var i=0; i<selIng.length; i++){
+    var item = ingredients[selIng[i]];
+    ingH += '<div>• '+item[0]+' ('+item[2]+'円)</div>';
+    ingTot += item[2];
+  }
+  if(selIng.length === 0) ingH = '<div>選択なし</div>';
+
+  var nodH = "", nodTot = 0;
+  for(var i=0; i<selNod.length; i++){
+    var item = noodles[selNod[i]];
+    nodH += '<div>• '+item[0]+' ('+item[2]+'円)</div>';
+    nodTot += item[2];
+  }
+  if(selNod.length === 0) nodH = '<div>なし</div>';
+
+  var sItem = soups[selSoup];
+  var spiceEl = document.getElementById("spice");
+  var spVal = spiceEl ? spiceEl.value : "2辛";
+  var sH = '<div>• '+sItem[0]+' ('+sItem[2]+'円) / '+spVal+'</div>';
+
+  var gTot = ingTot + nodTot + sItem[2];
+
+  document.getElementById("chosenIngredients").innerHTML = ingH;
+  document.getElementById("chosenNoodles").innerHTML = nodH;
+  document.getElementById("chosenSoup").innerHTML = sH;
+  document.getElementById("total").innerText = "合計金額: " + gTot + "円";
+}
+
+function startCooking(){
+  go('cooking');
+  var bar = document.getElementById("progress");
+  var secText = document.getElementById("seconds");
+  bar.style.width = "0%";
+  secText.innerText = "調理中… 5秒";
+
+  if(timer) clearInterval(timer);
+
+  var elapsed = 0;
+  timer = setInterval(function(){
+    elapsed++;
+    bar.style.width = ((elapsed / 5) * 100) + "%";
+    secText.innerText = "調理中… " + Math.max(0, 5 - elapsed) + "秒";
+
+    if(elapsed >= 5){
+      clearInterval(timer);
+      showFinish();
+    }
+  }, 1000);
+}
+
+function showFinish(){
+  go('finish');
+  var ingL = [], ingTot = 0;
+  for(var i=0; i<selIng.length; i++){
+    ingL.push(ingredients[selIng[i]][0]);
+    ingTot += ingredients[selIng[i]][2];
+  }
+
+  var nodL = [], nodTot = 0;
+  for(var i=0; i<selNod.length; i++){
+    nodL.push(noodles[selNod[i]][0]);
+    nodTot += noodles[selNod[i]][2];
+  }
+
+  var sItem = soups[selSoup];
+  var spiceEl = document.getElementById("spice");
+  var spVal = spiceEl ? spiceEl.value : "2辛";
+  var gTot = ingTot + nodTot + sItem[2];
+
+  document.getElementById("finalSoup").innerHTML = '<b>スープ:</b> ' + sItem[0] + ' (' + spVal + ')';
+  document.getElementById("finalNoodles").innerHTML = '<b>麺:</b> ' + (nodL.length > 0 ? nodL.join(', ') : 'なし');
+  document.getElementById("finalIngredients").innerHTML = '<b>具材:</b> ' + (ingL.length > 0 ? ingL.join(', ') : 'なし');
+  document.getElementById("finalTotal").innerText = 'お会計: ' + gTot + '円';
+  document.getElementById("shareNote").innerText = "";
+}
+
+function shareGame(){
+  var note = document.getElementById("shareNote");
+  if(navigator.clipboard){
+    navigator.clipboard.writeText("わたしだけの麻辣湯を作ったよ！おいしそう😋").then(function(){
+      note.innerText = "✨ 結果をクリップボードにコピーしたよ！";
+    }).catch(function(){
+      note.innerText = "コピーに失敗しました";
+    });
+  } else {
+    note.innerText = "シェア機能が非対応です";
+  }
+}
+
+function resetGame(){
+  selIng = [];
+  selNod = [];
+  selSoup = 0;
+  curCat = "全部";
+  if(timer) clearInterval(timer);
+  go('start');
+}
+
+// ボタンのクリックイベントを確実に関連付け
+document.getElementById("startBtn").onclick = function() { go('ingredients'); };
+document.getElementById("backToStartBtn").onclick = function() { go('start'); };
+document.getElementById("toNoodlesBtn").onclick = function() { go('noodles'); };
+document.getElementById("backToIngBtn").onclick = function() { go('ingredients'); };
+document.getElementById("toSoupsBtn").onclick = function() { go('soups'); };
+document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles'); };
+document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
+document.getElementById("backToSoupsBtn").onclick = function() { go('soups'); };
+document.getElementById("cookingBtn").onclick = function() { startCooking(); };
+document.getElementById("shareBtn").onclick = function() { shareGame(); };
+document.getElementById("resetBtn").onclick = function() { resetGame(); };
+
+renderCats();
+renderIngredients();
+renderNoodles();
+renderSoups();
+</script>
+</body>
+</html>
