@@ -13,8 +13,8 @@ header{text-align:center;padding:18px;background:#fff0f4;border-bottom:2px solid
 header h1{margin:0;font-size:clamp(23px,5vw,34px)}
 header p{font-size:13px;margin:6px 0 0}
 main{max-width:1000px;margin:auto;padding:12px}
-.screen{display:none!important}
-.screen.active{display:block!important}
+.screen{display:none}
+.screen.active{display:block}
 .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px}
 .title{font-size:22px;margin:0 0 5px}
 .sub{font-size:13px;color:#916879;margin:0 0 14px}
@@ -77,7 +77,7 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <div class="food">🍜</div>
 <h2>わたしだけの<br>麻辣湯をつくろう！</h2>
 <p>好きな具材も、麺も、スープも自由に選べるよ。<br>自分だけのオリジナル麻辣湯を作っちゃおう！</p>
-<button class="btn" onclick="go('ingredients')">はじめる ❯</button>
+<button class="btn" id="startBtn">はじめる ❯</button>
 </div>
 </section>
 
@@ -89,8 +89,8 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <div class="grid" id="ingredientGrid"></div>
 <p class="sub" id="count" style="margin-top:12px;text-align:center;font-weight:bold;"></p>
 <div class="btnrow">
-<button class="btn secondary" onclick="go('start')">戻る</button>
-<button class="btn" onclick="go('noodles')">麺を選ぶ ❯</button>
+<button class="btn secondary" id="backToStartBtn">戻る</button>
+<button class="btn" id="toNoodlesBtn">麺を選ぶ ❯</button>
 </div>
 </div>
 </section>
@@ -101,8 +101,8 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <p class="sub">好きな麺を選んでね。複数選んでもOK！</p>
 <div class="grid" id="noodleGrid"></div>
 <div class="btnrow">
-<button class="btn secondary" onclick="go('ingredients')">戻る</button>
-<button class="btn" onclick="go('soups')">スープを選ぶ ❯</button>
+<button class="btn secondary" id="backToIngBtn">戻る</button>
+<button class="btn" id="toSoupsBtn">スープを選ぶ ❯</button>
 </div>
 </div>
 </section>
@@ -119,8 +119,8 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 </select>
 </div>
 <div class="btnrow">
-<button class="btn secondary" onclick="go('noodles')">戻る</button>
-<button class="btn" onclick="go('basket')">カゴを確認 ❯</button>
+<button class="btn secondary" id="backToNoodlesBtn">戻る</button>
+<button class="btn" id="toBasketBtn">カゴを確認 ❯</button>
 </div>
 </div>
 </section>
@@ -138,8 +138,8 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <div class="total" id="total"></div>
 <p class="note">※価格はゲーム内の設定だよ。</p>
 <div class="btnrow">
-<button class="btn secondary" onclick="go('soups')">戻る</button>
-<button class="btn" onclick="startCooking()">🍲 これで作る！</button>
+<button class="btn secondary" id="backToSoupsBtn">戻る</button>
+<button class="btn" id="cookingBtn">🍲 これで作る！</button>
 </div>
 </div>
 </section>
@@ -164,8 +164,8 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 </div>
 <p>おいしく召し上がれ！</p>
 <div class="btnrow">
-<button class="btn" onclick="shareGame()">シェアする ↗</button>
-<button class="btn secondary" onclick="resetGame()">もう一度つくる ↻</button>
+<button class="btn" id="shareBtn">シェアする ↗</button>
+<button class="btn secondary" id="resetBtn">もう一度つくる ↻</button>
 </div>
 <p class="note" id="shareNote"></p>
 </div>
@@ -219,3 +219,6 @@ function renderIngredients(){
   if(!grid) return;
   var h = "";
   for(var i=0; i<ingredients.length; i++){
+    var item = ingredients[i];
+    if(curCat === "全部" || item[3] === curCat){
+      var isSe
