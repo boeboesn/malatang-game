@@ -246,27 +246,6 @@ main{max-width: 800px; margin: auto;}
 .badge-title{font-size: 10px; font-weight: bold; display: block; color: var(--dark);}
 .badge-desc{font-size: 9px; color: #888;}
 
-.diff-box{
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin: 6px 0 10px;
-}
-.diff-btn{
-  border: 1.5px solid var(--line);
-  background: #ffffff;
-  padding: 5px 12px;
-  border-radius: 14px;
-  font-weight: bold;
-  font-size: 11px;
-  color: var(--dark);
-}
-.diff-btn.selected{
-  background: #ff4d80;
-  color: #ffffff;
-  border-color: #ff4d80;
-}
-
 footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </style>
 </head>
@@ -344,18 +323,40 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </section>
 
-<!-- ミニゲーム1：オーダー取り -->
+<!-- オーダー取りゲーム：難易度選択画面 -->
+<section class="screen" id="orderDiffMenu">
+<div class="panel" style="text-align:center">
+<h2 class="title">📋 オーダー取りゲーム - 難易度選択</h2>
+<p class="sub">チャレンジする難易度を選んでね！</p>
+<div style="display:flex;flex-direction:column;gap:8px;max-width:280px;margin:12px auto;">
+<button class="btn gold-btn" onclick="startOrderGameWithDiff('easy')" style="font-size:13px;padding:10px;">かんたん (1000円)</button>
+<button class="btn gold-btn" onclick="startOrderGameWithDiff('normal')" style="font-size:13px;padding:10px;">ふつう (1500円)</button>
+<button class="btn gold-btn" onclick="startOrderGameWithDiff('hard')" style="font-size:13px;padding:10px;">むずかしい (2000円)</button>
+<button class="btn secondary" onclick="go('workMenu')">← お手伝い選択に戻る</button>
+</div>
+</div>
+</section>
+
+<!-- 配膳ゲーム：難易度選択画面 -->
+<section class="screen" id="serveDiffMenu">
+<div class="panel" style="text-align:center">
+<h2 class="title">🍲 配膳ゲーム - 難易度選択</h2>
+<p class="sub">チャレンジする難易度を選んでね！</p>
+<div style="display:flex;flex-direction:column;gap:8px;max-width:280px;margin:12px auto;">
+<button class="btn gold-btn" onclick="startServeGameWithDiff('easy')" style="font-size:13px;padding:10px;">かんたん (500円)</button>
+<button class="btn gold-btn" onclick="startServeGameWithDiff('normal')" style="font-size:13px;padding:10px;">ふつう (1000円)</button>
+<button class="btn gold-btn" onclick="startServeGameWithDiff('hard')" style="font-size:13px;padding:10px;">むずかしい (1500円)</button>
+<button class="btn secondary" onclick="go('workMenu')">← お手伝い選択に戻る</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム1：オーダー取り プレイ画面 -->
 <section class="screen" id="orderGame">
 <div class="panel">
 <div class="game-header">
 <h2 class="title" style="margin:0;font-size:15px;" id="orderTitle">📋 オーダー取りゲーム</h2>
 <div class="timer-badge">⏳ 残り <span id="orderTimer">15</span> 秒</div>
-</div>
-
-<div class="diff-box">
-  <button class="diff-btn selected" id="oDiffEasy" onclick="setOrderDiff('easy')">かんたん (1000円)</button>
-  <button class="diff-btn" id="oDiffNormal" onclick="setOrderDiff('normal')">ふつう (1500円)</button>
-  <button class="diff-btn" id="oDiffHard" onclick="setOrderDiff('hard')">むずかしい (2000円)</button>
 </div>
 
 <div class="speech-bubble" id="orderBubble"></div>
@@ -382,18 +383,12 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </section>
 
-<!-- ミニゲーム2：配膳ゲーム -->
+<!-- ミニゲーム2：配膳ゲーム プレイ画面 -->
 <section class="screen" id="serveGame">
 <div class="panel">
 <div class="game-header">
 <h2 class="title" style="margin:0;font-size:15px;">🍲 配膳ゲーム</h2>
 <div class="timer-badge">⏳ 残り <span id="serveTimer">15</span> 秒</div>
-</div>
-
-<div class="diff-box">
-  <button class="diff-btn selected" id="sDiffEasy" onclick="setServeDiff('easy')">かんたん (500円)</button>
-  <button class="diff-btn" id="sDiffNormal" onclick="setServeDiff('normal')">ふつう (1000円)</button>
-  <button class="diff-btn" id="sDiffHard" onclick="setServeDiff('hard')">むずかしい (1500円)</button>
 </div>
 
 <p class="sub">出来上がった麻辣湯を正しく運ぼう！（全3問・制限時間15秒）</p>
@@ -680,8 +675,6 @@ function go(sid){
   else if(sid === 'noodles'){ renderNoodles(); }
   else if(sid === 'soups'){ renderSoups(); }
   else if(sid === 'basket'){ renderBasket(); }
-  else if(sid === 'orderGame'){ initOrderGame(); }
-  else if(sid === 'serveGame'){ initServeGame(); }
   else if(sid === 'shop'){ renderShop(); }
   else if(sid === 'badges'){ renderBadges(); }
 }
@@ -977,25 +970,15 @@ var currentEventType = "normal";
 var orderDiff = "easy";
 var serveDiff = "easy";
 
-function setOrderDiff(diff){
+function startOrderGameWithDiff(diff){
   orderDiff = diff;
-  document.getElementById("oDiffEasy").classList.remove("selected");
-  document.getElementById("oDiffNormal").classList.remove("selected");
-  document.getElementById("oDiffHard").classList.remove("selected");
-  if(diff === 'easy') document.getElementById("oDiffEasy").classList.add("selected");
-  if(diff === 'normal') document.getElementById("oDiffNormal").classList.add("selected");
-  if(diff === 'hard') document.getElementById("oDiffHard").classList.add("selected");
+  go('orderGame');
   initOrderGame();
 }
 
-function setServeDiff(diff){
+function startServeGameWithDiff(diff){
   serveDiff = diff;
-  document.getElementById("sDiffEasy").classList.remove("selected");
-  document.getElementById("sDiffNormal").classList.remove("selected");
-  document.getElementById("sDiffHard").classList.remove("selected");
-  if(diff === 'easy') document.getElementById("sDiffEasy").classList.add("selected");
-  if(diff === 'normal') document.getElementById("sDiffNormal").classList.add("selected");
-  if(diff === 'hard') document.getElementById("sDiffHard").classList.add("selected");
+  go('serveGame');
   initServeGame();
 }
 
@@ -1243,8 +1226,8 @@ document.getElementById("startBtn").onclick = function() { go('ingredients'); };
 document.getElementById("workBtn").onclick = function() { go('workMenu'); };
 document.getElementById("shopMenuBtn").onclick = function() { go('shop'); };
 document.getElementById("badgeMenuBtn").onclick = function() { go('badges'); };
-document.getElementById("game1Btn").onclick = function() { go('orderGame'); };
-document.getElementById("game2Btn").onclick = function() { go('serveGame'); };
+document.getElementById("game1Btn").onclick = function() { go('orderDiffMenu'); };
+document.getElementById("game2Btn").onclick = function() { go('serveDiffMenu'); };
 document.getElementById("backFromWorkBtn").onclick = function() { go('start'); };
 document.getElementById("backToStartBtn").onclick = function() { go('start'); };
 document.getElementById("toNoodlesBtn").onclick = function() { go('noodles'); };
