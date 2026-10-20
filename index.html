@@ -9,47 +9,55 @@
 <style>
 *{box-sizing:border-box}
 :root{
-  --beige-bg: #f9f4ef;
-  --panel-bg: #ffffff;
-  --main-color: #e07a5f;
-  --dark: #4a3b32;
-  --line: #ede0d4;
-  --shelf-blue: #e0f2fe;
+  --pink: #ff7597;
+  --light-pink: #ffb3c6;
+  --pale-pink: #fff0f5;
+  --dark: #58313e;
+  --line: #ffe3ec;
+  --card-bg: #ffffff;
 }
 
 body{
   margin: 0;
-  padding: 6px 4px;
-  background: var(--beige-bg);
+  padding: 8px 4px;
+  background: linear-gradient(135deg, #fff5f8 0%, #ffeaf0 100%);
   min-height: 100vh;
   color: var(--dark);
   font-family: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.3px;
 }
 
 button, select{font: inherit; cursor: pointer; border: none; outline: none;}
 
 header{
   text-align: center;
-  padding: 8px 12px;
+  padding: 10px 8px;
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 16px;
   max-width: 800px;
-  margin: 0 auto 6px;
+  margin: 0 auto 8px;
+  box-shadow: 0 4px 15px rgba(255, 117, 151, 0.08);
   border: 1px solid var(--line);
 }
-header h1{ margin: 0; font-size: 18px; color: var(--main-color); }
-header p{ font-size: 10px; margin: 2px 0 0; color: #8d7b68; }
-
+header h1{
+  margin: 0;
+  font-size: clamp(18px, 4vw, 22px);
+  color: #ff4d80;
+}
+header p{
+  font-size: 10px;
+  margin: 2px 0 0;
+  color: #a07885;
+}
 .money-container{
   display: inline-flex;
   align-items: center;
   gap: 4px;
   background: #fffbeb;
-  border: 1px solid #f59e0b;
+  border: 1.5px solid #f59e0b;
   color: #b45309;
   padding: 2px 10px;
-  border-radius: 12px;
+  border-radius: 16px;
   font-weight: bold;
   font-size: 11px;
   margin-top: 4px;
@@ -60,129 +68,182 @@ main{max-width: 800px; margin: auto;}
 .screen.active{display: block}
 
 .panel{
-  background: var(--panel-bg);
+  background: var(--card-bg);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 15px rgba(255, 117, 151, 0.06);
 }
 
-.title{font-size: 15px; margin: 0 0 2px; color: var(--main-color); font-weight: bold;}
-.sub{font-size: 11px; color: #8d7b68; margin: 0 0 6px}
+.title{font-size: 16px; margin: 0 0 2px; color: #ff4d80; font-weight: 800;}
+.sub{font-size: 11px; color: #a07885; margin: 0 0 8px}
 
 .btn{
-  background: var(--main-color);
+  background: linear-gradient(135deg, #ff8fab, #ff4d80);
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
   font-weight: bold;
   font-size: 12px;
-  transition: transform 0.15s;
+  box-shadow: 0 3px 10px rgba(255, 77, 128, 0.25);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
+.btn:hover{ transform: translateY(-1px); box-shadow: 0 5px 12px rgba(255, 77, 128, 0.35); }
 .btn:active{ transform: scale(0.97); }
 
-.gold-btn{ background: #f59e0b !important; color: #fff !important; }
-.green-btn{ background: #10b981 !important; color: #fff !important; }
-.secondary{ background: #ffffff !important; color: var(--dark) !important; border: 1px solid #d5c5b5 !important; }
-.btnrow{display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-top: 6px}
-
-/* 冷蔵ケース風デザイン */
-.fridge-container {
-  background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%);
-  border: 3px solid #93c5fd;
-  border-radius: 12px;
-  padding: 6px;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.08);
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
+.gold-btn{
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.25) !important;
 }
-
-.fridge-grid {
-  display: inline-grid;
-  grid-template-rows: repeat(4, 1fr);
-  grid-auto-flow: column;
-  gap: 6px;
+.green-btn{
+  background: linear-gradient(135deg, #34d399, #10b981) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25) !important;
 }
-
-.fridge-item {
-  width: 72px;
-  height: 62px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #bfdbfe;
-  border-radius: 8px;
-  padding: 4px 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: all 0.1s;
+.secondary{
+  background: #ffffff !important;
+  color: var(--dark) !important;
+  border: 1.5px solid var(--light-pink) !important;
+  box-shadow: none !important;
 }
-.fridge-item:active { transform: scale(0.95); }
-.fridge-item.selected {
-  background: #ffedd5;
-  border: 2px solid var(--main-color);
-}
-.fridge-item .emoji { font-size: 22px; line-height: 1; }
-.fridge-item .name { font-size: 9px; font-weight: bold; margin-top: 2px; text-align: center; white-space: normal; line-height: 1.1; }
-.fridge-item .price { font-size: 9px; color: var(--main-color); font-weight: bold; }
+.btnrow{display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-top: 8px}
 
-/* 下部ボウルエリア */
-.bowl-area {
-  background: #fefae0;
-  border: 1px solid #dda15e;
-  border-radius: 12px;
-  padding: 8px;
-  margin-top: 8px;
+.hero{
   text-align: center;
-}
-.bowl-display {
-  min-height: 48px;
+  padding: 16px 10px;
   background: #ffffff;
-  border-radius: 20px;
-  border: 2px dashed #dda15e;
-  padding: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin: 6px 0;
+  border-radius: 16px;
+  border: 1px solid var(--line);
 }
-.bowl-chip {
-  background: #f3d5b5;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: bold;
+.hero-img{width: 100%; max-width: 300px; border-radius: 14px; display: block; margin: 0 auto 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.06)}
+.hero-fallback{
+  background: linear-gradient(135deg, #ff8fab, #c084fc);
+  color: white;
+  padding: 20px 10px;
+  border-radius: 14px;
+  margin-bottom: 10px;
 }
+.hero-fallback h2{margin: 0 0 4px; font-size: 18px;}
+.hero-fallback p{margin: 0; font-size: 11px; opacity: 0.95}
 
-.categories{display: flex; gap: 4px; overflow-x: auto; padding: 2px 0 6px; -webkit-overflow-scrolling: touch;}
-.cat{white-space: nowrap; border: 1px solid var(--line); background: #ffffff; border-radius: 14px; padding: 4px 10px; color: var(--dark); font-weight: bold; font-size: 11px;}
-.cat.active{background: var(--main-color); color: white; border-color: transparent;}
+.steps{display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin: 6px 0 10px}
+.step{font-size: 9px; border-radius: 12px; padding: 3px 8px; background: #ffeaf0; color: #a07885; font-weight: bold;}
+.step.on{background: #ff4d80; color: white; box-shadow: 0 2px 6px rgba(255,77,128,0.3)}
 
-.steps{display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin: 4px 0 8px}
-.step{font-size: 9px; border-radius: 10px; padding: 2px 8px; background: #e7d8c9; color: #6b5b4e; font-weight: bold;}
-.step.on{background: var(--main-color); color: white;}
+.categories{display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 6px; -webkit-overflow-scrolling: touch;}
+.cat{white-space: nowrap; border: 1.5px solid var(--line); background: #ffffff; border-radius: 16px; padding: 4px 10px; color: var(--dark); font-weight: bold; font-size: 11px;}
+.cat.active{background: #ff4d80; color: white; border-color: transparent;}
 
 .grid{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px}
+@media(min-width: 600px){.grid{grid-template-columns: repeat(6, minmax(0, 1fr))}}
+
 .tile{
-  position: relative; border: 1px solid var(--line); background: #ffffff; border-radius: 10px; padding: 4px 2px; color: var(--dark); text-align: center;
+  position: relative;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 4px 2px;
+  color: var(--dark);
+  text-align: center;
+  transition: all 0.15s;
 }
-.tile.selected{border: 2px solid var(--main-color); background: #fff3eb;}
+.tile:active{transform: scale(0.97)}
+.tile.selected{border: 2px solid #ff4d80 !important; background: #fff0f5; box-shadow: 0 2px 8px rgba(255, 77, 128, 0.15);}
+.emoji{font-size: 24px; display: block; line-height: 1.1}
+.name{font-size: 10px; font-weight: bold; display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.tile small{font-size: 9px; color: #ff4d80; font-weight: bold;}
+.check{
+  position: absolute; top: 2px; right: 2px;
+  background: #ff4d80; color: white; border-radius: 50%;
+  font-size: 8px; width: 14px; height: 14px;
+  display: grid; place-items: center; font-weight: bold;
+}
 
 .soups{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px}
-.soup{ border: 1px solid var(--line); background: white; border-radius: 10px; padding: 6px 2px; text-align: center; }
-.soup.selected{ border: 2px solid var(--main-color); background: #fff3eb; }
-.soup .emoji{font-size: 20px}
-.soup b{display: block; font-size: 10px; color: var(--main-color);}
+.soup{
+  border: 1.5px solid var(--line);
+  background: white;
+  border-radius: 10px;
+  padding: 6px 2px;
+  color: var(--dark);
+  text-align: center;
+  transition: all 0.15s;
+}
+.soup.selected{border: 2px solid #ff4d80 !important; background: #fff0f5; box-shadow: 0 2px 8px rgba(255, 77, 128, 0.15);}
+.soup .emoji{font-size: 22px}
+.soup b{display: block; font-size: 10px; margin-top: 2px; color: #ff4d80;}
+.soup small{display: none;}
 
-.spice-grid{display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px}
-.spice-btn{ border: 1px solid var(--line); background: #fff; padding: 6px 1px; border-radius: 6px; font-size: 10px; font-weight: bold; }
-.spice-btn.selected{ background: var(--main-color) !important; color: white !important; }
+.basket{display: grid; grid-template-columns: 1fr; gap: 8px}
+@media(min-width: 550px){.basket{grid-template-columns: 100px 1fr}}
 
-footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
+.bowl{font-size: 60px; text-align: center; padding: 8px; background: #fffdfa; border-radius: 14px; border: 1px solid #fed7aa; display: grid; place-items: center;}
+.total{text-align: center; background: #fff0f5; padding: 8px; border-radius: 12px; font-size: 14px; font-weight: 800; color: #ff4d80; border: 1px solid #ffb3c6; margin-top: 6px;}
+
+.cook{text-align: center; padding: 16px 6px}
+.pot{font-size: 60px; animation: bob 1s infinite alternate}
+@keyframes bob{to{transform: translateY(-6px)}}
+
+.bar{height: 10px; border-radius: 20px; background: #ffeaf0; overflow: hidden; margin: 10px auto; max-width: 280px;}
+.bar div{height: 100%; width: 0; background: linear-gradient(90deg, #ff8fab, #ff4d80); transition: width .3s}
+
+.finished{background: #ffffff; text-align: center; padding: 12px; border-radius: 16px; border: 1px solid var(--line);}
+.finish-img{width: 100%; max-width: 240px; border-radius: 12px; display: block; margin: 6px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.08)}
+
+.rating-box{background: #fff0f5; border-radius: 12px; padding: 8px; margin: 8px 0; text-align: center;}
+.stars{font-size: 18px; color: #fbbf24; margin: 2px 0}
+.comment{font-size: 11px; font-weight: bold; color: var(--dark); margin-top: 2px;}
+.note{font-size: 10px; color: #a07885; margin-top: 4px;}
+
+.share-card-wrapper {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 10px;
+  border: 1px solid var(--line);
+}
+
+.game-header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px}
+.timer-badge{background: #ff4d80; color: white; padding: 3px 10px; border-radius: 16px; font-weight: bold; font-size: 11px;}
+.speech-bubble{background: #fff0f5; border-radius: 12px; padding: 8px 10px; margin-bottom: 6px; font-size: 11px; line-height: 1.3;}
+.select-section{margin-bottom: 6px; background: #fafafa; border: 1px solid var(--line); padding: 6px 8px; border-radius: 10px}
+.select-section h4{margin: 0 0 4px; font-size: 11px; color: #ff4d80}
+
+.spice-grid{display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px}
+.spice-btn{
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  padding: 6px 1px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 10px;
+  color: var(--dark);
+  transition: all 0.15s;
+}
+.spice-btn.selected{
+  background: #ff4d80 !important;
+  color: #ffffff !important;
+  border-color: #ff4d80 !important;
+  box-shadow: 0 2px 6px rgba(255, 77, 128, 0.3) !important;
+}
+
+.seat-grid{display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px}
+.seat-card{background: #ffffff; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 4px; text-align: center;}
+
+.shop-item{display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 8px 10px; margin-bottom: 6px;}
+.shop-item-info{text-align: left;}
+.shop-item-info b{font-size: 12px; display: block; color: #ff4d80;}
+.shop-item-info small{font-size: 10px; color: #a07885;}
+
+.badge-grid{display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px;}
+.badge-card{background: #fff; border: 1.5px solid var(--line); border-radius: 12px; padding: 8px; text-align: center; opacity: 0.5;}
+.badge-card.unlocked{opacity: 1; border-color: #f59e0b; background: #fffbeb;}
+.badge-icon{font-size: 22px; display: block; margin-bottom: 2px;}
+.badge-title{font-size: 10px; font-weight: bold; display: block; color: var(--dark);}
+.badge-desc{font-size: 9px; color: #888;}
+
+footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </style>
 </head>
 <body>
@@ -202,54 +263,121 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 </div>
 
 <section class="screen active" id="start">
-<div class="panel" style="text-align:center; padding: 20px 10px;">
+<div class="hero">
+<div id="heroImageContainer">
+<img src="start.png" alt="わたしだけの麻辣湯をつくろう！" class="hero-img" onerror="showHeroFallback()">
+</div>
+<div id="heroFallback" class="hero-fallback" style="display:none;">
 <h2>🍜 わたしだけの麻辣湯</h2>
-<p class="sub">好きな具材を選んでね！</p>
-<div class="btnrow">
+<p>好きな具材を選んで、あなただけのオリジナルを作ろう！</p>
+</div>
+
+<div class="btnrow" style="margin-top:4px">
 <button class="btn" id="startBtn" style="font-size:14px;padding:10px 20px;">麻辣湯をつくる ❯</button>
 <button class="btn gold-btn" id="workBtn" style="font-size:12px;padding:10px 16px;">💰 お小遣いを稼ぐ</button>
 </div>
 <div class="btnrow" style="margin-top:6px">
-<button class="btn secondary" id="shopMenuBtn" style="font-size:11px;">🛍️ 高級トッピングショップ</button>
-<button class="btn secondary" id="badgeMenuBtn" style="font-size:11px;">🏅 称号・図鑑</button>
+<button class="btn" style="background:linear-gradient(135deg, #c084fc, #a855f7); font-size:11px;padding:6px 14px;" id="shopMenuBtn">🛍️ 高級トッピングショップ</button>
+<button class="btn secondary" id="badgeMenuBtn" style="font-size:11px;padding:6px 14px;">🏅 称号・図鑑</button>
 </div>
 </div>
 </section>
 
-<!-- ① 具材選択画面（冷蔵棚スタイル） -->
-<section class="screen" id="ingredients">
+<!-- ショップ画面 -->
+<section class="screen" id="shop">
 <div class="panel">
-<div style="display:flex; justify-content:space-between; align-items:center;">
-<h2 class="title">① 好きな具材を選ぼう！</h2>
-<span style="font-size:10px; color:#888;">↔ 左右にスワイプ</span>
+<h2 class="title">🛍️ 高級トッピングショップ</h2>
+<p class="sub">お小遣いを使って隠し高級具材をアンロックしよう！</p>
+<div id="shopItemList"></div>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('start')">← スタート画面に戻る</button>
+</div>
+</div>
+</section>
+
+<!-- 称号・図鑑画面 -->
+<section class="screen" id="badges">
+<div class="panel">
+<h2 class="title">🏅 称号・図鑑</h2>
+<p class="sub">条件を達成して称号バッジを集めよう！</p>
+<div class="badge-grid" id="badgeGrid"></div>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('start')">← スタート画面に戻る</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム選択画面 -->
+<section class="screen" id="workMenu">
+<div class="panel" style="text-align:center">
+<h2 class="title">🧹 麻辣湯屋さんでお手伝い</h2>
+<p class="sub">お手伝いをしてお小遣いを稼ごう！</p>
+<div style="display:flex;flex-direction:column;gap:6px;max-width:320px;margin:8px auto;">
+<button class="btn gold-btn" id="game1Btn" style="font-size:13px;padding:10px;">📋 オーダー取りゲーム（イベント客登場！）</button>
+<button class="btn gold-btn" id="game2Btn" style="font-size:13px;padding:10px;">🍲 配膳ゲーム（全3問・15秒制限）</button>
+<button class="btn secondary" id="backFromWorkBtn">← スタート画面に戻る</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム1：オーダー取り -->
+<section class="screen" id="orderGame">
+<div class="panel">
+<div class="game-header">
+<h2 class="title" style="margin:0;font-size:15px;" id="orderTitle">📋 オーダー取りゲーム</h2>
+<div class="timer-badge">⏳ 残り <span id="orderTimer">15</span> 秒</div>
 </div>
 
-<div class="categories" id="categories"></div>
+<div class="speech-bubble" id="orderBubble"></div>
 
-<!-- 冷蔵ショーケース風ラック -->
-<div class="fridge-container">
-<div class="fridge-grid" id="ingredientGrid"></div>
+<div class="select-section">
+<h4>1. スープを選ぶ</h4>
+<div class="soups" id="g1SoupGrid"></div>
 </div>
 
-<!-- あなたのボウル -->
-<div class="bowl-area">
-<div style="display:flex; justify-content:space-between; align-items:center;">
-<b style="font-size:12px; color:var(--main-color);">🥣 あなたのボウル</b>
-<button class="btn secondary" style="padding:2px 8px; font-size:10px;" onclick="popLastIng()">ひとつ戻す</button>
+<div class="select-section">
+<h4>2. 辛さを選ぶ</h4>
+<div class="spice-grid" id="g1SpiceGrid"></div>
 </div>
 
-<div class="bowl-display" id="bowlDisplay">
-<span style="font-size:10px; color:#aaa;">ここに選んだ具材が入ります</span>
-</div>
-
-<div style="display:flex; justify-content:space-between; align-items:center;">
-<span id="count" style="font-size:11px; font-weight:bold;">0個選択中</span>
-<button class="btn" id="toNoodlesBtn" style="padding:6px 14px; font-size:11px;">麺を選ぶ ❯</button>
-</div>
+<div class="select-section">
+<h4 id="g1IngTitle">3. 具材を選ぶ</h4>
+<div class="grid" id="g1IngGrid"></div>
 </div>
 
 <div class="btnrow" style="margin-top:6px;">
-<button class="btn secondary" id="backToStartBtn" style="font-size:11px; padding:4px 12px;">← スタート画面に戻る</button>
+<button class="btn secondary" style="padding:6px 14px;font-size:11px;" onclick="exitOrderGame()">やめる</button>
+<button class="btn gold-btn" style="padding:6px 16px;font-size:12px;" onclick="submitOrder()">注文を確定する！</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム2：配膳ゲーム -->
+<section class="screen" id="serveGame">
+<div class="panel">
+<div class="game-header">
+<h2 class="title" style="margin:0;font-size:15px;">🍲 配膳ゲーム</h2>
+<div class="timer-badge">⏳ 残り <span id="serveTimer">15</span> 秒</div>
+</div>
+<p class="sub">出来上がった麻辣湯を正しく運ぼう！（全3問・制限時間15秒）</p>
+<div class="speech-bubble" id="serveQuestion" style="font-size:13px;font-weight:bold;text-align:center;"></div>
+<div class="seat-grid" id="seatGrid"></div>
+<div class="btnrow" style="margin-top:10px">
+<button class="btn secondary" onclick="exitServeGame()">やめる</button>
+</div>
+</div>
+</section>
+
+<section class="screen" id="ingredients">
+<div class="panel">
+<h2 class="title">① 材料を選ぼう！</h2>
+<p class="sub">好きな具材をタップしてカゴに入れてね（制限なし）</p>
+<div class="categories" id="categories"></div>
+<div class="grid" id="ingredientGrid"></div>
+<p class="sub" id="count" style="margin-top:8px;text-align:center;font-weight:bold;"></p>
+<div class="btnrow">
+<button class="btn secondary" id="backToStartBtn">戻る</button>
+<button class="btn" id="toNoodlesBtn">麺を選ぶ ❯</button>
 </div>
 </div>
 </section>
@@ -257,7 +385,7 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 <section class="screen" id="noodles">
 <div class="panel">
 <h2 class="title">② 麺を選ぼう！</h2>
-<p class="sub">好きな麺を選んでね（複数可）</p>
+<p class="sub">好きな麺を選んでね。複数選んでもOK！</p>
 <div class="grid" id="noodleGrid"></div>
 <div class="btnrow">
 <button class="btn secondary" id="backToIngBtn">戻る</button>
@@ -269,10 +397,11 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 <section class="screen" id="soups">
 <div class="panel">
 <h2 class="title">③ スープを選ぼう！</h2>
+<p class="sub">今日の気分にぴったりのスープはどれ？</p>
 <div class="soups" id="soupGrid"></div>
-<div style="margin-top:8px;">
-<b style="font-size:11px;">🌶️ 辛さを選ぼう！</b>
-<select id="spice" style="width:100%;padding:6px;margin-top:2px;border-radius:6px;border:1px solid var(--line);background:white">
+<div class="panel" style="margin-top:8px; border: 1.5px solid var(--line); padding:8px;">
+<b>🌶️ 辛さを選ぼう！</b>
+<select id="spice" style="width:100%;padding:8px;margin-top:4px;border-radius:10px;border:1.5px solid var(--line);background:white">
 <option>0辛（辛くない）</option><option>1辛</option><option selected>2辛</option><option>3辛</option><option>4辛</option><option>5辛（激辛）</option>
 </select>
 </div>
@@ -285,81 +414,153 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 
 <section class="screen" id="basket">
 <div class="panel">
-<h2 class="title">④ カゴの中身を確認！</h2>
-<div style="font-size:11px; margin-bottom:6px;">
-<b>選んだ具材:</b> <span id="chosenIngredients"></span><br>
-<b>選んだ麺:</b> <span id="chosenNoodles"></span><br>
-<b>スープ:</b> <span id="chosenSoup"></span>
+<h2 class="title">④ カゴの中身を確認しよう！</h2>
+<p class="sub">選んだ材料とスープで、あなただけの麻辣湯を作るよ</p>
+<div class="basket">
+<div class="bowl">🍲</div>
+<div>
+<h3 style="margin:0 0 2px; font-size:12px; color:#ff4d80;">選んだ具材</h3><div id="chosenIngredients"></div>
+<h3 style="margin:6px 0 2px; font-size:12px; color:#ff4d80;">選んだ麺</h3><div id="chosenNoodles"></div>
+<h3 style="margin:6px 0 2px; font-size:12px; color:#ff4d80;">スープ・辛さ</h3><div id="chosenSoup"></div>
 </div>
-<div id="total" style="font-size:14px; font-weight:bold; color:var(--main-color); text-align:center;"></div>
-<p class="note" id="moneyWarning" style="color:#e11d48;font-weight:bold;text-align:center;"></p>
+</div>
+<div class="total" id="total"></div>
+<p class="note" id="moneyWarning" style="color:#e11d48;font-weight:bold;text-align:center;margin-top:4px;"></p>
 <div class="btnrow">
 <button class="btn secondary" id="backToSoupsBtn">戻る</button>
-<button class="btn" id="cookingBtn">🍲 調理スタート！</button>
+<button class="btn" id="cookingBtn">🍲 これで作る！</button>
 </div>
 </div>
 </section>
 
 <section class="screen" id="cooking">
-<div class="panel" style="text-align:center; padding:20px;">
-<h2 class="title">⑤ 調理中…</h2>
-<div style="font-size:50px;">🍲</div>
-<p id="seconds" style="font-size:12px;">5秒後に完成！</p>
+<div class="panel cook">
+<h2 class="title">⑤ つくってもらおう！</h2>
+<p>選んだ材料をお店のスタッフが調理してくれます…</p>
+<div class="pot">🍲</div><h3 id="cookText" style="color:#ff4d80; font-size:15px;">お鍋でぐつぐつ… ♡</h3>
+<div class="bar"><div id="progress"></div></div>
+<p id="seconds" style="font-size:11px; color:#a07885;">調理中… 5秒</p>
 </div>
 </section>
 
+<!-- 完成画面 -->
 <section class="screen" id="finish">
-<div class="panel" style="text-align:center;">
-<h2 class="title">✨ できあがり！</h2>
-<div style="font-size:60px; margin:6px 0;">🍜</div>
-<div style="font-size:11px; text-align:left; background:#fefae0; padding:10px; border-radius:10px;">
-<p id="finalSoup" style="margin:2px 0;"></p>
-<p id="finalNoodles" style="margin:2px 0;"></p>
-<p id="finalIngredients" style="margin:2px 0;"></p>
-<b id="finalTotal" style="color:var(--main-color); display:block; margin-top:4px;"></b>
+<div class="finished">
+<h2 style="margin:0; color:#ff4d80; font-size:18px;">✨ できあがり！ ♡</h2><p style="margin:2px 0 8px; font-size:11px; color:#a07885;">あなただけのオリジナル麻辣湯</p>
 
-<div style="margin-top:8px; padding-top:8px; border-top:1px dashed #dda15e; text-align:center;">
-<div style="font-size:10px; color:#8d7b68;">👨‍🍳 シェフからのひとこと 👨‍🍳</div>
-<div id="finalStars" style="color:#f59e0b; font-size:16px; margin:2px 0;">★★★★★</div>
-<div id="finalComment" style="font-weight:bold; font-size:12px; color:var(--dark);"></div>
+<!-- 画像保存用としてキャプチャされる対象カード -->
+<div id="captureArea" class="share-card-wrapper">
+  <img id="finishImage" src="start.png" class="finish-img" alt="完成した麻辣湯" onerror="this.style.display='none'; document.getElementById('bigBowlEmoji').style.display='block';">
+  <div class="bigbowl" id="bigBowlEmoji" style="display:none; font-size:60px; margin:6px 0;">🍜</div>
+
+  <div class="panel" style="text-align:left; margin-bottom:0; box-shadow:none; border:none; padding:6px 0 0;">
+    <p id="finalSoup" style="margin:2px 0; font-size:12px;"></p>
+    <p id="finalNoodles" style="margin:2px 0; font-size:12px;"></p>
+    <p id="finalIngredients" style="margin:2px 0; font-size:12px;"></p>
+    <div class="total" id="finalTotal"></div>
+
+    <div class="rating-box">
+      <div style="font-size:10px;color:#a07885;">✨ シェフの評価 ✨</div>
+      <div class="stars" id="finalStars">★★★★★</div>
+      <div class="comment" id="finalComment"></div>
+    </div>
+  </div>
 </div>
+
+<p style="margin-top:8px;font-weight:bold;color:#ff4d80;font-size:11px;">✨ できた麻辣湯を共有しよう！ ✨</p>
+<div class="btnrow" style="margin-top:4px;">
+  <button class="btn green-btn" id="saveImgBtn" style="font-size:11px;padding:8px 12px;">📸 画像として保存</button>
+  <button class="btn gold-btn" id="shareCopyBtn" style="font-size:11px;padding:8px 12px;">📋 テキストをコピー</button>
+  <button class="btn secondary" id="resetBtn" style="font-size:11px;padding:8px 12px;">もう一度つくる ↻</button>
 </div>
-<div class="btnrow" style="margin-top:10px;">
-<button class="btn secondary" id="resetBtn">もう一度つくる ↻</button>
-</div>
+<p class="note" id="shareNote"></p>
 </div>
 </section>
-
-<!-- ショップ/図鑑/ミニゲーム画面 -->
-<section class="screen" id="shop"><div class="panel"><h2 class="title">🛍️ ショップ</h2><div id="shopItemList"></div><button class="btn secondary" onclick="go('start')">戻る</button></div></section>
-<section class="screen" id="badges"><div class="panel"><h2 class="title">🏅 称号・図鑑</h2><div id="badgeGrid"></div><button class="btn secondary" onclick="go('start')">戻る</button></div></section>
-<section class="screen" id="workMenu"><div class="panel" style="text-align:center"><h2 class="title">🧹 お手伝い</h2><button class="btn gold-btn" id="game1Btn">📋 オーダー取りゲーム</button><br><br><button class="btn secondary" id="backFromWorkBtn">戻る</button></div></section>
-<section class="screen" id="orderGame"><div class="panel"><h2 class="title">📋 オーダー取りゲーム</h2><div class="timer-badge">⏳ 残り <span id="orderTimer">15</span> 秒</div><div id="orderBubble" style="font-size:11px;margin:6px 0;"></div><h4>1. スープ</h4><div class="soups" id="g1SoupGrid"></div><h4>2. 辛さ</h4><div class="spice-grid" id="g1SpiceGrid"></div><h4>3. 具材</h4><div class="grid" id="g1IngGrid"></div><div class="btnrow"><button class="btn gold-btn" onclick="submitOrder()">確定</button><button class="btn secondary" onclick="exitOrderGame()">やめる</button></div></div></section>
-
 </main>
 <footer>♡ MY MALATANG SHOP ♡</footer>
 
 <script>
 var ingredients=[
-["白菜","🥬",80,"野菜"],["レタス","🥬",80,"野菜"],["ブロッコリー","🥦",90,"野菜"],["姫たけのこ","🎍",90,"野菜"],["エリンギ","🍄",90,"きのこ"],["チンゲン菜","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["玉ねぎ","🧅",70,"野菜"],["えのき","🍄",90,"きのこ"],["まいたけ","🍄",90,"きのこ"],
-["小松菜","🥬",80,"野菜"],["じゃがいも","🥔",80,"野菜"],["しめじ","🍄",90,"きのこ"],["黒キクラゲ","🍄",90,"きのこ"],["豚バラ肉","🥓",180,"肉"],["ほうれん草","🥬",80,"野菜"],["れんこん","🪷",90,"野菜"],["オクラ","🫛",80,"野菜"],["しいたけ","🍄",100,"きのこ"],["白キクラゲ","🍄",100,"きのこ"],
-["鶏肉","🍗",160,"肉"],["鴨血","🩸",150,"肉"],["たこ","🐙",180,"海鮮"],["うに団子","🍡",130,"団子"],["牛肉団子","🍡",130,"団子"],["牛肉","🥩",200,"肉"],["牛すじ","🥩",200,"肉"],["えび","🦐",180,"海鮮"],["ホタテ","🐚",200,"海鮮"],["虹団子","🍡",120,"団子"],
-["白身魚","🐟",150,"海鮮"],["あさり","🐚",150,"海鲜"],["紫芋団子","🍡",120,"団子"],["湯葉","🥢",100,"豆腐"],["うずら卵","🥚",100,"豆腐"],["ラム薄切り","🥩",200,"肉"],["ウインナー","🌭",120,"肉"],["イカ","🦑",160,"海鮮"],["かに団子","🦀",130,"団子"],["水餃子","🥟",120,"団子"]
+["白菜","🥬",80,"野菜"],["ほうれん草","🥬",80,"野菜"],["小松菜","🥬",80,"野菜"],["キャベツ","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["大根","🥕",70,"野菜"],["れんこん","🪷",90,"野菜"],["じゃがいも","🥔",80,"野菜"],["さつまいも","🍠",90,"野菜"],["とうもろこし","🌽",90,"野菜"],["トマト","🍅",90,"野菜"],["ブロッコリー","🥦",90,"野菜"],["かぼちゃ","🎃",90,"野菜"],["ニラ","🌿",70,"野菜"],
+["きくらげ","🍄",90,"きのこ"],["マッシュルーム","🍄",100,"きのこ"],["えのき","🍄",90,"きのこ"],["しめじ","🍄",90,"きのこ"],["しいたけ","🍄",100,"きのこ"],
+["豚バラ","🥓",180,"肉・魚介"],["牛肉","🥩",200,"肉・魚介"],["鶏肉","🍗",160,"肉・魚介"],["ラム肉","🥩",200,"肉・魚介"],["えび","🦐",180,"肉・魚介"],["イカ","🦑",160,"肉・魚介"],["ホタテ","🐚",200,"肉・魚介"],["白身魚","🐟",150,"肉・魚介"],["あさり","🐚",150,"肉・魚介"],
+["ソーセージ","🌭",120,"練り物・豆腐"],["つくね","🍡",120,"練り物・豆腐"],["魚のすり身","🍥",100,"練り物・豆腐"],["かにかま","🦀",100,"練り物・豆腐"],["うずらの卵","🥚",100,"練り物・豆腐"],["サーカス団子（蟹籽包）","circus",130,"練り物・豆腐"],["湯葉","🥢",100,"練り物・豆腐"],["厚揚げ","🟫",90,"練り物・豆腐"],["豆腐","⬜",80,"練り物・豆腐"],["こんにゃく","◽",80,"練り物・豆腐"],["春巻","🥟",120,"練り物・豆腐"]
 ];
 
-var shopItems=[]; var badgeList=[];
-var noodles=[["春雨",100],["中華麺",130],["刀削麺",150],["インスタント麺",120],["なし",0]];
-var soups=[["麻辣スープ","🌶️",300],["白湯スープ","🥛",300],["トマトスープ","🍅",300]];
+var shopItems=[
+  { id: "shark", name: "👑 黄金のフカヒレ", emoji: "🦈", price: 500, unlockCost: 1000, cat: "高級", unlocked: false },
+  { id: "wagyu", name: "✨ プレミアム和牛", emoji: "🥩", price: 400, unlockCost: 800, cat: "高級", unlocked: false },
+  { id: "lobster", name: "🦞 オマール海老", emoji: "🦞", price: 600, unlockCost: 1200, cat: "高級", unlocked: false },
+  { id: "truffle", name: "🍄 黒トリュフ", emoji: "🍄", price: 700, unlockCost: 1500, cat: "高級", unlocked: false }
+];
 
-var myMoney = 500, currentCost = 0;
-var selIng = [], selNod = [], selSoup = 0, curCat = "全部";
+var badgeList=[
+  { id: "spicy", icon: "🌶️", title: "激辛マスター", desc: "5辛の麻辣湯を調理した", unlocked: false },
+  { id: "healthy", icon: "🥗", title: "ヘルシーの神", desc: "野菜だけの麻辣湯を調理した", unlocked: false },
+  { id: "meat", icon: "🥩", title: "肉食系シェフ", desc: "肉・魚介を4つ以上入れて調理した", unlocked: false },
+  { id: "gorgeous", icon: "👑", title: "ゴージャス王", desc: "高級具材を入れて調理した", unlocked: false },
+  { id: "rich", icon: "💰", title: "大富豪", desc: "所持金が2000円以上になった", unlocked: false },
+  { id: "master", icon: "🧹", title: "ベテラン店員", desc: "バイトでパーフェクトを達成した", unlocked: false }
+];
+
+var noodles=[["春雨","noodle",100],["太い春雨","noodle",120],["中華麺","🍜",130],["刀削麺","🍜",150],["米粉麺","🍝",130],["さつまいも春雨","noodle",120],["インスタント麺","🍜",120],["なし","❌",0]];
+var soups=[["麻辣スープ","🌶️",300,"定番のピリ辛！"],["白湯スープ","🥛",300,"まろやかクリーミー"],["トマトスープ","🍅",300,"さっぱり濃厚"],["酸菜スープ","🥬",320,"酸味がクセになる"],["カレースープ","🍛",350,"スパイス香る"],["和風スープ","🍲",250,"あっさりだし風味"]];
+
+var myMoney = 500;
+var currentCost = 0;
+var selIng = [], selNod = [], selSoup = 0;
+var curCat = "全部", timer = null, orderGameTimer = null, serveGameTimer = null;
+
+var currentFinishData = {
+  soupText: "",
+  noodleText: "",
+  ingText: "",
+  totalText: "",
+  starsText: "",
+  commentText: ""
+};
+
+function updateMoney(amt){
+  myMoney += amt;
+  if(myMoney < 0) myMoney = 0;
+  document.getElementById("myMoney").innerText = myMoney;
+  checkBadge("rich", myMoney >= 2000);
+}
+
+function checkBadge(bId, condition){
+  if(!condition) return;
+  for(var i=0; i<badgeList.length; i++){
+    if(badgeList[i].id === bId && !badgeList[i].unlocked){
+      badgeList[i].unlocked = true;
+      alert("🏅 称号獲得！【" + badgeList[i].title + "】を獲得しました！");
+    }
+  }
+}
+
+function showHeroFallback(){
+  document.getElementById("heroImageContainer").style.display = "none";
+  document.getElementById("heroFallback").style.display = "block";
+}
+
+function getIcon(e){
+  if(e === "circus") return '<div class="stripe"></div>';
+  if(e === "noodle") return '<div class="noodle"></div>';
+  return '<span class="emoji">'+e+'</span>';
+}
 
 function renderCats(){
-  var el = document.getElementById("categories"); if(!el) return;
-  var cats = ["全部", "野菜", "きのこ", "肉", "海鮮", "団子", "豆腐"];
+  var el = document.getElementById("categories");
+  if(!el) return;
+  var currentCats = ["全部", "野菜", "肉・魚介", "練り物・豆腐", "きのこ"];
+  
+  var hasUnlockedShop = false;
+  for(var i=0; i<shopItems.length; i++){ if(shopItems[i].unlocked) hasUnlockedShop = true; }
+  if(hasUnlockedShop) currentCats.push("👑 高級");
+
   var h = "";
-  for(var i=0; i<cats.length; i++){
-    h += '<button class="cat '+(cats[i]===curCat?'active':'')+'" onclick="setCat(\''+cats[i]+'\')">'+cats[i]+'</button>';
+  for(var i=0; i<currentCats.length; i++){
+    var c = currentCats[i];
+    h += '<button class="cat '+(c===curCat?'active':'')+'" onclick="setCat(\''+c+'\')">'+c+'</button>';
   }
   el.innerHTML = h;
 }
@@ -367,56 +568,48 @@ function renderCats(){
 function setCat(c){ curCat = c; renderCats(); renderIngredients(); }
 
 function renderIngredients(){
-  var grid = document.getElementById("ingredientGrid"); if(!grid) return;
+  var grid = document.getElementById("ingredientGrid");
+  if(!grid) return;
   var h = "";
+
   for(var i=0; i<ingredients.length; i++){
     var item = ingredients[i];
     if(curCat === "全部" || item[3] === curCat){
-      var isSel = selIng.indexOf(i) !== -1;
-      h += '<div class="fridge-item '+(isSel?'selected':'')+'" onclick="toggleIng('+i+')">'
-        + '<span class="emoji">'+item[1]+'</span>'
-        + '<span class="name">'+item[0]+'</span>'
-        + '<span class="price">'+item[2]+'円</span>'
-        + '</div>';
+      var isSel = selIng.indexOf("norm_" + i) !== -1;
+      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng(\'norm_' + i + '\')">'
+        + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1])
+        + '<span class="name">'+item[0]+'</span><small>'+item[2]+'円</small></button>';
     }
   }
+
+  for(var i=0; i<shopItems.length; i++){
+    var sItem = shopItems[i];
+    if(sItem.unlocked && (curCat === "全部" || curCat === "👑 高級")){
+      var isSel = selIng.indexOf("shop_" + i) !== -1;
+      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng(\'shop_' + i + '\')">'
+        + (isSel?'<span class="check">✓</span>':'') + getIcon(sItem.emoji)
+        + '<span class="name">'+sItem.name+'</span><small>'+sItem.price+'円</small></button>';
+    }
+  }
+
   grid.innerHTML = h;
-  renderBowlDisplay();
+  document.getElementById("count").innerText = "選んだ具材: " + selIng.length + "個";
 }
 
-function toggleIng(idx){
-  var pos = selIng.indexOf(idx);
-  if(pos === -1) selIng.push(idx);
-  else selIng.splice(pos, 1);
+function toggleIng(idStr){
+  var idx = selIng.indexOf(idStr);
+  if(idx === -1) selIng.push(idStr);
+  else selIng.splice(idx, 1);
   renderIngredients();
-}
-
-function popLastIng(){
-  if(selIng.length > 0){ selIng.pop(); renderIngredients(); }
-}
-
-function renderBowlDisplay(){
-  var display = document.getElementById("bowlDisplay");
-  var countEl = document.getElementById("count");
-  countEl.innerText = selIng.length + "個選択中";
-
-  if(selIng.length === 0){
-    display.innerHTML = '<span style="font-size:10px; color:#aaa;">ここに選んだ具材が入ります</span>';
-    return;
-  }
-  var h = "";
-  for(var i=0; i<selIng.length; i++){
-    var item = ingredients[selIng[i]];
-    h += '<span class="bowl-chip">'+item[1]+' '+item[0]+'</span>';
-  }
-  display.innerHTML = h;
 }
 
 function renderNoodles(){
   var grid = document.getElementById("noodleGrid"); if(!grid) return; var h = "";
   for(var i=0; i<noodles.length; i++){
     var item = noodles[i]; var isSel = selNod.indexOf(i) !== -1;
-    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleNod('+i+')">'+item[0]+' ('+item[1]+'円)</button>';
+    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleNod('+i+')">'
+      + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1])
+      + '<span class="name">'+item[0]+'</span><small>'+(item[2]?item[2]+'円':'無料')+'</small></button>';
   }
   grid.innerHTML = h;
 }
@@ -425,35 +618,130 @@ function renderSoups(){
   var grid = document.getElementById("soupGrid"); if(!grid) return; var h = "";
   for(var i=0; i<soups.length; i++){
     var item = soups[i]; var isSel = (selSoup === i);
-    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="selSoup='+i+';renderSoups();"><span class="emoji">'+item[1]+'</span><b>'+item[0]+'</b></button>';
+    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="selectSoup('+i+')">'
+      + '<span class="emoji">'+item[1]+'</span><b>'+item[0]+'</b><small>'+item[2]+'円<br>'+item[3]+'</small></button>';
   }
   grid.innerHTML = h;
 }
 
+function selectSoup(i){ selSoup = i; renderSoups(); }
 function toggleNod(i){ var idx = selNod.indexOf(i); if(idx===-1) selNod.push(i); else selNod.splice(idx,1); renderNoodles(); }
 
 function go(sid){
   var scs = document.querySelectorAll(".screen");
   for(var i=0; i<scs.length; i++) scs[i].classList.remove("active");
   document.getElementById(sid).classList.add("active");
+
+  var map = { start:0, ingredients:1, noodles:2, soups:3, basket:4, cooking:5, finish:6 };
+  var idx = map[sid] !== undefined ? map[sid] : 0;
+  var stps = document.querySelectorAll("#stepList .step");
+  for(var i=0; i<stps.length; i++){
+    if(i === idx) stps[i].classList.add("on"); else stps[i].classList.remove("on");
+  }
+
   if(sid === 'ingredients'){ curCat = "全部"; renderCats(); renderIngredients(); }
   else if(sid === 'noodles'){ renderNoodles(); }
   else if(sid === 'soups'){ renderSoups(); }
   else if(sid === 'basket'){ renderBasket(); }
+  else if(sid === 'orderGame'){ initOrderGame(); }
+  else if(sid === 'serveGame'){ initServeGame(); }
+  else if(sid === 'shop'){ renderShop(); }
+  else if(sid === 'badges'){ renderBadges(); }
+}
+
+function renderShop(){
+  var list = document.getElementById("shopItemList"); var h = "";
+  for(var i=0; i<shopItems.length; i++){
+    var item = shopItems[i];
+    h += '<div class="shop-item"><div class="shop-item-info"><b>' + item.emoji + ' ' + item.name + '</b><small>トッピング価格: ' + item.price + '円</small></div>';
+    if(item.unlocked){
+      h += '<button class="btn secondary" disabled style="opacity:0.6">解放済み</button>';
+    } else {
+      h += '<button class="btn gold-btn" onclick="buyShopItem(' + i + ')">解放 (' + item.unlockCost + '円)</button>';
+    }
+    h += '</div>';
+  }
+  list.innerHTML = h;
+}
+
+function buyShopItem(i){
+  var item = shopItems[i];
+  if(myMoney >= item.unlockCost){
+    updateMoney(-item.unlockCost);
+    item.unlocked = true;
+    alert("🎉 " + item.name + " をアンロックしました！具材選択画面からえらべるよ！");
+    renderShop();
+  } else {
+    alert("⚠️ お小遣いが足りません！バイトで稼いできてね！");
+  }
+}
+
+function renderBadges(){
+  var grid = document.getElementById("badgeGrid"); var h = "";
+  for(var i=0; i<badgeList.length; i++){
+    var b = badgeList[i];
+    h += '<div class="badge-card ' + (b.unlocked ? 'unlocked' : '') + '"><span class="badge-icon">' + b.icon + '</span><span class="badge-title">' + b.title + '</span><span class="badge-desc">' + b.desc + '</span></div>';
+  }
+  grid.innerHTML = h;
 }
 
 function renderBasket(){
-  var ingL = [], ingTot = 0;
-  for(var i=0; i<selIng.length; i++){ var item = ingredients[selIng[i]]; ingL.push(item[0]); ingTot += item[2]; }
-  var nodL = [], nodTot = 0;
-  for(var i=0; i<selNod.length; i++){ var item = noodles[selNod[i]]; nodL.push(item[0]); nodTot += item[1]; }
+  var ingH = "", ingTot = 0;
+  for(var i=0; i<selIng.length; i++){
+    var idStr = selIng[i];
+    if(idStr.indexOf("norm_") === 0){
+      var idx = parseInt(idStr.replace("norm_","")); var item = ingredients[idx];
+      ingH += '<div>• '+item[0]+' ('+item[2]+'円)</div>'; ingTot += item[2];
+    } else {
+      var idx = parseInt(idStr.replace("shop_","")); var item = shopItems[idx];
+      ingH += '<div>• '+item.name+' ('+item.price+'円)</div>'; ingTot += item.price;
+    }
+  }
+  if(selIng.length === 0) ingH = '<div>選択なし</div>';
+
+  var nodH = "", nodTot = 0;
+  for(var i=0; i<selNod.length; i++){
+    var item = noodles[selNod[i]];
+    nodH += '<div>• '+item[0]+' ('+item[2]+'円)</div>'; nodTot += item[2];
+  }
+  if(selNod.length === 0) nodH = '<div>なし</div>';
+
   var sItem = soups[selSoup];
+  var spiceEl = document.getElementById("spice");
+  var spVal = spiceEl ? spiceEl.value : "2辛";
+
   currentCost = ingTot + nodTot + sItem[2];
 
-  document.getElementById("chosenIngredients").innerText = ingL.join(", ") || "なし";
-  document.getElementById("chosenNoodles").innerText = nodL.join(", ") || "なし";
-  document.getElementById("chosenSoup").innerText = sItem[0];
-  document.getElementById("total").innerText = "合計: " + currentCost + "円";
+  document.getElementById("chosenIngredients").innerHTML = ingH;
+  document.getElementById("chosenNoodles").innerHTML = nodH;
+  document.getElementById("chosenSoup").innerHTML = '<div>• '+sItem[0]+' ('+sItem[2]+'円) / '+spVal+'</div>';
+  document.getElementById("total").innerText = "合計金額: " + currentCost + "円";
+
+  var warn = document.getElementById("moneyWarning");
+  var cookBtn = document.getElementById("cookingBtn");
+  if(currentCost > myMoney){
+    warn.innerText = "⚠️ お小遣いが足りません！（所持金: " + myMoney + "円）バイトで稼いできてね！";
+    cookBtn.disabled = true; cookBtn.style.opacity = 0.5;
+  } else {
+    warn.innerText = "";
+    cookBtn.disabled = false; cookBtn.style.opacity = 1;
+  }
+}
+
+function startCooking(){
+  if(currentCost > myMoney) return;
+  updateMoney(-currentCost);
+  go('cooking');
+  var bar = document.getElementById("progress"); var secText = document.getElementById("seconds");
+  bar.style.width = "0%";
+  if(timer) clearInterval(timer);
+  var elapsed = 0;
+  timer = setInterval(function(){
+    elapsed++;
+    bar.style.width = ((elapsed / 5) * 100) + "%";
+    secText.innerText = "調理中… " + Math.max(0, 5 - elapsed) + "秒";
+    if(elapsed >= 5){ clearInterval(timer); showFinish(); }
+  }, 1000);
 }
 
 /* 30種類以上の豊富なシェフコメント判定システム */
@@ -461,11 +749,10 @@ function getRandomComment(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, ballCount, totalCount, spiceVal, noodleCount) {
+function generateChefComment(vegCount, meatCount, mushroomCount, hasShopIng, totalCount, spVal, noodleCount) {
   var stars = "★★★★★";
   var comment = "";
 
-  // 1. 具材ゼロ（スープだけ）
   if (totalCount === 0) {
     stars = "★★☆☆☆";
     comment = getRandomComment([
@@ -473,9 +760,7 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
       "具材を入れ忘れた…？いや、これこそが真のスープ味わいモード！",
       "究極のシンプル！スープ本来のポテンシャルを試される一杯！"
     ]);
-  }
-  // 2. 激辛（5辛）
-  else if (spiceVal.indexOf("5辛") !== -1) {
+  } else if (spVal.indexOf("5辛") !== -1) {
     stars = "★★★★★ 🔥";
     comment = getRandomComment([
       "痺れる辛さがたまらない！激辛マニアも唸る極限の刺激的麻辣湯！",
@@ -483,9 +768,7 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
       "から〜い！！辛党のシェフも大満足の炎の最高傑作！",
       "この辛さを完食できたら本物のアジアンフードマスター！"
     ]);
-  }
-  // 3. 野菜たっぷり（ヘルシー）
-  else if (vegCount >= 4 && meatCount === 0) {
+  } else if (vegCount >= 4 && meatCount === 0) {
     stars = "★★★★★ 🥗";
     comment = getRandomComment([
       "シャキシャキお野菜たっぷり！身体が喜ぶ超ヘルシー麻辣湯！",
@@ -493,9 +776,7 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
       "罪悪感ゼロ！美容と健康に最高なグリーン麻辣湯！",
       "野菜好きにはたまらない！色彩豊かなベジタブルパラダイス！"
     ]);
-  }
-  // 4. 肉・肉・肉（がっつり）
-  else if (meatCount >= 3) {
+  } else if (meatCount >= 3) {
     stars = "★★★★★ 🥩";
     comment = getRandomComment([
       "お肉のカーニバル！肉汁の旨味がスープ全体に広がって最高！",
@@ -503,9 +784,7 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
       "お肉たっぷりで満足度MAX！シェフも納得のボリューミー仕様！",
       "一口食べればパワー全開！お肉好きのための至高の盛り付け！"
     ]);
-  }
-  // 5. きのこづくし
-  else if (mushroomCount >= 3) {
+  } else if (mushroomCount >= 3) {
     stars = "★★★★★ 🍄";
     comment = getRandomComment([
       "きのこの出汁が濃厚すぎる…！深い香りと食感がくせになる一杯！",
@@ -513,27 +792,14 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
       "食感が楽しくて止まらない！コリコリシャキシャキの贅沢きのこ盛り！",
       "山のごちそう大集合！噛むたびに溢れる旨味の深みがすごい！"
     ]);
-  }
-  // 6. 海鮮づくし
-  else if (seafoodCount >= 3) {
-    stars = "★★★★★ 🦐";
+  } else if (hasShopIng) {
+    stars = "★★★★★ 👑 (最高級)";
     comment = getRandomComment([
-      "海の幸がギュッと凝縮！磯の香りがふわっと広がる贅沢スープ！",
-      "プリプリのえびや貝の旨味が溶け出した超高級海鮮麻辣湯！",
-      "まるで海鮮ブイヤベース！？深いコクと旨味が押し寄せる！"
+      "贅沢な高級トッピングが輝く至高の一杯！極上の味わいです！",
+      "セレブもびっくりな最高級食材のハーモニー！味わいがリッチすぎる！",
+      "お小遣いを奮発した価値あり！極上の贅沢麻辣湯！"
     ]);
-  }
-  // 7. 団子・モチモチ特化
-  else if (ballCount >= 3) {
-    stars = "★★★★★ 🍡";
-    comment = getRandomComment([
-      "モチモチ食感祭り！かわいい見た目と楽しすぎる食べ応え！",
-      "団子の中から溢れるジュワッと肉汁＆チーズがたまらない！",
-      "一口サイズでパクパクいけちゃう！団子づくしのポップな麻辣湯！"
-    ]);
-  }
-  // 8. 黄金バランス（お肉も野菜も絶妙）
-  else if (vegCount >= 2 && meatCount >= 2) {
+  } else if (vegCount >= 2 && meatCount >= 2) {
     stars = "★★★★★ 🌟 (120点)";
     comment = getRandomComment([
       "完璧な黄金比率！お肉と野菜の旨味が溶け合った奇跡の一杯！",
@@ -541,26 +807,20 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
       "お店の看板メニューにしたいレベル！文句なしの100点満点！",
       "シェフ脱帽！バランス感覚が素晴らしすぎるセンス抜群のチョイス！"
     ]);
-  }
-  // 9. 大盛り（とにかく具材が多い）
-  else if (totalCount >= 8) {
+  } else if (totalCount >= 8) {
     stars = "★★★★★ 👑";
     comment = getRandomComment([
       "どんぶりから溢れそうな超豪華盛り！まるで麻辣湯のドリームチーム！",
       "欲張りスぺシャル！好きなものを全部詰め込んだ夢のデカ盛り！",
       "超贅沢なお祭り盛り！食べるたびに新しい味が発見できる！"
     ]);
-  }
-  // 10. 麺なし（スープと具材のみ）
-  else if (noodleCount === 0) {
+  } else if (noodleCount === 0) {
     stars = "★★★★☆ 🥣";
     comment = getRandomComment([
       "麺なしの糖質オフスタイル！具材とスープをダイレクトに楽しむ！",
       "スープ料理として味わう大人の麻辣湯！ヘルシーでスマート！"
     ]);
-  }
-  // 11. その他スタンダード
-  else {
+  } else {
     stars = "★★★★☆ ✨";
     comment = getRandomComment([
       "素敵な具材選び！スープとの相性もバッチリで美味しい！",
@@ -574,8 +834,336 @@ function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, b
   return { stars: stars, comment: comment };
 }
 
+function showFinish(){
+  go('finish');
+  document.getElementById("shareNote").innerText = "";
+  var ingL = [], ingTot = 0, vegCount = 0, meatCount = 0, mushroomCount = 0, hasShopIng = false;
+  for(var i=0; i<selIng.length; i++){
+    var idStr = selIng[i];
+    if(idStr.indexOf("norm_") === 0){
+      var idx = parseInt(idStr.replace("norm_","")); var item = ingredients[idx];
+      ingL.push(item[0]); ingTot += item[2];
+      if(item[3] === "野菜") vegCount++;
+      if(item[3] === "肉・魚介") meatCount++;
+      if(item[3] === "きのこ") mushroomCount++;
+    } else {
+      var idx = parseInt(idStr.replace("shop_","")); var item = shopItems[idx];
+      ingL.push(item.name); ingTot += item.price;
+      hasShopIng = true;
+    }
+  }
+  var nodL = [], nodTot = 0;
+  for(var i=0; i<selNod.length; i++){
+    nodL.push(noodles[selNod[i]][0]); nodTot += noodles[selNod[i]][2];
+  }
+  var sItem = soups[selSoup];
+  var spiceEl = document.getElementById("spice");
+  var spVal = spiceEl ? spiceEl.value : "2辛";
+
+  if(spVal.indexOf("5辛") !== -1) checkBadge("spicy", true);
+  if(vegCount > 0 && vegCount === selIng.length) checkBadge("healthy", true);
+  if(meatCount >= 4) checkBadge("meat", true);
+  if(hasShopIng) checkBadge("gorgeous", true);
+
+  var soupStr = sItem[0] + ' (' + spVal + ')';
+  var nodStr = (nodL.length > 0 ? nodL.join(', ') : 'なし');
+  var ingStr = (ingL.length > 0 ? ingL.join(', ') : 'なし');
+  var totalStr = currentCost + '円';
+
+  document.getElementById("finalSoup").innerHTML = '<b>スープ:</b> ' + soupStr;
+  document.getElementById("finalNoodles").innerHTML = '<b>麺:</b> ' + nodStr;
+  document.getElementById("finalIngredients").innerHTML = '<b>具材:</b> ' + ingStr;
+  document.getElementById("finalTotal").innerText = 'お会計: ' + totalStr;
+
+  var fImg = document.getElementById("finishImage"); var fEmoji = document.getElementById("bigBowlEmoji");
+  fImg.style.display = "block"; fEmoji.style.display = "none"; fImg.src = "start.png";
+
+  var chefRes = generateChefComment(vegCount, meatCount, mushroomCount, hasShopIng, selIng.length, spVal, selNod.length);
+
+  document.getElementById("finalStars").innerText = chefRes.stars;
+  document.getElementById("finalComment").innerText = chefRes.comment;
+
+  currentFinishData = {
+    soupText: soupStr,
+    noodleText: nodStr,
+    ingText: ingStr,
+    totalText: totalStr,
+    starsText: chefRes.stars,
+    commentText: chefRes.comment
+  };
+}
+
+function copyShareText(){
+  var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
+           + "--------------------------\n"
+           + "【スープ】" + currentFinishData.soupText + "\n"
+           + "【 麺 】" + currentFinishData.noodleText + "\n"
+           + "【具 材】" + currentFinishData.ingText + "\n"
+           + "【お会計】" + currentFinishData.totalText + "\n"
+           + "--------------------------\n"
+           + "【評価】" + currentFinishData.starsText + "\n"
+           + "【ひとこと】" + currentFinishData.commentText + "\n\n"
+           + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(function(){
+      document.getElementById("shareNote").innerText = "✨ 結果と評価をクリップボードにコピーしたよ！";
+    });
+  } else {
+    alert(text);
+  }
+}
+
+function saveResultImage(){
+  var card = document.getElementById("captureArea");
+  var note = document.getElementById("shareNote");
+  note.innerText = "⏳ 画像を作成中…";
+
+  html2canvas(card, { scale: 2, useCORS: true }).then(function(canvas){
+    var link = document.createElement('a');
+    link.download = 'my-malatang-result.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    note.innerText = "✨ 麻辣湯の画像を保存したよ！";
+  }).catch(function(err){
+    note.innerText = "⚠️ 画像保存に失敗しました。";
+  });
+}
+
+/* ミニゲーム関連 */
+var targetOrder = {};
+var userG1Soup = -1, userG1Spice = "2辛", userG1Ings = [];
+var orderTimeLeft = 15;
+var displayedIngredients = [];
+var currentEventType = "normal";
+
+function initOrderGame(){
+  if(orderGameTimer) clearInterval(orderGameTimer);
+  userG1Soup = -1; userG1Spice = "2辛"; userG1Ings = [];
+
+  var rand = Math.random();
+  if(rand < 0.20) currentEventType = "hurry";
+  else if(rand < 0.40) currentEventType = "hungry";
+  else currentEventType = "normal";
+
+  var targetIngCount = (currentEventType === "hungry") ? 4 : 2;
+  orderTimeLeft = (currentEventType === "hurry") ? 10 : 15;
+  document.getElementById("orderTimer").innerText = orderTimeLeft;
+
+  var rSoupIdx = Math.floor(Math.random()*soups.length);
+  var rSoup = soups[rSoupIdx][0];
+  var rSpice = Math.floor(Math.random()*6) + "辛";
+
+  var targetIngIds = [];
+  while(targetIngIds.length < targetIngCount){
+    var idx = Math.floor(Math.random()*ingredients.length);
+    var idStr = "norm_" + idx;
+    if(targetIngIds.indexOf(idStr) === -1) targetIngIds.push(idStr);
+  }
+
+  var targetIngNames = [];
+  for(var i=0; i<targetIngIds.length; i++){
+    var idx = parseInt(targetIngIds[i].replace("norm_",""));
+    targetIngNames.push(ingredients[idx][0]);
+  }
+
+  targetOrder = {
+    soupIdx: rSoupIdx, soupName: rSoup,
+    spice: rSpice,
+    ingIds: targetIngIds,
+    ingNames: targetIngNames
+  };
+
+  var titleEl = document.getElementById("orderTitle");
+  var bubble = document.getElementById("orderBubble");
+  var ingTitle = document.getElementById("g1IngTitle");
+
+  if(currentEventType === "hurry"){
+    titleEl.innerText = "🏃 急いでるお客さん！(報酬2倍)";
+    bubble.innerHTML = "🏃 お客さん: 「急いでるんだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>で頼む！」";
+  } else if(currentEventType === "hungry"){
+    titleEl.innerText = "🍖 大食いのお客さん！(高額報酬)";
+    bubble.innerHTML = "🍖 お客さん: 「お腹ペコペコだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>、<b>')+"</b>の4つ全部入れてくれ！」";
+  } else {
+    titleEl.innerText = "📋 オーダー取りゲーム";
+    bubble.innerHTML = "👤 お客さん: 「注文お願い！スープは<b>"+rSoup+"（"+rSpice+"）</b>で、具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>ね！」";
+  }
+
+  ingTitle.innerText = "3. 具材を選ぶ（" + targetIngCount + "つタップしてね）";
+
+  var pool = targetIngIds.slice();
+  var others = [];
+  for(var i=0; i<ingredients.length; i++){
+    var idStr = "norm_" + i;
+    if(targetIngIds.indexOf(idStr) === -1) others.push(idStr);
+  }
+  for(var i = others.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var temp = others[i]; others[i] = others[j]; others[j] = temp; }
+  for(var i=0; i<others.length && pool.length < 9; i++){ pool.push(others[i]); }
+  for(var i = pool.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var temp = pool[i]; pool[i] = pool[j]; pool[j] = temp; }
+  displayedIngredients = pool;
+
+  renderG1SoupUI(); renderG1SpiceUI(); renderG1IngUI();
+
+  orderGameTimer = setInterval(function(){
+    orderTimeLeft--;
+    document.getElementById("orderTimer").innerText = orderTimeLeft;
+    if(orderTimeLeft <= 0){
+      clearInterval(orderGameTimer);
+      alert("⏰ 時間切れ！お客さん「遅いからもう帰るよ！」\n💰 0円…");
+      go('workMenu');
+    }
+  }, 1000);
+}
+
+function renderG1SoupUI(){
+  var grid = document.getElementById("g1SoupGrid"); var h = "";
+  for(var i=0; i<soups.length; i++){
+    var isSel = (userG1Soup === i);
+    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="setG1Soup('+i+')"><span class="emoji">'+soups[i][1]+'</span><b>'+soups[i][0]+'</b></button>';
+  }
+  grid.innerHTML = h;
+}
+function setG1Soup(i){ userG1Soup = i; renderG1SoupUI(); }
+
+function renderG1SpiceUI(){
+  var grid = document.getElementById("g1SpiceGrid"); var spices = ["0辛","1辛","2辛","3辛","4辛","5辛"]; var h = "";
+  for(var i=0; i<spices.length; i++){
+    var sp = spices[i]; var isSel = (userG1Spice === sp);
+    h += '<button class="spice-btn '+(isSel?'selected':'')+'" onclick="setG1Spice(\''+sp+'\')">'+sp+'</button>';
+  }
+  grid.innerHTML = h;
+}
+function setG1Spice(sp){ userG1Spice = sp; renderG1SpiceUI(); }
+
+function renderG1IngUI(){
+  var grid = document.getElementById("g1IngGrid"); var h = "";
+  for(var idx=0; idx<displayedIngredients.length; idx++){
+    var idStr = displayedIngredients[idx];
+    var ingIdx = parseInt(idStr.replace("norm_",""));
+    var item = ingredients[ingIdx];
+    var isSel = (userG1Ings.indexOf(idStr) !== -1);
+    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleG1Ing(\''+idStr+'\')">' + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1]) + '<span class="name">'+item[0]+'</span></button>';
+  }
+  grid.innerHTML = h;
+}
+
+function toggleG1Ing(idStr){
+  var maxIng = (currentEventType === "hungry") ? 4 : 2;
+  var idx = userG1Ings.indexOf(idStr);
+  if(idx !== -1){ userG1Ings.splice(idx,1); }
+  else {
+    if(userG1Ings.length >= maxIng) userG1Ings.shift();
+    userG1Ings.push(idStr);
+  }
+  renderG1IngUI();
+}
+
+function submitOrder(){
+  if(orderGameTimer) clearInterval(orderGameTimer);
+  var totalTarget = 2 + targetOrder.ingIds.length;
+  var correct = 0;
+  if(userG1Soup === targetOrder.soupIdx) correct++;
+  if(userG1Spice === targetOrder.spice) correct++;
+
+  for(var i=0; i<targetOrder.ingIds.length; i++){
+    if(userG1Ings.indexOf(targetOrder.ingIds[i]) !== -1) correct++;
+  }
+
+  var bonus = orderTimeLeft;
+  var baseReward = (currentEventType === "hungry") ? 700 : 500;
+  var multiplier = (currentEventType === "hurry") ? 2 : 1;
+
+  if(correct === totalTarget){
+    var totalReward = (baseReward + bonus) * multiplier;
+    alert("🎉 パーフェクト！お客さん「ぴったりだ！ありがとう！」\n基本報酬: " + baseReward + "円\n⏰ タイムボーナス: +" + bonus + "円" + (multiplier > 1 ? "\n🔥 イベントボーナス: 2倍！" : "") + "\n💰 合計 " + totalReward + "円ゲット！");
+    updateMoney(totalReward);
+    checkBadge("master", true);
+  } else if(correct >= Math.floor(totalTarget / 2)){
+    var totalReward = Math.floor((baseReward / 2 + bonus) * multiplier);
+    alert("😅 おしい！お客さん「ちょっと違うけどまあいいか！」\n💰 合計 " + totalReward + "円ゲット！");
+    updateMoney(totalReward);
+  } else {
+    alert("😭 完全ミス！お客さん「これ頼んでないよ…」\n💰 0円…");
+  }
+  go('workMenu');
+}
+
+function exitOrderGame(){ if(orderGameTimer) clearInterval(orderGameTimer); go('workMenu'); }
+
+var serveStage = 0, targetSeat = "";
+var serveTimeLeft = 15;
+
+function initServeGame(){
+  if(serveGameTimer) clearInterval(serveGameTimer);
+  serveStage = 0;
+  serveTimeLeft = 15;
+  document.getElementById("serveTimer").innerText = serveTimeLeft;
+
+  serveGameTimer = setInterval(function(){
+    serveTimeLeft--;
+    document.getElementById("serveTimer").innerText = serveTimeLeft;
+    if(serveTimeLeft <= 0){
+      clearInterval(serveGameTimer);
+      alert("⏰ 時間切れ！お客さん「遅すぎてお腹空いちゃったよ…」\n💰 0円（バイト失敗）");
+      go('workMenu');
+    }
+  }, 1000);
+
+  nextServeStage();
+}
+
+function nextServeStage(){
+  if(serveStage >= 3){
+    if(serveGameTimer) clearInterval(serveGameTimer);
+    var bonus = serveTimeLeft;
+    var totalReward = 500 + bonus;
+    alert("🎉 配膳完了！全テーブルへ無事に運べました！\n基本報酬: 500円\n⏰ タイムボーナス: +" + bonus + "円\n💰 合計 " + totalReward + "円ゲット！");
+    updateMoney(totalReward);
+    checkBadge("master", true);
+    go('workMenu');
+    return;
+  }
+  serveStage++;
+
+  var seats = ["A席", "B席", "C席"];
+  targetSeat = seats[Math.floor(Math.random()*seats.length)];
+  var rSoup = soups[Math.floor(Math.random()*soups.length)][0];
+  document.getElementById("serveQuestion").innerText = "第" + serveStage + "問: 「" + rSoup + "」はどの席のお客様？ ➔ 【 " + targetSeat + " 】に運ぼう！";
+
+  var grid = document.getElementById("seatGrid"); grid.innerHTML = "";
+  for(var i=0; i<seats.length; i++){
+    var sName = seats[i];
+    grid.innerHTML += '<div class="seat-card"><h3 style="margin:0 0 4px; font-size:13px;">🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')" style="padding:4px 10px;font-size:10px;">ここに運ぶ！</button></div>';
+  }
+}
+
+function checkServe(sName){
+  if(sName === targetSeat){
+    nextServeStage();
+  } else {
+    if(serveGameTimer) clearInterval(serveGameTimer);
+    alert("😭 間違えた席に運んじゃった！お客さん「これ僕のじゃないよー！」\n💰 0円（バイト失敗）");
+    go('workMenu');
+  }
+}
+
+function exitServeGame(){ if(serveGameTimer) clearInterval(serveGameTimer); go('workMenu'); }
+
+function resetGame(){
+  selIng = []; selNod = []; selSoup = 0; curCat = "全部";
+  if(timer) clearInterval(timer);
+  if(orderGameTimer) clearInterval(orderGameTimer);
+  if(serveGameTimer) clearInterval(serveGameTimer);
+  go('start');
+}
+
 document.getElementById("startBtn").onclick = function() { go('ingredients'); };
 document.getElementById("workBtn").onclick = function() { go('workMenu'); };
+document.getElementById("shopMenuBtn").onclick = function() { go('shop'); };
+document.getElementById("badgeMenuBtn").onclick = function() { go('badges'); };
+document.getElementById("game1Btn").onclick = function() { go('orderGame'); };
+document.getElementById("game2Btn").onclick = function() { go('serveGame'); };
+document.getElementById("backFromWorkBtn").onclick = function() { go('start'); };
 document.getElementById("backToStartBtn").onclick = function() { go('start'); };
 document.getElementById("toNoodlesBtn").onclick = function() { go('noodles'); };
 document.getElementById("backToIngBtn").onclick = function() { go('ingredients'); };
@@ -583,40 +1171,12 @@ document.getElementById("toSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles'); };
 document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
 document.getElementById("backToSoupsBtn").onclick = function() { go('soups'); };
+document.getElementById("cookingBtn").onclick = function() { startCooking(); };
+document.getElementById("saveImgBtn").onclick = function() { saveResultImage(); };
+document.getElementById("shareCopyBtn").onclick = function() { copyShareText(); };
+document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
-document.getElementById("cookingBtn").onclick = function() {
-  go('cooking');
-  setTimeout(function(){
-    go('finish');
-    document.getElementById("finalSoup").innerText = "スープ: " + soups[selSoup][0];
-    document.getElementById("finalNoodles").innerText = "麺: " + (selNod.map(i=>noodles[i][0]).join(", ") || "なし");
-    document.getElementById("finalIngredients").innerText = "具材: " + (selIng.map(i=>ingredients[i][0]).join(", ") || "なし");
-    document.getElementById("finalTotal").innerText = "お会計: " + currentCost + "円";
-
-    // 具材のカテゴリカウント計算
-    var vegCount = 0, meatCount = 0, mushroomCount = 0, seafoodCount = 0, ballCount = 0;
-    for(var i=0; i<selIng.length; i++){
-      var cat = ingredients[selIng[i]][3];
-      if(cat === "野菜") vegCount++;
-      if(cat === "肉") meatCount++;
-      if(cat === "きのこ") mushroomCount++;
-      if(cat === "海鮮") seafoodCount++;
-      if(cat === "団子") ballCount++;
-    }
-    var spiceEl = document.getElementById("spice");
-    var spiceVal = spiceEl ? spiceEl.value : "2辛";
-
-    // 30種類以上のコメント判定から生成
-    var result = generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, ballCount, selIng.length, spiceVal, selNod.length);
-    document.getElementById("finalStars").innerText = result.stars;
-    document.getElementById("finalComment").innerText = result.comment;
-
-  }, 2000);
-};
-
-document.getElementById("resetBtn").onclick = function() { selIng=[]; selNod=[]; go('start'); };
-
-renderCats(); renderIngredients();
+renderCats(); renderIngredients(); renderNoodles(); renderSoups();
 </script>
 </body>
 </html>
