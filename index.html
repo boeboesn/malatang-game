@@ -9,245 +9,245 @@
 <style>
 *{box-sizing:border-box}
 :root{
-  --pink: #ff8fab;
+  --pink: #ff7597;
   --light-pink: #ffb3c6;
-  --pale-pink: #fff0f3;
-  --lavender: #d8b4fe;
-  --mint: #bbf7d0;
+  --pale-pink: #fff0f5;
   --dark: #58313e;
-  --line: #fce7f0;
-  --gold: #fde047;
-  --soft-bg: #fff5f8;
+  --line: #ffe3ec;
+  --card-bg: #ffffff;
 }
 
 body{
   margin: 0;
-  background-color: #fff5f8;
-  background-image: radial-gradient(#ffc2d1 18%, transparent 18%);
-  background-size: 20px 20px;
+  padding: 12px 6px;
+  background: linear-gradient(135deg, #fff5f8 0%, #ffeaf0 100%);
+  min-height: 100vh;
   color: var(--dark);
-  font-family: system-ui, 'Hiragino Maru Gothic ProN', Meiryo, sans-serif;
+  font-family: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   letter-spacing: 0.3px;
 }
 
-button, select{font: inherit; cursor: pointer}
+button, select{font: inherit; cursor: pointer; border: none; outline: none;}
 
 header{
   text-align: center;
-  padding: 10px;
+  padding: 16px 12px;
   background: #ffffff;
-  border-bottom: 3px dashed var(--light-pink);
-  position: relative;
-  box-shadow: 0 4px 15px rgba(255, 143, 171, 0.12);
+  border-radius: 20px;
+  max-width: 800px;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 20px rgba(255, 117, 151, 0.08);
+  border: 1px solid var(--line);
 }
 header h1{
   margin: 0;
-  font-size: clamp(18px, 4vw, 24px);
+  font-size: clamp(20px, 4vw, 26px);
   color: #ff4d80;
-  text-shadow: 1px 1px 0px #ffe5ec;
 }
 header p{
-  font-size: 10px;
-  margin: 2px 0 0;
-  color: #9b7180;
+  font-size: 11px;
+  margin: 4px 0 0;
+  color: #a07885;
 }
 .money-container{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, #fffbeb, #fef3c7);
-  border: 2px solid #f59e0b;
+  background: #fffbeb;
+  border: 1.5px solid #f59e0b;
   color: #b45309;
-  padding: 3px 12px;
-  border-radius: 25px;
+  padding: 4px 14px;
+  border-radius: 20px;
   font-weight: bold;
-  font-size: 11px;
-  margin-top: 4px;
-  box-shadow: 0 3px 8px rgba(245, 158, 11, 0.2);
+  font-size: 12px;
+  margin-top: 8px;
 }
 
-main{max-width: 900px; margin: auto; padding: 8px}
+main{max-width: 800px; margin: auto;}
 .screen{display: none}
 .screen.active{display: block}
 
 .panel{
-  background: #ffffff;
-  border: 2px solid var(--line);
-  border-radius: 16px;
-  padding: 10px;
-  margin-bottom: 8px;
-  box-shadow: 0 8px 25px rgba(255, 143, 171, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 20px rgba(255, 117, 151, 0.06);
 }
 
-.title{font-size: 18px; margin: 0 0 2px; color: #ff4d80; font-weight: 800;}
-.sub{font-size: 11px; color: #916879; margin: 0 0 8px}
+.title{font-size: 18px; margin: 0 0 4px; color: #ff4d80; font-weight: 800;}
+.sub{font-size: 12px; color: #a07885; margin: 0 0 12px}
 
 .btn{
-  border: 0;
-  background: linear-gradient(135deg, #ff8fab, #ff6b95);
+  background: linear-gradient(135deg, #ff8fab, #ff4d80);
   color: white;
-  padding: 10px 18px;
-  border-radius: 30px;
-  font-weight: 800;
-  box-shadow: 0 4px 12px rgba(255, 107, 149, 0.35);
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(255, 77, 128, 0.25);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.btn:hover{
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 15px rgba(255, 107, 149, 0.4);
-}
-.btn:active{ transform: scale(0.96); }
+.btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 15px rgba(255, 77, 128, 0.35); }
+.btn:active{ transform: scale(0.97); }
 
 .gold-btn{
   background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
   color: #fff !important;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25) !important;
 }
 .green-btn{
   background: linear-gradient(135deg, #34d399, #10b981) !important;
   color: #fff !important;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
 }
 .secondary{
   background: #ffffff !important;
   color: var(--dark) !important;
-  border: 2px solid var(--light-pink) !important;
+  border: 1.5px solid var(--light-pink) !important;
   box-shadow: none !important;
 }
-.btnrow{display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-top: 8px}
+.btnrow{display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px}
 
 .hero{
   text-align: center;
-  padding: 12px 8px;
-  background: linear-gradient(140deg, #fff0f3, #fae8ff);
-  border-radius: 16px;
-  border: 3px dashed var(--light-pink);
+  padding: 20px 12px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--line);
 }
-.hero-img{width: 100%; max-width: 340px; border-radius: 14px; display: block; margin: 0 auto 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.12)}
+.hero-img{width: 100%; max-width: 320px; border-radius: 16px; display: block; margin: 0 auto 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06)}
 .hero-fallback{
   background: linear-gradient(135deg, #ff8fab, #c084fc);
   color: white;
-  padding: 20px 10px;
-  border-radius: 14px;
-  margin-bottom: 8px;
-  box-shadow: 0 6px 20px rgba(192, 132, 252, 0.3);
+  padding: 24px 12px;
+  border-radius: 16px;
+  margin-bottom: 12px;
 }
-.hero-fallback h2{margin: 5px 0; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.15)}
-.hero-fallback p{margin: 0; font-size: 11px; opacity: 0.95}
+.hero-fallback h2{margin: 0 0 6px; font-size: 20px;}
+.hero-fallback p{margin: 0; font-size: 12px; opacity: 0.95}
 
-.steps{display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin: 6px 0 10px}
-.step{font-size: 9px; border-radius: 20px; padding: 4px 8px; background: #fce7f0; color: #9b7180; font-weight: bold;}
-.step.on{background: linear-gradient(135deg, #ff8fab, #ff6b95); color: white; box-shadow: 0 3px 10px rgba(255,107,149,0.3)}
+.steps{display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 8px 0 14px}
+.step{font-size: 10px; border-radius: 15px; padding: 4px 10px; background: #ffeaf0; color: #a07885; font-weight: bold;}
+.step.on{background: #ff4d80; color: white; box-shadow: 0 2px 8px rgba(255,77,128,0.3)}
 
-.categories{display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 6px}
-.cat{white-space: nowrap; border: 2px solid var(--line); background: #ffffff; border-radius: 20px; padding: 5px 10px; color: var(--dark); font-weight: bold; font-size: 11px;}
-.cat.active{background: linear-gradient(135deg, #ff8fab, #ff6b95); color: white; border-color: transparent;}
+.categories{display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 8px; -webkit-overflow-scrolling: touch;}
+.cat{white-space: nowrap; border: 1.5px solid var(--line); background: #ffffff; border-radius: 20px; padding: 6px 14px; color: var(--dark); font-weight: bold; font-size: 12px;}
+.cat.active{background: #ff4d80; color: white; border-color: transparent;}
 
-.grid{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px}
-@media(min-width: 600px){.grid{grid-template-columns: repeat(5, minmax(0, 1fr))}}
+.grid{display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px}
 
 .tile{
   position: relative;
-  border: 2px solid #fbcfe8;
+  border: 1.5px solid var(--line);
   background: #ffffff;
-  border-radius: 12px;
-  padding: 6px 4px;
-  color: var(--dark);
-  min-width: 0;
-  text-align: center;
-  box-shadow: 0 3px 10px rgba(255, 182, 193, 0.15);
-  transition: transform 0.1s;
-}
-.tile:active{transform: scale(0.97)}
-.tile.selected{border: 3px solid #ff4d80 !important; background: #fff1f5; box-shadow: 0 3px 12px rgba(255, 77, 128, 0.25); transform: scale(1.03);}
-.emoji{font-size: 28px; display: block; line-height: 1.1}
-.name{font-size: 10px; font-weight: 800; display: block; margin-top: 2px;}
-.tile small{font-size: 9px; color: #db2777; font-weight: bold;}
-.check{
-  position: absolute; top: 3px; right: 3px;
-  background: #ff4d80; color: white; border-radius: 50%;
-  font-size: 9px; width: 16px; height: 16px;
-  display: grid; place-items: center; font-weight: bold;
-  box-shadow: 0 2px 5px rgba(255, 77, 128, 0.4);
-}
-
-.stripe{width: 40px; height: 28px; border-radius: 8px; margin: 1px auto 3px; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 5px,#f28b49 5px 10px)}
-.noodle{width: 36px; height: 26px; border: 3px solid #e9cfa2; border-radius: 50%; margin: 2px auto 3px; background: repeating-linear-gradient(0deg,#fff3d8 0 3px,#e3ba75 3px 4px)}
-
-.soups{display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px}
-@media(min-width: 600px){.soups{grid-template-columns: repeat(3, minmax(0, 1fr))}}
-
-.soup{
-  border: 2px solid #fbcfe8;
-  background: white;
   border-radius: 14px;
   padding: 8px 4px;
   color: var(--dark);
   text-align: center;
-  box-shadow: 0 3px 10px rgba(255, 182, 193, 0.15);
+  transition: all 0.15s;
 }
-.soup.selected{border-color: #ff4d80; background: #fff1f5; box-shadow: 0 3px 12px rgba(255, 77, 128, 0.25);}
+.tile:active{transform: scale(0.97)}
+.tile.selected{border: 2px solid #ff4d80 !important; background: #fff0f5; box-shadow: 0 4px 12px rgba(255, 77, 128, 0.15);}
+.emoji{font-size: 30px; display: block; line-height: 1.2}
+.name{font-size: 11px; font-weight: bold; display: block; margin-top: 4px;}
+.tile small{font-size: 10px; color: #ff4d80; font-weight: bold;}
+.check{
+  position: absolute; top: 4px; right: 4px;
+  background: #ff4d80; color: white; border-radius: 50%;
+  font-size: 10px; width: 18px; height: 18px;
+  display: grid; place-items: center; font-weight: bold;
+}
+
+.stripe{width: 40px; height: 28px; border-radius: 8px; margin: 2px auto 4px; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 5px,#f28b49 5px 10px)}
+.noodle{width: 36px; height: 26px; border: 3px solid #e9cfa2; border-radius: 50%; margin: 2px auto 4px; background: repeating-linear-gradient(0deg,#fff3d8 0 3px,#e3ba75 3px 4px)}
+
+.soups{display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px}
+
+.soup{
+  border: 1.5px solid var(--line);
+  background: white;
+  border-radius: 14px;
+  padding: 10px 6px;
+  color: var(--dark);
+  text-align: center;
+  transition: all 0.15s;
+}
+.soup.selected{border: 2px solid #ff4d80 !important; background: #fff0f5; box-shadow: 0 4px 12px rgba(255, 77, 128, 0.15);}
 .soup .emoji{font-size: 32px}
-.soup b{display: block; font-size: 12px; margin-top: 2px; color: #ff4d80;}
-.soup small{font-size: 9px; color: #7f557d}
+.soup b{display: block; font-size: 13px; margin-top: 4px; color: #ff4d80;}
+.soup small{font-size: 10px; color: #a07885}
 
-.basket{display: grid; grid-template-columns: 1fr; gap: 8px}
-@media(min-width: 650px){.basket{grid-template-columns: 1fr 1fr}}
+.basket{display: grid; grid-template-columns: 1fr; gap: 12px}
+@media(min-width: 550px){.basket{grid-template-columns: 120px 1fr}}
 
-.bowl{font-size: 70px; text-align: center; padding: 8px; background: linear-gradient(135deg, #fff7ed, #ffedd5); border-radius: 14px; border: 2px dashed #fed7aa;}
-.total{text-align: center; background: #fff1f5; padding: 8px; border-radius: 12px; font-size: 16px; font-weight: 850; color: #ff4d80; border: 2px dashed #fbcfe8;}
+.bowl{font-size: 70px; text-align: center; padding: 12px; background: #fffdfa; border-radius: 16px; border: 1px solid #fed7aa; display: grid; place-items: center;}
+.total{text-align: center; background: #fff0f5; padding: 10px; border-radius: 14px; font-size: 16px; font-weight: 800; color: #ff4d80; border: 1px solid #ffb3c6; margin-top: 8px;}
 
-.cook{text-align: center; padding: 15px 8px}
+.cook{text-align: center; padding: 20px 8px}
 .pot{font-size: 70px; animation: bob 1s infinite alternate}
-@keyframes bob{to{transform: translateY(-6px; rotate(3deg)}}
+@keyframes bob{to{transform: translateY(-8px)}}
 
-.bar{height: 12px; border-radius: 20px; background: #fce7f0; overflow: hidden; margin: 10px auto; max-width: 320px; border: 1px solid #fbcfe8;}
+.bar{height: 12px; border-radius: 20px; background: #ffeaf0; overflow: hidden; margin: 12px auto; max-width: 320px;}
 .bar div{height: 100%; width: 0; background: linear-gradient(90deg, #ff8fab, #ff4d80); transition: width .3s}
 
-.finished{background: linear-gradient(140deg, #fff0f3, #fef3c7); text-align: center; padding: 12px; border-radius: 16px; border: 3px solid #fbcfe8;}
-.finish-img{width: 100%; max-width: 260px; border-radius: 12px; display: block; margin: 6px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.12)}
+.finished{background: #ffffff; text-align: center; padding: 16px; border-radius: 20px; border: 1px solid var(--line);}
+.finish-img{width: 100%; max-width: 280px; border-radius: 14px; display: block; margin: 8px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.08)}
 
-.rating-box{background: #fff; border: 2px dashed #ff8fab; border-radius: 12px; padding: 8px; margin: 6px 0; text-align: center; box-shadow: 0 3px 10px rgba(255,143,171,0.1);}
+.rating-box{background: #fff0f5; border-radius: 14px; padding: 10px; margin: 10px 0; text-align: center;}
 .stars{font-size: 20px; color: #fbbf24; margin: 2px 0}
-.comment{font-size: 12px; font-weight: bold; color: var(--dark); margin-top: 2px; line-height: 1.3}
-.note{font-size: 10px; color: #9b7180; margin-top: 4px;}
+.comment{font-size: 12px; font-weight: bold; color: var(--dark); margin-top: 2px;}
+.note{font-size: 11px; color: #a07885; margin-top: 6px;}
 
-/* 共有用カードの囲い枠 */
 .share-card-wrapper {
   background: #ffffff;
   border-radius: 16px;
-  padding: 10px;
-  border: 2px dashed #ff8fab;
-  box-shadow: 0 4px 12px rgba(255, 143, 171, 0.15);
+  padding: 12px;
+  border: 1px solid var(--line);
 }
 
-.game-header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px}
-.timer-badge{background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; padding: 3px 10px; border-radius: 20px; font-weight: bold; font-size: 12px; box-shadow: 0 3px 10px rgba(244, 63, 94, 0.3);}
-.speech-bubble{background: #ffffff; border: 2px solid #ff8fab; border-radius: 12px; padding: 8px 10px; margin-bottom: 8px; font-size: 12px; line-height: 1.3; box-shadow: 0 4px 15px rgba(255, 143, 171, 0.15);}
-.select-section{margin-bottom: 6px; background: #fff0f3; border: 2px solid #fbcfe8; padding: 6px 8px; border-radius: 10px}
-.select-section h4{margin: 0 0 3px; font-size: 11px; color: #ff4d80}
+.game-header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px}
+.timer-badge{background: #ff4d80; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 12px;}
+.speech-bubble{background: #fff0f5; border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; font-size: 12px; line-height: 1.4;}
+.select-section{margin-bottom: 8px; background: #fafafa; border: 1px solid var(--line); padding: 8px 10px; border-radius: 12px}
+.select-section h4{margin: 0 0 6px; font-size: 12px; color: #ff4d80}
 
-.spice-grid{display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px}
-.spice-btn{border: 2px solid #fbcfe8; background: white; padding: 5px 2px; border-radius: 8px; font-weight: bold; font-size: 10px; color: var(--dark);}
-.spice-btn.selected{background: linear-gradient(135deg, #ff8fab, #ff6b95) !important; color: white !important; border-color: #ff4d80 !important; box-shadow: 0 3px 8px rgba(255, 143, 171, 0.4) !important;}
+.spice-grid{display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px}
+.spice-btn{
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  padding: 8px 2px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 11px;
+  color: var(--dark);
+  transition: all 0.15s;
+}
+/* 修正：辛さ選択時にしっかりピンクになるように適用 */
+.spice-btn.selected{
+  background: #ff4d80 !important;
+  color: #ffffff !important;
+  border-color: #ff4d80 !important;
+  box-shadow: 0 3px 8px rgba(255, 77, 128, 0.3) !important;
+}
 
-.seat-grid{display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px}
-.seat-card{background: #ffffff; border: 2px solid #fbcfe8; border-radius: 12px; padding: 10px 6px; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1)}
+.seat-grid{display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px}
+.seat-card{background: #ffffff; border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 6px; text-align: center;}
 
-.shop-item{display: flex; align-items: center; justify-content: space-between; background: #fff; border: 2px solid #fbcfe8; border-radius: 12px; padding: 8px 12px; margin-bottom: 6px;}
+.shop-item{display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 14px; margin-bottom: 8px;}
 .shop-item-info{text-align: left;}
 .shop-item-info b{font-size: 13px; display: block; color: #ff4d80;}
-.shop-item-info small{font-size: 10px; color: #7f557d;}
+.shop-item-info small{font-size: 11px; color: #a07885;}
 
-.badge-grid{display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;}
-@media(min-width: 600px){.badge-grid{grid-template-columns: repeat(3, 1fr);}}
-.badge-card{background: #fff; border: 2px solid #fbcfe8; border-radius: 12px; padding: 8px; text-align: center; opacity: 0.5;}
+.badge-grid{display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px;}
+.badge-card{background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px; text-align: center; opacity: 0.5;}
 .badge-card.unlocked{opacity: 1; border-color: #f59e0b; background: #fffbeb;}
-.badge-icon{font-size: 24px; display: block; margin-bottom: 2px;}
+.badge-icon{font-size: 26px; display: block; margin-bottom: 2px;}
 .badge-title{font-size: 11px; font-weight: bold; display: block; color: var(--dark);}
-.badge-desc{font-size: 9px; color: #888;}
+.badge-desc{font-size: 10px; color: #888;}
 
-footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
+footer{text-align: center; font-size: 11px; color: #b08998; padding: 16px 0}
 </style>
 </head>
 <body>
@@ -276,11 +276,11 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <p>好きな具材を選んで、あなただけのオリジナルを作ろう！</p>
 </div>
 
-<div class="btnrow" style="margin-top:4px">
-<button class="btn" id="startBtn" style="font-size:15px;padding:10px 20px;">麻辣湯をつくる ❯</button>
-<button class="btn gold-btn" id="workBtn" style="font-size:13px;padding:10px 16px;">💰 お小遣いを稼ぐ</button>
-</div>
 <div class="btnrow" style="margin-top:6px">
+<button class="btn" id="startBtn" style="font-size:15px;padding:12px 24px;">麻辣湯をつくる ❯</button>
+<button class="btn gold-btn" id="workBtn" style="font-size:13px;padding:12px 18px;">💰 お小遣いを稼ぐ</button>
+</div>
+<div class="btnrow" style="margin-top:8px">
 <button class="btn" style="background:linear-gradient(135deg, #c084fc, #a855f7); font-size:12px;padding:8px 16px;" id="shopMenuBtn">🛍️ 高級トッピングショップ</button>
 <button class="btn secondary" id="badgeMenuBtn" style="font-size:12px;padding:8px 16px;">🏅 称号・図鑑</button>
 </div>
@@ -316,9 +316,9 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <div class="panel" style="text-align:center">
 <h2 class="title">🧹 麻辣湯屋さんでお手伝い</h2>
 <p class="sub">お手伝いをしてお小遣いを稼ごう！</p>
-<div style="display:flex;flex-direction:column;gap:8px;max-width:350px;margin:10px auto;">
-<button class="btn gold-btn" id="game1Btn" style="font-size:14px;padding:11px;">📋 オーダー取りゲーム（イベント客登場！）</button>
-<button class="btn gold-btn" id="game2Btn" style="font-size:14px;padding:11px;">🍲 配膳ゲーム（全3問・15秒制限）</button>
+<div style="display:flex;flex-direction:column;gap:8px;max-width:350px;margin:12px auto;">
+<button class="btn gold-btn" id="game1Btn" style="font-size:14px;padding:12px;">📋 オーダー取りゲーム（イベント客登場！）</button>
+<button class="btn gold-btn" id="game2Btn" style="font-size:14px;padding:12px;">🍲 配膳ゲーム（全3問・15秒制限）</button>
 <button class="btn secondary" id="backFromWorkBtn">← スタート画面に戻る</button>
 </div>
 </div>
@@ -349,9 +349,9 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <div class="grid" id="g1IngGrid"></div>
 </div>
 
-<div class="btnrow" style="margin-top:6px;">
-<button class="btn secondary" style="padding:6px 14px;font-size:11px;" onclick="exitOrderGame()">やめる</button>
-<button class="btn gold-btn" style="padding:6px 16px;font-size:12px;" onclick="submitOrder()">注文を確定する！</button>
+<div class="btnrow" style="margin-top:8px;">
+<button class="btn secondary" style="padding:8px 16px;font-size:12px;" onclick="exitOrderGame()">やめる</button>
+<button class="btn gold-btn" style="padding:8px 18px;font-size:13px;" onclick="submitOrder()">注文を確定する！</button>
 </div>
 </div>
 </section>
@@ -366,7 +366,7 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <p class="sub">出来上がった麻辣湯を正しく運ぼう！（全3問・制限時間15秒）</p>
 <div class="speech-bubble" id="serveQuestion" style="font-size:14px;font-weight:bold;text-align:center;"></div>
 <div class="seat-grid" id="seatGrid"></div>
-<div class="btnrow" style="margin-top:10px">
+<div class="btnrow" style="margin-top:12px">
 <button class="btn secondary" onclick="exitServeGame()">やめる</button>
 </div>
 </div>
@@ -378,7 +378,7 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <p class="sub">好きな具材をタップしてカゴに入れてね（制限なし）</p>
 <div class="categories" id="categories"></div>
 <div class="grid" id="ingredientGrid"></div>
-<p class="sub" id="count" style="margin-top:8px;text-align:center;font-weight:bold;"></p>
+<p class="sub" id="count" style="margin-top:10px;text-align:center;font-weight:bold;"></p>
 <div class="btnrow">
 <button class="btn secondary" id="backToStartBtn">戻る</button>
 <button class="btn" id="toNoodlesBtn">麺を選ぶ ❯</button>
@@ -403,9 +403,9 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <h2 class="title">③ スープを選ぼう！</h2>
 <p class="sub">今日の気分にぴったりのスープはどれ？</p>
 <div class="soups" id="soupGrid"></div>
-<div class="panel" style="margin-top:8px">
+<div class="panel" style="margin-top:10px; border: 1.5px solid var(--line);">
 <b>🌶️ 辛さを選ぼう！</b>
-<select id="spice" style="width:100%;padding:8px;margin-top:4px;border-radius:8px;border:2px solid #fbcfe8;background:white">
+<select id="spice" style="width:100%;padding:10px;margin-top:6px;border-radius:12px;border:1.5px solid var(--line);background:white">
 <option>0辛（辛くない）</option><option>1辛</option><option selected>2辛</option><option>3辛</option><option>4辛</option><option>5辛（激辛）</option>
 </select>
 </div>
@@ -422,12 +422,14 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <p class="sub">選んだ材料とスープで、あなただけの麻辣湯を作るよ</p>
 <div class="basket">
 <div class="bowl">🍲</div>
-<div><h3>選んだ具材</h3><div id="chosenIngredients"></div>
-<h3>選んだ麺</h3><div id="chosenNoodles"></div>
-<h3>スープ・辛さ</h3><div id="chosenSoup"></div></div>
+<div>
+<h3 style="margin:0 0 4px; font-size:13px; color:#ff4d80;">選んだ具材</h3><div id="chosenIngredients"></div>
+<h3 style="margin:8px 0 4px; font-size:13px; color:#ff4d80;">選んだ麺</h3><div id="chosenNoodles"></div>
+<h3 style="margin:8px 0 4px; font-size:13px; color:#ff4d80;">スープ・辛さ</h3><div id="chosenSoup"></div>
+</div>
 </div>
 <div class="total" id="total"></div>
-<p class="note" id="moneyWarning" style="color:#e11d48;font-weight:bold;text-align:center;margin-top:4px;"></p>
+<p class="note" id="moneyWarning" style="color:#e11d48;font-weight:bold;text-align:center;margin-top:6px;"></p>
 <div class="btnrow">
 <button class="btn secondary" id="backToSoupsBtn">戻る</button>
 <button class="btn" id="cookingBtn">🍲 これで作る！</button>
@@ -439,41 +441,41 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px}
 <div class="panel cook">
 <h2 class="title">⑤ つくってもらおう！</h2>
 <p>選んだ材料をお店のスタッフが調理してくれます…</p>
-<div class="pot">🍲</div><h3 id="cookText">お鍋でぐつぐつ… ♡</h3>
+<div class="pot">🍲</div><h3 id="cookText" style="color:#ff4d80;">お鍋でぐつぐつ… ♡</h3>
 <div class="bar"><div id="progress"></div></div>
-<p id="seconds">調理中… 5秒</p>
+<p id="seconds" style="font-size:12px; color:#a07885;">調理中… 5秒</p>
 </div>
 </section>
 
 <!-- 完成画面 -->
 <section class="screen" id="finish">
 <div class="finished">
-<h2>✨ できあがり！ ♡</h2><p>あなただけのオリジナル麻辣湯</p>
+<h2 style="margin:0; color:#ff4d80;">✨ できあがり！ ♡</h2><p style="margin:2px 0 10px; font-size:12px; color:#a07885;">あなただけのオリジナル麻辣湯</p>
 
 <!-- 画像保存用としてキャプチャされる対象カード -->
 <div id="captureArea" class="share-card-wrapper">
   <img id="finishImage" src="start.png" class="finish-img" alt="完成した麻辣湯" onerror="this.style.display='none'; document.getElementById('bigBowlEmoji').style.display='block';">
   <div class="bigbowl" id="bigBowlEmoji" style="display:none; font-size:70px; margin:8px 0;">🍜</div>
 
-  <div class="panel" style="text-align:left; margin-bottom:0;">
-    <p id="finalSoup"></p>
-    <p id="finalNoodles"></p>
-    <p id="finalIngredients"></p>
+  <div class="panel" style="text-align:left; margin-bottom:0; box-shadow:none; border:none; padding:8px 0 0;">
+    <p id="finalSoup" style="margin:4px 0; font-size:13px;"></p>
+    <p id="finalNoodles" style="margin:4px 0; font-size:13px;"></p>
+    <p id="finalIngredients" style="margin:4px 0; font-size:13px;"></p>
     <div class="total" id="finalTotal"></div>
 
     <div class="rating-box">
-      <div style="font-size:10px;color:#888;">✨ シェフの評価 ✨</div>
+      <div style="font-size:11px;color:#a07885;">✨ シェフの評価 ✨</div>
       <div class="stars" id="finalStars">★★★★★</div>
       <div class="comment" id="finalComment"></div>
     </div>
   </div>
 </div>
 
-<p style="margin-top:8px;font-weight:bold;color:#ff4d80;font-size:12px;">✨ できた麻辣湯を共有しよう！ ✨</p>
-<div class="btnrow" style="margin-top:4px;">
-  <button class="btn green-btn" id="saveImgBtn" style="font-size:12px;padding:9px 14px;">📸 画像として保存</button>
-  <button class="btn gold-btn" id="shareCopyBtn" style="font-size:12px;padding:9px 14px;">📋 テキストをコピー</button>
-  <button class="btn secondary" id="resetBtn" style="font-size:12px;padding:9px 14px;">もう一度つくる ↻</button>
+<p style="margin-top:12px;font-weight:bold;color:#ff4d80;font-size:12px;">✨ できた麻辣湯を共有しよう！ ✨</p>
+<div class="btnrow" style="margin-top:6px;">
+  <button class="btn green-btn" id="saveImgBtn" style="font-size:12px;padding:10px 16px;">📸 画像として保存</button>
+  <button class="btn gold-btn" id="shareCopyBtn" style="font-size:12px;padding:10px 16px;">📋 テキストをコピー</button>
+  <button class="btn secondary" id="resetBtn" style="font-size:12px;padding:10px 16px;">もう一度つくる ↻</button>
 </div>
 <p class="note" id="shareNote"></p>
 </div>
@@ -1049,7 +1051,7 @@ function nextServeStage(){
   var grid = document.getElementById("seatGrid"); grid.innerHTML = "";
   for(var i=0; i<seats.length; i++){
     var sName = seats[i];
-    grid.innerHTML += '<div class="seat-card"><h3>🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')" style="margin-top:6px;padding:6px 10px;font-size:11px;">ここに運ぶ！</button></div>';
+    grid.innerHTML += '<div class="seat-card"><h3 style="margin:0 0 6px;">🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')" style="padding:6px 12px;font-size:11px;">ここに運ぶ！</button></div>';
   }
 }
 
