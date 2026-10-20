@@ -204,7 +204,7 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 <section class="screen active" id="start">
 <div class="panel" style="text-align:center; padding: 20px 10px;">
 <h2>🍜 わたしだけの麻辣湯</h2>
-<p class="sub">好きな具材を冷蔵ケースから選んでね！</p>
+<p class="sub">好きな具材を選んでね！</p>
 <div class="btnrow">
 <button class="btn" id="startBtn" style="font-size:14px;padding:10px 20px;">麻辣湯をつくる ❯</button>
 <button class="btn gold-btn" id="workBtn" style="font-size:12px;padding:10px 16px;">💰 お小遣いを稼ぐ</button>
@@ -312,11 +312,17 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 <div class="panel" style="text-align:center;">
 <h2 class="title">✨ できあがり！</h2>
 <div style="font-size:60px; margin:6px 0;">🍜</div>
-<div style="font-size:11px; text-align:left; background:#fefae0; padding:8px; border-radius:8px;">
+<div style="font-size:11px; text-align:left; background:#fefae0; padding:10px; border-radius:10px;">
 <p id="finalSoup" style="margin:2px 0;"></p>
 <p id="finalNoodles" style="margin:2px 0;"></p>
 <p id="finalIngredients" style="margin:2px 0;"></p>
-<b id="finalTotal" style="color:var(--main-color);"></b>
+<b id="finalTotal" style="color:var(--main-color); display:block; margin-top:4px;"></b>
+
+<div style="margin-top:8px; padding-top:8px; border-top:1px dashed #dda15e; text-align:center;">
+<div style="font-size:10px; color:#8d7b68;">👨‍🍳 シェフからのひとこと 👨‍🍳</div>
+<div id="finalStars" style="color:#f59e0b; font-size:16px; margin:2px 0;">★★★★★</div>
+<div id="finalComment" style="font-weight:bold; font-size:12px; color:var(--dark);"></div>
+</div>
 </div>
 <div class="btnrow" style="margin-top:10px;">
 <button class="btn secondary" id="resetBtn">もう一度つくる ↻</button>
@@ -324,7 +330,7 @@ footer{text-align: center; font-size: 10px; color: #8d7b68; padding: 8px 0}
 </div>
 </section>
 
-<!-- ショップ/図鑑/ミニゲーム画面（略・動作維持） -->
+<!-- ショップ/図鑑/ミニゲーム画面 -->
 <section class="screen" id="shop"><div class="panel"><h2 class="title">🛍️ ショップ</h2><div id="shopItemList"></div><button class="btn secondary" onclick="go('start')">戻る</button></div></section>
 <section class="screen" id="badges"><div class="panel"><h2 class="title">🏅 称号・図鑑</h2><div id="badgeGrid"></div><button class="btn secondary" onclick="go('start')">戻る</button></div></section>
 <section class="screen" id="workMenu"><div class="panel" style="text-align:center"><h2 class="title">🧹 お手伝い</h2><button class="btn gold-btn" id="game1Btn">📋 オーダー取りゲーム</button><br><br><button class="btn secondary" id="backFromWorkBtn">戻る</button></div></section>
@@ -338,7 +344,7 @@ var ingredients=[
 ["白菜","🥬",80,"野菜"],["レタス","🥬",80,"野菜"],["ブロッコリー","🥦",90,"野菜"],["姫たけのこ","🎍",90,"野菜"],["エリンギ","🍄",90,"きのこ"],["チンゲン菜","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["玉ねぎ","🧅",70,"野菜"],["えのき","🍄",90,"きのこ"],["まいたけ","🍄",90,"きのこ"],
 ["小松菜","🥬",80,"野菜"],["じゃがいも","🥔",80,"野菜"],["しめじ","🍄",90,"きのこ"],["黒キクラゲ","🍄",90,"きのこ"],["豚バラ肉","🥓",180,"肉"],["ほうれん草","🥬",80,"野菜"],["れんこん","🪷",90,"野菜"],["オクラ","🫛",80,"野菜"],["しいたけ","🍄",100,"きのこ"],["白キクラゲ","🍄",100,"きのこ"],
 ["鶏肉","🍗",160,"肉"],["鴨血","🩸",150,"肉"],["たこ","🐙",180,"海鮮"],["うに団子","🍡",130,"団子"],["牛肉団子","🍡",130,"団子"],["牛肉","🥩",200,"肉"],["牛すじ","🥩",200,"肉"],["えび","🦐",180,"海鮮"],["ホタテ","🐚",200,"海鮮"],["虹団子","🍡",120,"団子"],
-["白身魚","🐟",150,"海鮮"],["あさり","🐚",150,"海鮮"],["紫芋団子","🍡",120,"団子"],["湯葉","🥢",100,"豆腐"],["うずら卵","🥚",100,"豆腐"],["ラム薄切り","🥩",200,"肉"],["ウインナー","🌭",120,"肉"],["イカ","🦑",160,"海鮮"],["かに団子","🦀",130,"団子"],["水餃子","🥟",120,"団子"]
+["白身魚","🐟",150,"海鮮"],["あさり","🐚",150,"海鲜"],["紫芋団子","🍡",120,"団子"],["湯葉","🥢",100,"豆腐"],["うずら卵","🥚",100,"豆腐"],["ラム薄切り","🥩",200,"肉"],["ウインナー","🌭",120,"肉"],["イカ","🦑",160,"海鮮"],["かに団子","🦀",130,"団子"],["水餃子","🥟",120,"団子"]
 ];
 
 var shopItems=[]; var badgeList=[];
@@ -450,6 +456,124 @@ function renderBasket(){
   document.getElementById("total").innerText = "合計: " + currentCost + "円";
 }
 
+/* 30種類以上の豊富なシェフコメント判定システム */
+function getRandomComment(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, ballCount, totalCount, spiceVal, noodleCount) {
+  var stars = "★★★★★";
+  var comment = "";
+
+  // 1. 具材ゼロ（スープだけ）
+  if (totalCount === 0) {
+    stars = "★★☆☆☆";
+    comment = getRandomComment([
+      "スープのみのストイック系！だしの旨みを噛み締める一杯！",
+      "具材を入れ忘れた…？いや、これこそが真のスープ味わいモード！",
+      "究極のシンプル！スープ本来のポテンシャルを試される一杯！"
+    ]);
+  }
+  // 2. 激辛（5辛）
+  else if (spiceVal.indexOf("5辛") !== -1) {
+    stars = "★★★★★ 🔥";
+    comment = getRandomComment([
+      "痺れる辛さがたまらない！激辛マニアも唸る極限の刺激的麻辣湯！",
+      "汗が止まらない…！でも箸も止まらない魔性の超激辛スープ！",
+      "から〜い！！辛党のシェフも大満足の炎の最高傑作！",
+      "この辛さを完食できたら本物のアジアンフードマスター！"
+    ]);
+  }
+  // 3. 野菜たっぷり（ヘルシー）
+  else if (vegCount >= 4 && meatCount === 0) {
+    stars = "★★★★★ 🥗";
+    comment = getRandomComment([
+      "シャキシャキお野菜たっぷり！身体が喜ぶ超ヘルシー麻辣湯！",
+      "ビタミン満点！野菜の自然な甘みがスープに溶け込んだ極上一杯！",
+      "罪悪感ゼロ！美容と健康に最高なグリーン麻辣湯！",
+      "野菜好きにはたまらない！色彩豊かなベジタブルパラダイス！"
+    ]);
+  }
+  // 4. 肉・肉・肉（がっつり）
+  else if (meatCount >= 3) {
+    stars = "★★★★★ 🥩";
+    comment = getRandomComment([
+      "お肉のカーニバル！肉汁の旨味がスープ全体に広がって最高！",
+      "スタミナ抜群！がっつり食べたい日のわんぱく肉盛り麻辣湯！",
+      "お肉たっぷりで満足度MAX！シェフも納得のボリューミー仕様！",
+      "一口食べればパワー全開！お肉好きのための至高の盛り付け！"
+    ]);
+  }
+  // 5. きのこづくし
+  else if (mushroomCount >= 3) {
+    stars = "★★★★★ 🍄";
+    comment = getRandomComment([
+      "きのこの出汁が濃厚すぎる…！深い香りと食感がくせになる一杯！",
+      "食物繊維たっぷり！きのこ好きにはたまらない魅惑の菌活スープ！",
+      "食感が楽しくて止まらない！コリコリシャキシャキの贅沢きのこ盛り！",
+      "山のごちそう大集合！噛むたびに溢れる旨味の深みがすごい！"
+    ]);
+  }
+  // 6. 海鮮づくし
+  else if (seafoodCount >= 3) {
+    stars = "★★★★★ 🦐";
+    comment = getRandomComment([
+      "海の幸がギュッと凝縮！磯の香りがふわっと広がる贅沢スープ！",
+      "プリプリのえびや貝の旨味が溶け出した超高級海鮮麻辣湯！",
+      "まるで海鮮ブイヤベース！？深いコクと旨味が押し寄せる！"
+    ]);
+  }
+  // 7. 団子・モチモチ特化
+  else if (ballCount >= 3) {
+    stars = "★★★★★ 🍡";
+    comment = getRandomComment([
+      "モチモチ食感祭り！かわいい見た目と楽しすぎる食べ応え！",
+      "団子の中から溢れるジュワッと肉汁＆チーズがたまらない！",
+      "一口サイズでパクパクいけちゃう！団子づくしのポップな麻辣湯！"
+    ]);
+  }
+  // 8. 黄金バランス（お肉も野菜も絶妙）
+  else if (vegCount >= 2 && meatCount >= 2) {
+    stars = "★★★★★ 🌟 (120点)";
+    comment = getRandomComment([
+      "完璧な黄金比率！お肉と野菜の旨味が溶け合った奇跡の一杯！",
+      "これぞ理想の麻辣湯！彩り・栄養・味わいすべてがパーフェクト！",
+      "お店の看板メニューにしたいレベル！文句なしの100点満点！",
+      "シェフ脱帽！バランス感覚が素晴らしすぎるセンス抜群のチョイス！"
+    ]);
+  }
+  // 9. 大盛り（とにかく具材が多い）
+  else if (totalCount >= 8) {
+    stars = "★★★★★ 👑";
+    comment = getRandomComment([
+      "どんぶりから溢れそうな超豪華盛り！まるで麻辣湯のドリームチーム！",
+      "欲張りスぺシャル！好きなものを全部詰め込んだ夢のデカ盛り！",
+      "超贅沢なお祭り盛り！食べるたびに新しい味が発見できる！"
+    ]);
+  }
+  // 10. 麺なし（スープと具材のみ）
+  else if (noodleCount === 0) {
+    stars = "★★★★☆ 🥣";
+    comment = getRandomComment([
+      "麺なしの糖質オフスタイル！具材とスープをダイレクトに楽しむ！",
+      "スープ料理として味わう大人の麻辣湯！ヘルシーでスマート！"
+    ]);
+  }
+  // 11. その他スタンダード
+  else {
+    stars = "★★★★☆ ✨";
+    comment = getRandomComment([
+      "素敵な具材選び！スープとの相性もバッチリで美味しい！",
+      "心も体も温まる優しい味わい。いつでも食べたくなる一杯！",
+      "センスの光るトッピング！お腹も心も満たされる大満足の出来栄え！",
+      "ほっとする美味しさ！自分へのご褒美にぴったりの麻辣湯！",
+      "一口食べれば笑顔になれる！王道を征く最高の仕上がり！"
+    ]);
+  }
+
+  return { stars: stars, comment: comment };
+}
+
 document.getElementById("startBtn").onclick = function() { go('ingredients'); };
 document.getElementById("workBtn").onclick = function() { go('workMenu'); };
 document.getElementById("backToStartBtn").onclick = function() { go('start'); };
@@ -459,16 +583,37 @@ document.getElementById("toSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles'); };
 document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
 document.getElementById("backToSoupsBtn").onclick = function() { go('soups'); };
+
 document.getElementById("cookingBtn").onclick = function() {
   go('cooking');
   setTimeout(function(){
     go('finish');
     document.getElementById("finalSoup").innerText = "スープ: " + soups[selSoup][0];
-    document.getElementById("finalNoodles").innerText = "麺: " + (selNod.map(i=>noodles[i][0]).join(",")||"なし");
-    document.getElementById("finalIngredients").innerText = "具材: " + (selIng.map(i=>ingredients[i][0]).join(",")||"なし");
+    document.getElementById("finalNoodles").innerText = "麺: " + (selNod.map(i=>noodles[i][0]).join(", ") || "なし");
+    document.getElementById("finalIngredients").innerText = "具材: " + (selIng.map(i=>ingredients[i][0]).join(", ") || "なし");
     document.getElementById("finalTotal").innerText = "お会計: " + currentCost + "円";
+
+    // 具材のカテゴリカウント計算
+    var vegCount = 0, meatCount = 0, mushroomCount = 0, seafoodCount = 0, ballCount = 0;
+    for(var i=0; i<selIng.length; i++){
+      var cat = ingredients[selIng[i]][3];
+      if(cat === "野菜") vegCount++;
+      if(cat === "肉") meatCount++;
+      if(cat === "きのこ") mushroomCount++;
+      if(cat === "海鮮") seafoodCount++;
+      if(cat === "団子") ballCount++;
+    }
+    var spiceEl = document.getElementById("spice");
+    var spiceVal = spiceEl ? spiceEl.value : "2辛";
+
+    // 30種類以上のコメント判定から生成
+    var result = generateChefComment(vegCount, meatCount, mushroomCount, seafoodCount, ballCount, selIng.length, spiceVal, selNod.length);
+    document.getElementById("finalStars").innerText = result.stars;
+    document.getElementById("finalComment").innerText = result.comment;
+
   }, 2000);
 };
+
 document.getElementById("resetBtn").onclick = function() { selIng=[]; selNod=[]; go('start'); };
 
 renderCats(); renderIngredients();
