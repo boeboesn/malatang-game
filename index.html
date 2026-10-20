@@ -583,9 +583,25 @@ var ingredients=[
 
 var shopItems=[
   { id: "shark", name: "👑 黄金のフカヒレ", emoji: "🦈", price: 500, unlockCost: 1000, cat: "高級", unlocked: false },
-  { id: "wagyu", name: "✨ プレミアム和牛", emoji: "🥩", price: 400, unlockCost: 800, cat: "高級", unlocked: false },
-  { id: "lobster", name: "🦞 オマール海老", emoji: "🦞", price: 600, unlockCost: 1200, cat: "高級", unlocked: false },
-  { id: "truffle", name: "🍄 黒トリュフ", emoji: "🍄", price: 700, unlockCost: 1500, cat: "高級", unlocked: false }
+  { id: "wagyu", name: "👑 プレミアム和牛", emoji: "🥩", price: 400, unlockCost: 800, cat: "高級", unlocked: false },
+  { id: "lobster", name: "👑 オマール海老", emoji: "🦞", price: 600, unlockCost: 1200, cat: "高級", unlocked: false },
+  { id: "truffle", name: "👑 黒トリュフ", emoji: "🍄", price: 700, unlockCost: 1500, cat: "高級", unlocked: false },
+  { id: "caviar", name: "👑 キャビア", emoji: "🖤", price: 650, unlockCost: 1400, cat: "高級", unlocked: false },
+  { id: "abalone", name: "👑 活アワビ", emoji: "🐚", price: 550, unlockCost: 1100, cat: "高級", unlocked: false },
+  { id: "seaurchin", name: "👑 生うに", emoji: "🟠", price: 600, unlockCost: 1300, cat: "高級", unlocked: false },
+  { id: "kingcrab", name: "👑 タラバガニ", emoji: "🦀", price: 580, unlockCost: 1250, cat: "高級", unlocked: false },
+  { id: "scallop", name: "👑 大粒ホタテ", emoji: "🐚", price: 420, unlockCost: 900, cat: "高級", unlocked: false },
+  { id: "prawns", name: "👑 特大エビ", emoji: "🦐", price: 450, unlockCost: 950, cat: "高級", unlocked: false },
+  { id: "duck", name: "👑 合鴨ロース", emoji: "🍖", price: 380, unlockCost: 850, cat: "高級", unlocked: false },
+  { id: "porkbelly", name: "👑 黒豚角煮", emoji: "🥓", price: 400, unlockCost: 900, cat: "高級", unlocked: false },
+  { id: "foiegras", name: "👑 フォアグラ団子", emoji: "🍡", price: 720, unlockCost: 1600, cat: "高級", unlocked: false },
+  { id: "goldenegg", name: "👑 金箔うずら卵", emoji: "🥚", price: 300, unlockCost: 700, cat: "高級", unlocked: false },
+  { id: "cheese", name: "👑 熟成チーズボール", emoji: "🧀", price: 350, unlockCost: 750, cat: "高級", unlocked: false },
+  { id: "lotus", name: "👑 蓮根はさみ揚げ", emoji: "🥢", price: 280, unlockCost: 650, cat: "高級", unlocked: false },
+  { id: "matsutake", name: "👑 松茸", emoji: "🍄", price: 750, unlockCost: 1700, cat: "高級", unlocked: false },
+  { id: "birdnest", name: "👑 燕の巣風ゼリー", emoji: "🍮", price: 680, unlockCost: 1500, cat: "高級", unlocked: false },
+  { id: "fishmaw", name: "👑 魚の浮き袋", emoji: "🐟", price: 620, unlockCost: 1350, cat: "高級", unlocked: false },
+  { id: "premiumtofu", name: "👑 職人の湯葉", emoji: "🥢", price: 320, unlockCost: 700, cat: "高級", unlocked: false }
 ];
 
 var badgeList=[
@@ -594,7 +610,51 @@ var badgeList=[
   { id: "meat", icon: "🥩", title: "肉食系シェフ", desc: "肉・魚介を4つ以上入れて調理した", unlocked: false },
   { id: "gorgeous", icon: "👑", title: "ゴージャス王", desc: "高級具材を入れて調理した", unlocked: false },
   { id: "rich", icon: "💰", title: "大富豪", desc: "所持金が2000円以上になった", unlocked: false },
-  { id: "master", icon: "🧹", title: "ベテラン店員", desc: "バイトでパーフェクトを達成した", unlocked: false }
+  { id: "master", icon: "🧹", title: "ベテラン店員", desc: "バイトでパーフェクトを達成した", unlocked: false },
+  { id: "first", icon: "🍜", title: "はじめての一杯", desc: "麻辣湯を1回完成させた", unlocked: false },
+  { id: "two", icon: "🥢", title: "二杯目もどうぞ", desc: "麻辣湯を2回完成させた", unlocked: false },
+  { id: "three", icon: "🍲", title: "三杯目の常連", desc: "麻辣湯を3回完成させた", unlocked: false },
+  { id: "five", icon: "⭐", title: "常連さん", desc: "麻辣湯を5回完成させた", unlocked: false },
+  { id: "ten", icon: "🏅", title: "麻辣湯マニア", desc: "麻辣湯を10回完成させた", unlocked: false },
+  { id: "twenty", icon: "👑", title: "麻辣湯の虜", desc: "麻辣湯を20回完成させた", unlocked: false },
+  { id: "fifty", icon: "💎", title: "伝説の店主", desc: "麻辣湯を50回完成させた", unlocked: false },
+  { id: "oneIng", icon: "🥬", title: "シンプル派", desc: "具材を1種類で完成させた", unlocked: false },
+  { id: "fiveIng", icon: "🧺", title: "具だくさん", desc: "具材を5種類以上入れた", unlocked: false },
+  { id: "eightIng", icon: "🥘", title: "山盛りトッピング", desc: "具材を8種類以上入れた", unlocked: false },
+  { id: "tenIng", icon: "🎊", title: "具材の大洪水", desc: "具材を10種類以上入れた", unlocked: false },
+  { id: "twoNoodles", icon: "🍝", title: "麺の二刀流", desc: "麺を2種類以上選んだ", unlocked: false },
+  { id: "threeNoodles", icon: "🍜", title: "麺フェス", desc: "麺を3種類以上選んだ", unlocked: false },
+  { id: "noNoodles", icon: "🚫", title: "麺なし主義", desc: "麺なしで完成させた", unlocked: false },
+  { id: "mala", icon: "🌶️", title: "麻辣派", desc: "麻辣スープを選んだ", unlocked: false },
+  { id: "white", icon: "🥛", title: "白湯の癒やし", desc: "白湯スープを選んだ", unlocked: false },
+  { id: "tomato", icon: "🍅", title: "トマト好き", desc: "トマトスープを選んだ", unlocked: false },
+  { id: "sour", icon: "🥬", title: "酸味マニア", desc: "酸菜スープを選んだ", unlocked: false },
+  { id: "curry", icon: "🍛", title: "スパイス研究家", desc: "カレースープを選んだ", unlocked: false },
+  { id: "japan", icon: "🍲", title: "和風の心", desc: "和風スープを選んだ", unlocked: false },
+  { id: "mushroom", icon: "🍄", title: "きのこ好き", desc: "きのこを3種類以上入れた", unlocked: false },
+  { id: "seafood", icon: "🦐", title: "海の幸", desc: "肉・魚介を3種類以上入れた", unlocked: false },
+  { id: "veggie3", icon: "🥦", title: "野菜コレクター", desc: "野菜を3種類以上入れた", unlocked: false },
+  { id: "tofu", icon: "⬜", title: "豆腐職人", desc: "豆腐か湯葉を入れた", unlocked: false },
+  { id: "egg", icon: "🥚", title: "たまご好き", desc: "うずらの卵を入れた", unlocked: false },
+  { id: "shrimp", icon: "🦐", title: "エビ好き", desc: "えびを入れた", unlocked: false },
+  { id: "beef", icon: "🥩", title: "お肉大好き", desc: "牛肉を入れた", unlocked: false },
+  { id: "expensive", icon: "💸", title: "贅沢ランチ", desc: "料理の合計金額が1500円以上", unlocked: false },
+  { id: "budget", icon: "🪙", title: "節約上手", desc: "料理の合計金額が500円以下", unlocked: false },
+  { id: "noShop", icon: "🍃", title: "庶民派シェフ", desc: "高級具材なしで完成させた", unlocked: false },
+  { id: "threeShop", icon: "👑", title: "高級づくし", desc: "高級具材を3種類以上入れた", unlocked: false },
+  { id: "fiveShop", icon: "💎", title: "VIPの一杯", desc: "高級具材を5種類以上入れた", unlocked: false },
+  { id: "spiceZero", icon: "🧊", title: "辛さゼロ", desc: "0辛を選んだ", unlocked: false },
+  { id: "spiceOne", icon: "🌶️", title: "ピリ辛デビュー", desc: "1辛を選んだ", unlocked: false },
+  { id: "spiceThree", icon: "🔥", title: "刺激を求めて", desc: "3辛を選んだ", unlocked: false },
+  { id: "spiceFour", icon: "🌋", title: "激辛目前", desc: "4辛を選んだ", unlocked: false },
+  { id: "double", icon: "✌️", title: "ダブルトッピング", desc: "具材を2種類入れた", unlocked: false },
+  { id: "cash500", icon: "💰", title: "小金持ち", desc: "所持金が500円以上になった", unlocked: false },
+  { id: "cash1000", icon: "💴", title: "千円プレイヤー", desc: "所持金が1000円以上になった", unlocked: false },
+  { id: "cash5000", icon: "🏦", title: "資産家", desc: "所持金が5000円以上になった", unlocked: false },
+  { id: "shopCollector", icon: "🛍️", title: "高級店コレクター", desc: "高級具材を1種類アンロックした", unlocked: false },
+  { id: "shopFive", icon: "🎁", title: "買い物上手", desc: "高級具材を5種類アンロックした", unlocked: false },
+  { id: "shopTen", icon: "🛒", title: "ショップ常連", desc: "高級具材を10種類アンロックした", unlocked: false },
+  { id: "shopTwenty", icon: "🏆", title: "高級品コンプリート", desc: "高級具材を20種類アンロックした", unlocked: false }
 ];
 
 var noodles=[["春雨","noodle",100],["太い春雨","noodle",120],["中華麺","🍜",130],["刀削麺","🍜",150],["米粉麺","🍝",130],["さつまいも春雨","noodle",120],["インスタント麺","🍜",120],["なし","❌",0]];
@@ -983,6 +1043,11 @@ function showFinish(){
   renderLiveBowl();
 }
 
+function getShareSiteUrl(){
+  // GitHub Pagesなど、公開中のゲームURLを自動で取得する
+  return window.location.href.split(/[?#]/)[0];
+}
+
 function copyShareText(){
   var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
            + "--------------------------\n"
@@ -993,7 +1058,8 @@ function copyShareText(){
            + "--------------------------\n"
            + "【評価】" + currentFinishData.starsText + "\n"
            + "【ひとこと】" + currentFinishData.commentText + "\n\n"
-           + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+           + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n"
+           + "遊んでみてね！ " + getShareSiteUrl();
 
   if(navigator.clipboard){
     navigator.clipboard.writeText(text).then(function(){
@@ -1016,7 +1082,8 @@ function shareViaWebAPI(){
       var shareText = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
                     + "スープ: " + currentFinishData.soupText + " / 麺: " + currentFinishData.noodleText + "\n"
                     + "評価: " + currentFinishData.starsText + "\n"
-                    + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+                    + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n"
+                    + "遊んでみてね！ " + getShareSiteUrl();
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
@@ -1063,16 +1130,29 @@ function fallbackDownload(canvas){
   note.innerText = "✨ 画像として保存しました！";
 }
 
-// X（Twitter）共有
+// X（Twitter）共有：本文を短めにして、公開中のサイトURLはリンク欄へ分けて追加
 function shareToTwitter(){
-  var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
-           + "【スープ】" + currentFinishData.soupText + "\n"
-           + "【 麺 】" + currentFinishData.noodleText + "\n"
-           + "【具 材】" + currentFinishData.ingText + "\n"
-           + "【評価】" + currentFinishData.starsText + "\n"
-           + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n";
-  var url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text);
-  window.open(url, '_blank');
+  function shortField(value, maxChars){
+    value = String(value || "");
+    return Array.from(value).length > maxChars ? Array.from(value).slice(0, maxChars).join("") + "…" : value;
+  }
+  function shortList(value, maxItems){
+    if (!value || value === "なし") return value || "なし";
+    var parts = value.split(/,\s*/);
+    var shown = parts.slice(0, maxItems);
+    if (parts.length > maxItems) shown.push("ほか" + (parts.length - maxItems) + "種");
+    return shown.join("・");
+  }
+  var text = "🍜 わたしだけの麻辣湯！\n"
+           + "スープ：" + shortField(currentFinishData.soupText, 16) + "\n"
+           + "麺：" + shortList(currentFinishData.noodleText, 2) + "\n"
+           + "具材：" + shortList(currentFinishData.ingText, 3) + "\n"
+           + "評価：" + shortField(currentFinishData.starsText, 8) + "\n"
+           + "#わたしだけの麻辣湯";
+  var siteUrl = getShareSiteUrl();
+  var url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text)
+          + "&url=" + encodeURIComponent(siteUrl);
+  window.open(url, '_blank', 'noopener');
 }
 
 /* ミニゲーム関連 */
@@ -1409,32 +1489,22 @@ function renderLiveBowl() {
       var strokeColor = isHarusame ? "rgba(255, 255, 255, 0.82)" : "rgba(255, 240, 190, 0.9)";
       var strokeWidth = isHarusame ? "5.5" : "8.5";
 
-      // 麺をさらに約10cmぶん長く見えるように、丼の中を何度もくねる長い線にする
+      // 一本の麺が丼の中を何周もするくらい、かなり長くうねるようにする
       for (var i = 0; i < 30; i++) {
         var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-
-        var x1 = 8 + Math.random() * 184;
-        var y1 = 8 + Math.random() * 184;
-        var x2 = 8 + Math.random() * 184;
-        var y2 = 8 + Math.random() * 184;
-        var cx1 = 5 + Math.random() * 190;
-        var cy1 = 5 + Math.random() * 190;
-        var cx2 = 5 + Math.random() * 190;
-        var cy2 = 5 + Math.random() * 190;
-        var mx = 5 + Math.random() * 190;
-        var my = 5 + Math.random() * 190;
-        var cx3 = 5 + Math.random() * 190;
-        var cy3 = 5 + Math.random() * 190;
-        var cx4 = 5 + Math.random() * 190;
-        var cy4 = 5 + Math.random() * 190;
-        var ex = 5 + Math.random() * 190;
-        var ey = 5 + Math.random() * 190;
-
-        // 3つの大きなカーブをつなぎ、一本ずつの麺を長く見せる
-        var d = "M " + x1 + " " + y1
-          + " C " + cx1 + " " + cy1 + ", " + cx2 + " " + cy2 + ", " + mx + " " + my
-          + " S " + cx3 + " " + cy3 + ", " + x2 + " " + y2
-          + " S " + cx4 + " " + cy4 + ", " + ex + " " + ey;
+        var x = 12 + Math.random() * 176;
+        var y = 12 + Math.random() * 176;
+        var d = "M " + x + " " + y;
+        // 7つの連続した大きなカーブで、麺を一本につながった長い線として描く
+        for (var segment = 0; segment < 7; segment++) {
+          var cx1 = 10 + Math.random() * 180;
+          var cy1 = 10 + Math.random() * 180;
+          var cx2 = 10 + Math.random() * 180;
+          var cy2 = 10 + Math.random() * 180;
+          var ex = 10 + Math.random() * 180;
+          var ey = 10 + Math.random() * 180;
+          d += " C " + cx1 + " " + cy1 + ", " + cx2 + " " + cy2 + ", " + ex + " " + ey;
+        }
 
         path.setAttribute("d", d);
         path.setAttribute("fill", "none");
@@ -1466,8 +1536,9 @@ function renderLiveBowl() {
     span.className = "live-topping";
     span.textContent = emojiStr;
 
-    var angle = (idx / totalItems) * Math.PI * 2 + (Math.random() * 0.8);
-    var radius = 22 + Math.random() * 40;
+    // 具材は毎回ランダム配置。ただし大きく外へ飛び出さないよう丼の内側に寄せる
+    var angle = (idx / totalItems) * Math.PI * 2 + (Math.random() * 0.9 - 0.45);
+    var radius = 10 + Math.random() * 22; // 中心から最大32%までに制限
 
     var x = 50 + radius * Math.cos(angle);
     var y = 50 + radius * Math.sin(angle);
@@ -1652,6 +1723,33 @@ function renderLiveBowl() {
   var originalShowFinish = showFinish;
   showFinish = function () {
     originalShowFinish();
+
+    // 追加称号：料理内容や累計レシピ数に応じて獲得
+    var selectedNames = selIng.map(function (idStr) {
+      if (idStr.indexOf("norm_") === 0) { var ix = parseInt(idStr.replace("norm_", ""), 10); return ingredients[ix] ? ingredients[ix][0] : ""; }
+      var sx = parseInt(idStr.replace("shop_", ""), 10); return shopItems[sx] ? shopItems[sx].name : "";
+    });
+    var selectedShopCount = selIng.filter(function (idStr) { return idStr.indexOf("shop_") === 0; }).length;
+    var vegCountExtra = selIng.filter(function (idStr) { return idStr.indexOf("norm_") === 0 && ingredients[parseInt(idStr.replace("norm_", ""), 10)] && ingredients[parseInt(idStr.replace("norm_", ""), 10)][3] === "野菜"; }).length;
+    var meatCountExtra = selIng.filter(function (idStr) { return idStr.indexOf("norm_") === 0 && ingredients[parseInt(idStr.replace("norm_", ""), 10)] && ingredients[parseInt(idStr.replace("norm_", ""), 10)][3] === "肉・魚介"; }).length;
+    var mushroomCountExtra = selIng.filter(function (idStr) { return idStr.indexOf("norm_") === 0 && ingredients[parseInt(idStr.replace("norm_", ""), 10)] && ingredients[parseInt(idStr.replace("norm_", ""), 10)][3] === "きのこ"; }).length;
+    var spiceExtra = (document.getElementById("spice") || {}).value || "2辛";
+    var recipeCountExtra = extraData.recipes.length + 1;
+    var shopUnlockedCount = shopItems.filter(function (item) { return item.unlocked; }).length;
+    var extraConditions = {
+      first: recipeCountExtra >= 1, two: recipeCountExtra >= 2, three: recipeCountExtra >= 3, five: recipeCountExtra >= 5, ten: recipeCountExtra >= 10, twenty: recipeCountExtra >= 20, fifty: recipeCountExtra >= 50,
+      oneIng: selIng.length === 1, fiveIng: selIng.length >= 5, eightIng: selIng.length >= 8, tenIng: selIng.length >= 10,
+      twoNoodles: selNod.length >= 2, threeNoodles: selNod.length >= 3, noNoodles: selNod.length === 0,
+      mala: selSoup === 0, white: selSoup === 1, tomato: selSoup === 2, sour: selSoup === 3, curry: selSoup === 4, japan: selSoup === 5,
+      mushroom: mushroomCountExtra >= 3, seafood: meatCountExtra >= 3, veggie3: vegCountExtra >= 3,
+      tofu: selectedNames.some(function(n){return n === "豆腐" || n === "湯葉";}), egg: selectedNames.indexOf("うずらの卵") !== -1, shrimp: selectedNames.indexOf("えび") !== -1, beef: selectedNames.indexOf("牛肉") !== -1, mushroomOne: mushroomCountExtra >= 1,
+      expensive: currentCost >= 1500, budget: currentCost <= 500, noShop: selectedShopCount === 0, threeShop: selectedShopCount >= 3, fiveShop: selectedShopCount >= 5, allSoup: !!soups[selSoup],
+      spiceZero: spiceExtra.indexOf("0辛") !== -1, spiceOne: spiceExtra.indexOf("1辛") !== -1, spiceThree: spiceExtra.indexOf("3辛") !== -1, spiceFour: spiceExtra.indexOf("4辛") !== -1,
+      double: selIng.length === 2, perfectMix: selIng.length >= 4, noodleFan: selNod.length >= 1,
+      cash500: myMoney >= 500, cash1000: myMoney >= 1000, cash5000: myMoney >= 5000,
+      shopCollector: shopUnlockedCount >= 1, shopFive: shopUnlockedCount >= 5, shopTen: shopUnlockedCount >= 10, shopTwenty: shopUnlockedCount >= 20
+    };
+    Object.keys(extraConditions).forEach(function (id) { if (extraConditions[id]) checkBadge(id, true); });
 
     var ingredientNames = [];
     selIng.forEach(function (idStr) {
