@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>♡ わたしだけの麻辣湯 ♡ Ultimate</title>
+<title>♡ わたしだけの麻辣湯 ♡</title>
 <style>
 *{box-sizing:border-box}
 :root{
@@ -24,23 +24,14 @@ body{
   color: var(--dark);
   font-family: system-ui, 'Hiragino Maru Gothic ProN', Meiryo, sans-serif;
   letter-spacing: 0.3px;
-  overflow-x: hidden;
 }
 
 button, select{font: inherit; cursor: pointer}
 
-/* パーティクル用キャンバス */
-#confettiCanvas{
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-}
-
 /* ヘッダー＆ゆめかわ所持金バッジ */
 header{
   text-align: center;
-  padding: 16px;
+  padding: 12px;
   background: #ffffff;
   border-bottom: 3px dashed var(--light-pink);
   position: relative;
@@ -48,13 +39,13 @@ header{
 }
 header h1{
   margin: 0;
-  font-size: clamp(21px, 5vw, 29px);
+  font-size: clamp(20px, 4.5vw, 26px);
   color: #ff4d80;
   text-shadow: 1px 1px 0px #ffe5ec;
 }
 header p{
   font-size: 11px;
-  margin: 4px 0 0;
+  margin: 2px 0 0;
   color: #9b7180;
 }
 .money-container{
@@ -64,43 +55,42 @@ header p{
   background: linear-gradient(135deg, #fffbeb, #fef3c7);
   border: 2px solid #f59e0b;
   color: #b45309;
-  padding: 6px 16px;
+  padding: 4px 14px;
   border-radius: 25px;
   font-weight: bold;
-  font-size: 13px;
-  margin-top: 8px;
+  font-size: 12px;
+  margin-top: 6px;
   box-shadow: 0 3px 8px rgba(245, 158, 11, 0.2);
 }
 
-main{max-width: 1000px; margin: auto; padding: 14px}
+main{max-width: 900px; margin: auto; padding: 10px}
 .screen{display: none}
 .screen.active{display: block}
 
 .panel{
   background: #ffffff;
   border: 2px solid var(--line);
-  border-radius: 24px;
-  padding: 18px;
-  margin-bottom: 14px;
+  border-radius: 20px;
+  padding: 14px;
+  margin-bottom: 10px;
   box-shadow: 0 8px 25px rgba(255, 143, 171, 0.1);
-  position: relative;
 }
 
-.title{font-size: 22px; margin: 0 0 6px; color: #ff4d80; font-weight: 800;}
-.sub{font-size: 13px; color: #916879; margin: 0 0 16px}
+.title{font-size: 20px; margin: 0 0 4px; color: #ff4d80; font-weight: 800;}
+.sub{font-size: 12px; color: #916879; margin: 0 0 10px}
 
 /* ボタンのゆめかわデザイン */
 .btn{
   border: 0;
   background: linear-gradient(135deg, #ff8fab, #ff6b95);
   color: white;
-  padding: 13px 24px;
+  padding: 11px 20px;
   border-radius: 30px;
   font-weight: 800;
   box-shadow: 0 5px 15px rgba(255, 107, 149, 0.35);
   transition: transform 0.1s;
 }
-.btn:active{ transform: scale(0.95); }
+.btn:active{ transform: scale(0.96); }
 
 .gold-btn{
   background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
@@ -118,48 +108,48 @@ main{max-width: 1000px; margin: auto; padding: 14px}
   border: 2px solid var(--light-pink) !important;
   box-shadow: none !important;
 }
-.btnrow{display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 18px}
+.btnrow{display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px}
 
 /* スタート画面・ヒーロー */
 .hero{
   text-align: center;
-  padding: 20px 10px;
+  padding: 15px 10px;
   background: linear-gradient(140deg, #fff0f3, #fae8ff);
-  border-radius: 24px;
+  border-radius: 20px;
   border: 3px dashed var(--light-pink);
 }
-.hero-img{width: 100%; max-width: 420px; border-radius: 18px; display: block; margin: 0 auto 15px; box-shadow: 0 6px 20px rgba(0,0,0,0.12)}
+.hero-img{width: 100%; max-width: 380px; border-radius: 16px; display: block; margin: 0 auto 10px; box-shadow: 0 6px 20px rgba(0,0,0,0.12)}
 .hero-fallback{
   background: linear-gradient(135deg, #ff8fab, #c084fc);
   color: white;
-  padding: 35px 20px;
-  border-radius: 20px;
-  margin-bottom: 15px;
+  padding: 25px 15px;
+  border-radius: 16px;
+  margin-bottom: 10px;
   box-shadow: 0 6px 20px rgba(192, 132, 252, 0.3);
 }
-.hero-fallback h2{margin: 5px 0; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.15)}
-.hero-fallback p{margin: 0; font-size: 13px; opacity: 0.95}
+.hero-fallback h2{margin: 5px 0; font-size: 22px; text-shadow: 0 2px 4px rgba(0,0,0,0.15)}
+.hero-fallback p{margin: 0; font-size: 12px; opacity: 0.95}
 
 /* ステップインジケーター */
-.steps{display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 12px 0 16px}
-.step{font-size: 11px; border-radius: 20px; padding: 7px 12px; background: #fce7f0; color: #9b7180; font-weight: bold;}
+.steps{display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin: 8px 0 12px}
+.step{font-size: 10px; border-radius: 20px; padding: 5px 10px; background: #fce7f0; color: #9b7180; font-weight: bold;}
 .step.on{background: linear-gradient(135deg, #ff8fab, #ff6b95); color: white; box-shadow: 0 3px 10px rgba(255,107,149,0.3)}
 
 /* カテゴリタブ */
-.categories{display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px}
-.cat{white-space: nowrap; border: 2px solid var(--line); background: #ffffff; border-radius: 20px; padding: 8px 14px; color: var(--dark); font-weight: bold; font-size: 12px;}
+.categories{display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 8px}
+.cat{white-space: nowrap; border: 2px solid var(--line); background: #ffffff; border-radius: 20px; padding: 6px 12px; color: var(--dark); font-weight: bold; font-size: 11px;}
 .cat.active{background: linear-gradient(135deg, #ff8fab, #ff6b95); color: white; border-color: transparent;}
 
 /* グリッド・タイル */
-.grid{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px}
+.grid{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px}
 @media(min-width: 600px){.grid{grid-template-columns: repeat(5, minmax(0, 1fr))}}
 
 .tile{
   position: relative;
   border: 2px solid #fbcfe8;
   background: #ffffff;
-  border-radius: 16px;
-  padding: 10px 4px;
+  border-radius: 14px;
+  padding: 8px 4px;
   color: var(--dark);
   min-width: 0;
   text-align: center;
@@ -168,128 +158,91 @@ main{max-width: 1000px; margin: auto; padding: 14px}
 }
 .tile:active{transform: scale(0.97)}
 .tile.selected{border-color: #ff4d80; background: #fff1f5; box-shadow: 0 3px 12px rgba(255, 77, 128, 0.25);}
-.emoji{font-size: 34px; display: block; line-height: 1.3}
-.name{font-size: 12px; font-weight: 800; display: block; margin-top: 3px;}
-.tile small{font-size: 11px; color: #db2777; font-weight: bold;}
+.emoji{font-size: 30px; display: block; line-height: 1.2}
+.name{font-size: 11px; font-weight: 800; display: block; margin-top: 2px;}
+.tile small{font-size: 10px; color: #db2777; font-weight: bold;}
 .check{
-  position: absolute; top: 5px; right: 6px;
+  position: absolute; top: 4px; right: 4px;
   background: #ff4d80; color: white; border-radius: 50%;
-  font-size: 11px; width: 20px; height: 20px;
+  font-size: 10px; width: 18px; height: 18px;
   display: grid; place-items: center; font-weight: bold;
 }
 
-.stripe{width: 52px; height: 37px; border-radius: 12px; margin: 1px auto 5px; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 7px,#f28b49 7px 14px)}
-.noodle{width: 47px; height: 34px; border: 4px solid #e9cfa2; border-radius: 50%; margin: 3px auto 6px; background: repeating-linear-gradient(0deg,#fff3d8 0 3px,#e3ba75 4px 5px)}
+.stripe{width: 44px; height: 32px; border-radius: 10px; margin: 1px auto 4px; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 6px,#f28b49 6px 12px)}
+.noodle{width: 40px; height: 30px; border: 3px solid #e9cfa2; border-radius: 50%; margin: 2px auto 4px; background: repeating-linear-gradient(0deg,#fff3d8 0 3px,#e3ba75 3px 4px)}
 
 /* スープ選択 */
-.soups{display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px}
+.soups{display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px}
 @media(min-width: 600px){.soups{grid-template-columns: repeat(3, minmax(0, 1fr))}}
 
 .soup{
   border: 2px solid #fbcfe8;
   background: white;
-  border-radius: 18px;
-  padding: 14px 6px;
+  border-radius: 16px;
+  padding: 10px 4px;
   color: var(--dark);
   text-align: center;
   box-shadow: 0 3px 10px rgba(255, 182, 193, 0.15);
 }
 .soup.selected{border-color: #ff4d80; background: #fff1f5; box-shadow: 0 3px 12px rgba(255, 77, 128, 0.25);}
-.soup .emoji{font-size: 42px}
-.soup b{display: block; font-size: 14px; margin-top: 4px; color: #ff4d80;}
-.soup small{font-size: 11px; color: #7f557d}
+.soup .emoji{font-size: 36px}
+.soup b{display: block; font-size: 13px; margin-top: 2px; color: #ff4d80;}
+.soup small{font-size: 10px; color: #7f557d}
 
-.basket{display: grid; grid-template-columns: 1fr; gap: 12px}
+.basket{display: grid; grid-template-columns: 1fr; gap: 10px}
 @media(min-width: 650px){.basket{grid-template-columns: 1fr 1fr}}
 
-.bowl-preview{
-  font-size: 85px; text-align: center; padding: 15px; border-radius: 20px;
-  border: 3px dashed #ffb3c6; position: relative; overflow: hidden;
-  transition: background 0.3s;
-}
-.total{text-align: center; background: #fff1f5; padding: 14px; border-radius: 16px; font-size: 22px; font-weight: 850; color: #ff4d80; border: 2px dashed #fbcfe8;}
+.bowl{font-size: 80px; text-align: center; padding: 10px; background: linear-gradient(135deg, #fff7ed, #ffedd5); border-radius: 16px; border: 2px dashed #fed7aa;}
+.total{text-align: center; background: #fff1f5; padding: 10px; border-radius: 14px; font-size: 18px; font-weight: 850; color: #ff4d80; border: 2px dashed #fbcfe8;}
 
-/* 調理画面＆ぐつぐつ・ハート湯気アニメ */
-.cook{text-align: center; padding: 25px 10px; position: relative;}
-.pot-wrap{position: relative; display: inline-block; margin: 10px 0;}
-.pot{font-size: 100px; animation: bob 0.8s infinite alternate ease-in-out;}
-@keyframes bob{to{transform: translateY(-12px) rotate(4deg)}}
+.cook{text-align: center; padding: 20px 10px}
+.pot{font-size: 80px; animation: bob 1s infinite alternate}
+@keyframes bob{to{transform: translateY(-8px) rotate(4deg)}}
 
-.steam{
-  position: absolute; font-size: 24px; opacity: 0;
-  animation: steamUp 1.8s infinite ease-out;
-}
-.s1{top: -20px; left: 20%; animation-delay: 0s;}
-.s2{top: -30px; left: 50%; animation-delay: 0.6s;}
-.s3{top: -20px; left: 70%; animation-delay: 1.2s;}
-@keyframes steamUp{
-  0%{transform: translateY(0) scale(0.6); opacity: 0;}
-  50%{opacity: 0.9;}
-  100%{transform: translateY(-50px) scale(1.3); opacity: 0;}
-}
-
-.bar{height: 16px; border-radius: 20px; background: #fce7f0; overflow: hidden; margin: 15px auto; max-width: 400px; border: 1px solid #fbcfe8;}
+.bar{height: 14px; border-radius: 20px; background: #fce7f0; overflow: hidden; margin: 12px auto; max-width: 350px; border: 1px solid #fbcfe8;}
 .bar div{height: 100%; width: 0; background: linear-gradient(90deg, #ff8fab, #ff4d80); transition: width .3s}
 
-/* 完成画面＆激辛オーラ */
-.finished{background: linear-gradient(140deg, #fff0f3, #fef3c7); text-align: center; padding: 22px; border-radius: 24px; border: 3px solid #fbcfe8; position: relative;}
-.finished.spicy-aura{
-  animation: fireAura 1.5s infinite alternate;
-  border-color: #f43f5e !important;
-}
-@keyframes fireAura{
-  0%{box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);}
-  100%{box-shadow: 0 0 35px rgba(244, 63, 94, 0.8);}
-}
+.finished{background: linear-gradient(140deg, #fff0f3, #fef3c7); text-align: center; padding: 18px; border-radius: 20px; border: 3px solid #fbcfe8;}
+.finish-img{width: 100%; max-width: 320px; border-radius: 16px; display: block; margin: 10px auto; box-shadow: 0 6px 20px rgba(0,0,0,0.15)}
 
-.finish-img{width: 100%; max-width: 380px; border-radius: 20px; display: block; margin: 15px auto; box-shadow: 0 6px 20px rgba(0,0,0,0.15)}
+.rating-box{background: #fff; border: 2px dashed #ff8fab; border-radius: 14px; padding: 10px; margin: 10px 0; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1);}
+.stars{font-size: 22px; color: #fbbf24; margin: 2px 0}
+.comment{font-size: 13px; font-weight: bold; color: var(--dark); margin-top: 4px; line-height: 1.4}
+.note{font-size: 11px; color: #9b7180}
 
-.rating-box{background: #fff; border: 2px dashed #ff8fab; border-radius: 18px; padding: 14px; margin: 14px 0; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1);}
-.stars{font-size: 26px; color: #fbbf24; margin: 4px 0}
-.comment{font-size: 14px; font-weight: bold; color: var(--dark); margin-top: 6px; line-height: 1.6}
-.note{font-size: 12px; color: #9b7180}
+/* ミニゲーム用共通ヘッダー＆タイマー（コンパクト化対応） */
+.game-header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px}
+.timer-badge{background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; box-shadow: 0 3px 10px rgba(244, 63, 94, 0.3);}
+.speech-bubble{background: #ffffff; border: 2px solid #ff8fab; border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; font-size: 13px; line-height: 1.4; box-shadow: 0 4px 15px rgba(255, 143, 171, 0.15);}
+.select-section{margin-bottom: 8px; background: #fff0f3; border: 2px solid #fbcfe8; padding: 8px 10px; border-radius: 12px}
+.select-section h4{margin: 0 0 4px; font-size: 12px; color: #ff4d80}
 
-/* ミニゲーム用共通ヘッダー＆タイマー */
-.game-header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px}
-.timer-badge{background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; padding: 6px 16px; border-radius: 25px; font-weight: bold; font-size: 15px; box-shadow: 0 3px 10px rgba(244, 63, 94, 0.3);}
-.speech-bubble{background: #ffffff; border: 3px solid #ff8fab; border-radius: 20px; padding: 16px; margin-bottom: 15px; font-size: 15px; line-height: 1.6; box-shadow: 0 4px 15px rgba(255, 143, 171, 0.15);}
-.select-section{margin-bottom: 15px; background: #fff0f3; border: 2px solid #fbcfe8; padding: 12px; border-radius: 16px}
-.select-section h4{margin: 0 0 8px; font-size: 14px; color: #ff4d80}
-
-.spice-grid{display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px}
-.spice-btn{border: 2px solid #fbcfe8; background: white; padding: 10px 2px; border-radius: 12px; font-weight: bold; font-size: 12px; color: var(--dark);}
+.spice-grid{display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px}
+.spice-btn{border: 2px solid #fbcfe8; background: white; padding: 6px 2px; border-radius: 10px; font-weight: bold; font-size: 11px; color: var(--dark);}
 .spice-btn.selected{background: #ff8fab; color: white; border-color: #ff4d80; box-shadow: 0 3px 8px rgba(255, 143, 171, 0.4);}
 
 /* 配膳ゲーム */
-.seat-grid{display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px}
-.seat-card{background: #ffffff; border: 2px solid #fbcfe8; border-radius: 18px; padding: 16px; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1)}
+.seat-grid{display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px}
+.seat-card{background: #ffffff; border: 2px solid #fbcfe8; border-radius: 14px; padding: 12px 8px; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1)}
 
-/* ショップ＆称号＆丼着せ替え */
-.shop-item{display: flex; align-items: center; justify-content: space-between; background: #fff; border: 2px solid #fbcfe8; border-radius: 16px; padding: 12px 16px; margin-bottom: 10px;}
+/* ショップ＆称号リスト */
+.shop-item{display: flex; align-items: center; justify-content: space-between; background: #fff; border: 2px solid #fbcfe8; border-radius: 14px; padding: 10px 14px; margin-bottom: 8px;}
 .shop-item-info{text-align: left;}
-.shop-item-info b{font-size: 15px; display: block; color: #ff4d80;}
-.shop-item-info small{font-size: 12px; color: #7f557d;}
+.shop-item-info b{font-size: 14px; display: block; color: #ff4d80;}
+.shop-item-info small{font-size: 11px; color: #7f557d;}
 
-.badge-grid{display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;}
+.badge-grid{display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;}
 @media(min-width: 600px){.badge-grid{grid-template-columns: repeat(3, 1fr);}}
-.badge-card{background: #fff; border: 2px solid #fbcfe8; border-radius: 16px; padding: 12px; text-align: center; opacity: 0.5;}
+.badge-card{background: #fff; border: 2px solid #fbcfe8; border-radius: 14px; padding: 10px; text-align: center; opacity: 0.5;}
 .badge-card.unlocked{opacity: 1; border-color: #f59e0b; background: #fffbeb;}
-.badge-icon{font-size: 32px; display: block; margin-bottom: 4px;}
-.badge-title{font-size: 13px; font-weight: bold; display: block; color: var(--dark);}
+.badge-icon{font-size: 28px; display: block; margin-bottom: 2px;}
+.badge-title{font-size: 12px; font-weight: bold; display: block; color: var(--dark);}
 .badge-desc{font-size: 10px; color: #888;}
 
-/* ガチャ演出 */
-.gacha-box{text-align: center; padding: 20px;}
-.gacha-machine{font-size: 100px; display: block; margin: 10px auto; animation: shake 0.5s infinite alternate; display: none;}
-@keyframes shake{0%{transform: rotate(-5deg);} 100%{transform: rotate(5deg);}}
-
-footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
+footer{text-align: center; font-size: 11px; color: #b08998; padding: 15px}
 </style>
 </head>
 <body>
-
-<canvas id="confettiCanvas"></canvas>
-
 <header>
 <h1>♡ わたしだけの麻辣湯 ♡</h1>
 <p>好きな具材を選んで、あなただけの一杯を作ろう！</p>
@@ -315,51 +268,22 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <p>好きな具材を選んで、あなただけのオリジナルを作ろう！</p>
 </div>
 
-<div class="btnrow" style="margin-top:5px">
-<button class="btn" id="startBtn" style="font-size:17px;padding:14px 28px;">麻辣湯をつくる ❯</button>
-<button class="btn gold-btn" id="workBtn" style="font-size:15px;padding:14px 20px;">💰 お小遣いを稼ぐ</button>
+<div class="btnrow" style="margin-top:4px">
+<button class="btn" id="startBtn" style="font-size:16px;padding:12px 24px;">麻辣湯をつくる ❯</button>
+<button class="btn gold-btn" id="workBtn" style="font-size:14px;padding:12px 18px;">💰 お小遣いを稼ぐ</button>
 </div>
-<div class="btnrow" style="margin-top:8px">
-<button class="btn purple-btn" id="gachaMenuBtn" style="font-size:14px;padding:10px 18px;">🎰 ガチャ (200円)</button>
-<button class="btn purple-btn" id="shopMenuBtn" style="font-size:14px;padding:10px 18px;">🛍️ ショップ</button>
-<button class="btn secondary" id="badgeMenuBtn" style="font-size:14px;padding:10px 18px;">🏅 称号・図鑑</button>
-</div>
-</div>
-</section>
-
-<!-- ガチャ画面 -->
-<section class="screen" id="gacha">
-<div class="panel gacha-box">
-<h2 class="title">🎰 まいにち麻辣湯ガチャ</h2>
-<p class="sub">1回200円！限定トッピングやレア丼が当たるよ！</p>
-<div id="gachaIdle">
-<div style="font-size:90px;margin:10px 0;">🎰</div>
-<button class="btn gold-btn" style="font-size:18px;padding:14px 30px;" onclick="playGacha()">ガチャを回す！(200円)</button>
-</div>
-<div id="gachaAnim" style="display:none;">
-<div class="gacha-machine" style="display:block;">🔮</div>
-<p style="font-weight:bold;font-size:18px;color:#ff4d80;">なにが出るかな…？✨</p>
-</div>
-<div id="gachaResult" style="display:none;margin-top:15px;">
-<div id="gachaResultIcon" style="font-size:80px;"></div>
-<h3 id="gachaResultName" style="color:#ff4d80;margin:5px 0;"></h3>
-<p id="gachaResultDesc" style="font-size:13px;color:#7f557d;"></p>
-<button class="btn secondary" onclick="resetGachaUI()">もう一度回す</button>
-</div>
-<div class="btnrow" style="margin-top:20px;">
-<button class="btn secondary" onclick="go('start')">← スタート画面に戻る</button>
+<div class="btnrow" style="margin-top:6px">
+<button class="btn purple-btn" id="shopMenuBtn" style="font-size:13px;padding:9px 18px;">🛍️ 高級トッピングショップ</button>
+<button class="btn secondary" id="badgeMenuBtn" style="font-size:13px;padding:9px 18px;">🏅 称号・図鑑</button>
 </div>
 </div>
 </section>
 
-<!-- ショップ画面（具材＋丼着せ替え） -->
+<!-- ショップ画面 -->
 <section class="screen" id="shop">
 <div class="panel">
-<h2 class="title">🛍️ 高級トッピング＆丼ショップ</h2>
-<p class="sub">お小遣いで具材やどんぶりのデザインを解放しよう！</p>
-<h3>🥣 どんぶり着せ替え</h3>
-<div id="bowlShopList" style="margin-bottom:20px;"></div>
-<h3>👑 高級具材アンロック</h3>
+<h2 class="title">🛍️ 高級トッピングショップ</h2>
+<p class="sub">お小遣いを使って隠し高級具材をアンロックしよう！</p>
 <div id="shopItemList"></div>
 <div class="btnrow">
 <button class="btn secondary" onclick="go('start')">← スタート画面に戻る</button>
@@ -383,38 +307,43 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <section class="screen" id="workMenu">
 <div class="panel" style="text-align:center">
 <h2 class="title">🧹 麻辣湯屋さんでお手伝い</h2>
-<p class="sub">お手伝いをしてお小遣いを稼ごう！</p>
-<div style="display:flex;flex-direction:column;gap:12px;max-width:400px;margin:20px auto;">
-<button class="btn gold-btn" id="game1Btn" style="font-size:16px;padding:15px;">📋 オーダー取りゲーム（イベント客登場！）</button>
-<button class="btn gold-btn" id="game2Btn" style="font-size:16px;padding:15px;">🍲 配膳ゲーム（全3問・15秒制限）</button>
+<p class="sub">お手伝いをしてお小遣いを取り返そう！</p>
+<div style="display:flex;flex-direction:column;gap:10px;max-width:380px;margin:15px auto;">
+<button class="btn gold-btn" id="game1Btn" style="font-size:15px;padding:13px;">📋 オーダー取りゲーム（イベント客登場！）</button>
+<button class="btn gold-btn" id="game2Btn" style="font-size:15px;padding:13px;">🍲 配膳ゲーム（全3問・15秒制限）</button>
 <button class="btn secondary" id="backFromWorkBtn">← スタート画面に戻る</button>
 </div>
 </div>
 </section>
 
-<!-- ミニゲーム1：オーダー取り -->
+<!-- ミニゲーム1：オーダー取り（コンパクト化対応） -->
 <section class="screen" id="orderGame">
 <div class="panel">
 <div class="game-header">
-<h2 class="title" style="margin:0" id="orderTitle">📋 オーダー取りゲーム</h2>
+<h2 class="title" style="margin:0;font-size:18px;" id="orderTitle">📋 オーダー取りゲーム</h2>
 <div class="timer-badge">⏳ 残り <span id="orderTimer">15</span> 秒</div>
 </div>
+
 <div class="speech-bubble" id="orderBubble"></div>
+
 <div class="select-section">
 <h4>1. スープを選ぶ</h4>
 <div class="soups" id="g1SoupGrid"></div>
 </div>
+
 <div class="select-section">
 <h4>2. 辛さを選ぶ</h4>
 <div class="spice-grid" id="g1SpiceGrid"></div>
 </div>
+
 <div class="select-section">
 <h4 id="g1IngTitle">3. 具材を選ぶ</h4>
 <div class="grid" id="g1IngGrid"></div>
 </div>
-<div class="btnrow">
-<button class="btn secondary" onclick="exitOrderGame()">やめる</button>
-<button class="btn gold-btn" onclick="submitOrder()">注文を確定する！</button>
+
+<div class="btnrow" style="margin-top:8px;">
+<button class="btn secondary" style="padding:8px 16px;font-size:12px;" onclick="exitOrderGame()">やめる</button>
+<button class="btn gold-btn" style="padding:8px 20px;font-size:13px;" onclick="submitOrder()">注文を確定する！</button>
 </div>
 </div>
 </section>
@@ -427,9 +356,9 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <div class="timer-badge">⏳ 残り <span id="serveTimer">15</span> 秒</div>
 </div>
 <p class="sub">出来上がった麻辣湯を正しく運ぼう！（全3問・制限時間15秒）</p>
-<div class="speech-bubble" id="serveQuestion" style="font-size:17px;font-weight:bold;text-align:center;"></div>
+<div class="speech-bubble" id="serveQuestion" style="font-size:15px;font-weight:bold;text-align:center;"></div>
 <div class="seat-grid" id="seatGrid"></div>
-<div class="btnrow" style="margin-top:20px">
+<div class="btnrow" style="margin-top:15px">
 <button class="btn secondary" onclick="exitServeGame()">やめる</button>
 </div>
 </div>
@@ -441,7 +370,7 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <p class="sub">好きな具材をタップしてカゴに入れてね（制限なし）</p>
 <div class="categories" id="categories"></div>
 <div class="grid" id="ingredientGrid"></div>
-<p class="sub" id="count" style="margin-top:12px;text-align:center;font-weight:bold;"></p>
+<p class="sub" id="count" style="margin-top:10px;text-align:center;font-weight:bold;"></p>
 <div class="btnrow">
 <button class="btn secondary" id="backToStartBtn">戻る</button>
 <button class="btn" id="toNoodlesBtn">麺を選ぶ ❯</button>
@@ -466,9 +395,9 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <h2 class="title">③ スープを選ぼう！</h2>
 <p class="sub">今日の気分にぴったりのスープはどれ？</p>
 <div class="soups" id="soupGrid"></div>
-<div class="panel" style="margin-top:14px">
+<div class="panel" style="margin-top:10px">
 <b>🌶️ 辛さを選ぼう！</b>
-<select id="spice" style="width:100%;padding:12px;margin-top:8px;border-radius:12px;border:2px solid #fbcfe8;background:white">
+<select id="spice" style="width:100%;padding:10px;margin-top:6px;border-radius:10px;border:2px solid #fbcfe8;background:white">
 <option>0辛（辛くない）</option><option>1辛</option><option selected>2辛</option><option>3辛</option><option>4辛</option><option>5辛（激辛）</option>
 </select>
 </div>
@@ -484,13 +413,13 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <h2 class="title">④ カゴの中身を確認しよう！</h2>
 <p class="sub">選んだ材料とスープで、あなただけの麻辣湯を作るよ</p>
 <div class="basket">
-<div class="bowl-preview" id="basketBowlPreview">🍲</div>
+<div class="bowl">🍲</div>
 <div><h3>選んだ具材</h3><div id="chosenIngredients"></div>
 <h3>選んだ麺</h3><div id="chosenNoodles"></div>
 <h3>スープ・辛さ</h3><div id="chosenSoup"></div></div>
 </div>
 <div class="total" id="total"></div>
-<p class="note" id="moneyWarning" style="color:#e11d48;font-weight:bold;text-align:center;margin-top:8px;"></p>
+<p class="note" id="moneyWarning" style="color:#e11d48;font-weight:bold;text-align:center;margin-top:6px;"></p>
 <div class="btnrow">
 <button class="btn secondary" id="backToSoupsBtn">戻る</button>
 <button class="btn" id="cookingBtn">🍲 これで作る！</button>
@@ -498,36 +427,29 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 </div>
 </section>
 
-<!-- ⑤ 調理画面（湯気＆ハートアニメ演出） -->
 <section class="screen" id="cooking">
 <div class="panel cook">
 <h2 class="title">⑤ つくってもらおう！</h2>
 <p>選んだ材料をお店のスタッフが調理してくれます…</p>
-<div class="pot-wrap">
-<span class="steam s1">♨️</span>
-<span class="steam s2">♡</span>
-<span class="steam s3">✨</span>
-<div class="pot">🍲</div>
-</div>
-<h3 id="cookText">お鍋でぐつぐつ… ♡</h3>
+<div class="pot">🍲</div><h3 id="cookText">お鍋でぐつぐつ… ♡</h3>
 <div class="bar"><div id="progress"></div></div>
 <p id="seconds">調理中… 5秒</p>
 </div>
 </section>
 
 <section class="screen" id="finish">
-<div class="finished" id="finishPanel">
+<div class="finished">
 <h2>✨ できあがり！ ♡</h2><p>あなただけのオリジナル麻辣湯</p>
 
 <img id="finishImage" src="start.png" class="finish-img" alt="完成した麻辣湯" onerror="this.style.display='none'; document.getElementById('bigBowlEmoji').style.display='block';">
-<div class="bigbowl" id="bigBowlEmoji" style="display:none; font-size:95px; margin:15px 0;">🍜</div>
+<div class="bigbowl" id="bigBowlEmoji" style="display:none; font-size:80px; margin:10px 0;">🍜</div>
 
 <div class="panel" style="text-align:left">
 <p id="finalSoup"></p><p id="finalNoodles"></p><p id="finalIngredients"></p>
 <div class="total" id="finalTotal"></div>
 
 <div class="rating-box">
-<div style="font-size:12px;color:#888;">✨ シェフの評価 ✨</div>
+<div style="font-size:11px;color:#888;">✨ シェフの評価 ✨</div>
 <div class="stars" id="finalStars">★★★★★</div>
 <div class="comment" id="finalComment"></div>
 </div>
@@ -545,71 +467,7 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 20px}
 <footer>♡ MY MALATANG SHOP ♡</footer>
 
 <script>
-/* Web Audio API 効果音発生装置 */
-var audioCtx = null;
-function playSE(type){
-  try {
-    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if(audioCtx.state === 'suspended') audioCtx.resume();
-    var osc = audioCtx.createOscillator();
-    var gain = audioCtx.createGain();
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    var now = audioCtx.currentTime;
-
-    if(type === 'click'){
-      osc.type = 'sine'; osc.frequency.setValueAtTime(600, now);
-      osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
-      gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
-      osc.start(now); osc.stop(now + 0.08);
-    } else if(type === 'coin'){
-      osc.type = 'triangle'; osc.frequency.setValueAtTime(987.77, now); // B5
-      osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
-      gain.gain.setValueAtTime(0.2, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
-      osc.start(now); osc.stop(now + 0.3);
-    } else if(type === 'fanfare'){
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(523.25, now); // C5
-      osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
-      osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
-      osc.frequency.setValueAtTime(1046.50, now + 0.3); // C6
-      gain.gain.setValueAtTime(0.25, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
-      osc.start(now); osc.stop(now + 0.6);
-    }
-  } catch(e){}
-}
-
-/* 紙吹雪（クラッカー）演出システム */
-function launchConfetti(){
-  var canvas = document.getElementById("confettiCanvas");
-  var ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-  var particles = [];
-  var colors = ["#ff8fab", "#fbbf24", "#c084fc", "#60a5fa", "#34d399"];
-  for(var i=0; i<80; i++){
-    particles.push({
-      x: canvas.width / 2, y: canvas.height / 2,
-      vx: (Math.random() - 0.5) * 18, vy: (Math.random() - 0.7) * 18,
-      size: Math.random() * 8 + 4, color: colors[Math.floor(Math.random()*colors.length)],
-      life: 100
-    });
-  }
-  function loop(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var alive = false;
-    for(var i=0; i<particles.length; i++){
-      var p = particles[i];
-      if(p.life > 0){
-        alive = true; p.x += p.vx; p.y += p.vy; p.vy += 0.4; p.life--;
-        ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-      }
-    }
-    if(alive) requestAnimationFrame(loop);
-    else ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-  loop();
-}
-
-/* 具材データ */
+/* 具材データ（通常具材＋高級隠し具材） */
 var ingredients=[
 ["白菜","🥬",80,"野菜"],["ほうれん草","🥬",80,"野菜"],["小松菜","🥬",80,"野菜"],["キャベツ","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["大根","🥕",70,"野菜"],["れんこん","🪷",90,"野菜"],["じゃがいも","🥔",80,"野菜"],["さつまいも","🍠",90,"野菜"],["とうもろこし","🌽",90,"野菜"],["トマト","🍅",90,"野菜"],["ブロッコリー","🥦",90,"野菜"],["かぼちゃ","🎃",90,"野菜"],["ニラ","🌿",70,"野菜"],
 ["きくらげ","🍄",90,"きのこ"],["マッシュルーム","🍄",100,"きのこ"],["えのき","🍄",90,"きのこ"],["しめじ","🍄",90,"きのこ"],["しいたけ","🍄",100,"きのこ"],
@@ -617,7 +475,7 @@ var ingredients=[
 ["ソーセージ","🌭",120,"練り物・豆腐"],["つくね","🍡",120,"練り物・豆腐"],["魚のすり身","🍥",100,"練り物・豆腐"],["かにかま","🦀",100,"練り物・豆腐"],["うずらの卵","🥚",100,"練り物・豆腐"],["サーカス団子（蟹籽包）","circus",130,"練り物・豆腐"],["湯葉","🥢",100,"練り物・豆腐"],["厚揚げ","🟫",90,"練り物・豆腐"],["豆腐","⬜",80,"練り物・豆腐"],["こんにゃく","◽",80,"練り物・豆腐"],["春巻","🥟",120,"練り物・豆腐"]
 ];
 
-/* ショップで解放できる高級具材 */
+/* ショップで解放できる高級具材データ */
 var shopItems=[
   { id: "shark", name: "👑 黄金のフカヒレ", emoji: "🦈", price: 500, unlockCost: 1000, cat: "高級", unlocked: false },
   { id: "wagyu", name: "✨ プレミアム和牛", emoji: "🥩", price: 400, unlockCost: 800, cat: "高級", unlocked: false },
@@ -625,24 +483,7 @@ var shopItems=[
   { id: "truffle", name: "🍄 黒トリュフ", emoji: "🍄", price: 700, unlockCost: 1500, cat: "高級", unlocked: false }
 ];
 
-/* どんぶり（器）リスト */
-var bowlDesigns=[
-  { id: "normal", name: "シンプルどんぶり", bg: "linear-gradient(135deg, #fff7ed, #ffedd5)", border: "#fed7aa", unlocked: true },
-  { id: "strawberry", name: "🍓 いちご柄どんぶり", bg: "linear-gradient(135deg, #fff0f3, #ffe4e6)", border: "#fda4af", unlocked: false, cost: 500 },
-  { id: "galaxy", name: "🌌 ゆめかわ宇宙どんぶり", bg: "linear-gradient(135deg, #f3e8ff, #e9d5ff)", border: "#c084fc", unlocked: false, cost: 800 },
-  { id: "gold", name: "👑 黄金のどんぶり", bg: "linear-gradient(135deg, #fef3c7, #fde68a)", border: "#f59e0b", unlocked: false, cost: 1200 }
-];
-var currentBowlIdx = 0;
-
-/* ガチャ限定トッピング */
-var gachaItems=[
-  { name: "🌸 桜型の麩", emoji: "🌸", price: 100, desc: "可愛らしい桜型のふんわり麩！" },
-  { name: "💖 ハートトッポギ", emoji: "💖", price: 120, desc: "もちもちキュートなハート餅！" },
-  { name: "💎 ダイヤのタピオカ", emoji: "💎", price: 150, desc: "きらきら輝くモチモチ具材！" }
-];
-var unlockedGachaItems = [];
-
-/* 称号リスト */
+/* 称号（実績バッジ）データ */
 var badgeList=[
   { id: "spicy", icon: "🌶️", title: "激辛マスター", desc: "5辛の麻辣湯を調理した", unlocked: false },
   { id: "healthy", icon: "🥗", title: "ヘルシーの神", desc: "野菜だけの麻辣湯を調理した", unlocked: false },
@@ -653,7 +494,7 @@ var badgeList=[
 ];
 
 var noodles=[["春雨","noodle",100],["太い春雨","noodle",120],["中華麺","🍜",130],["刀削麺","🍜",150],["米粉麺","🍝",130],["さつまいも春雨","noodle",120],["インスタント麺","🍜",120],["なし","❌",0]];
-var soups=[["麻辣スープ","🌶️",300,"定番のピリ辛！"],["白湯スープ","🥛",300,"まろやかクリーミー"],["トマトスープ","🍅",300,"さっぱり濃厚"],["酸菜スープ","🥬",320,"酸味がクセになる"],["カカレー","🍛",350,"スパイス香る"],["和風スープ","🍲",250,"あっさりだし風味"]];
+var soups=[["麻辣スープ","🌶️",300,"定番のピリ辛！"],["白湯スープ","🥛",300,"まろやかクリーミー"],["トマトスープ","🍅",300,"さっぱり濃厚"],["酸菜スープ","🥬",320,"酸味がクセになる"],["カレースープ","🍛",350,"スパイス香る"],["和風スープ","🍲",250,"あっさりだし風味"]];
 
 var myMoney = 500;
 var currentCost = 0;
@@ -662,9 +503,9 @@ var curCat = "全部", timer = null, orderGameTimer = null, serveGameTimer = nul
 var cats = ["全部", "野菜", "肉・魚介", "練り物・豆腐", "きのこ"];
 
 function updateMoney(amt){
-  myMoney += amt; if(myMoney < 0) myMoney = 0;
+  myMoney += amt;
+  if(myMoney < 0) myMoney = 0;
   document.getElementById("myMoney").innerText = myMoney;
-  if(amt > 0) playSE('coin');
   checkBadge("rich", myMoney >= 2000);
 }
 
@@ -673,7 +514,6 @@ function checkBadge(bId, condition){
   for(var i=0; i<badgeList.length; i++){
     if(badgeList[i].id === bId && !badgeList[i].unlocked){
       badgeList[i].unlocked = true;
-      playSE('fanfare'); launchConfetti();
       alert("🏅 称号獲得！【" + badgeList[i].title + "】を獲得しました！");
     }
   }
@@ -691,12 +531,13 @@ function getIcon(e){
 }
 
 function renderCats(){
-  var el = document.getElementById("categories"); if(!el) return;
+  var el = document.getElementById("categories");
+  if(!el) return;
   var currentCats = ["全部", "野菜", "肉・魚介", "練り物・豆腐", "きのこ"];
+  
   var hasUnlockedShop = false;
   for(var i=0; i<shopItems.length; i++){ if(shopItems[i].unlocked) hasUnlockedShop = true; }
   if(hasUnlockedShop) currentCats.push("👑 高級");
-  if(unlockedGachaItems.length > 0) currentCats.push("🎰 限定");
 
   var h = "";
   for(var i=0; i<currentCats.length; i++){
@@ -706,10 +547,12 @@ function renderCats(){
   el.innerHTML = h;
 }
 
-function setCat(c){ playSE('click'); curCat = c; renderCats(); renderIngredients(); }
+function setCat(c){ curCat = c; renderCats(); renderIngredients(); }
 
 function renderIngredients(){
-  var grid = document.getElementById("ingredientGrid"); if(!grid) return; var h = "";
+  var grid = document.getElementById("ingredientGrid");
+  if(!grid) return;
+  var h = "";
 
   for(var i=0; i<ingredients.length; i++){
     var item = ingredients[i];
@@ -731,24 +574,14 @@ function renderIngredients(){
     }
   }
 
-  for(var i=0; i<unlockedGachaItems.length; i++){
-    var gItem = unlockedGachaItems[i];
-    if(curCat === "全部" || curCat === "🎰 限定"){
-      var isSel = selIng.indexOf("gacha_" + i) !== -1;
-      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng(\'gacha_' + i + '\')">'
-        + (isSel?'<span class="check">✓</span>':'') + getIcon(gItem.emoji)
-        + '<span class="name">'+gItem.name+'</span><small>'+gItem.price+'円</small></button>';
-    }
-  }
-
   grid.innerHTML = h;
   document.getElementById("count").innerText = "選んだ具材: " + selIng.length + "個";
 }
 
 function toggleIng(idStr){
-  playSE('click');
   var idx = selIng.indexOf(idStr);
-  if(idx === -1) selIng.push(idStr); else selIng.splice(idx, 1);
+  if(idx === -1) selIng.push(idStr);
+  else selIng.splice(idx, 1);
   renderIngredients();
 }
 
@@ -773,11 +606,10 @@ function renderSoups(){
   grid.innerHTML = h;
 }
 
-function selectSoup(i){ playSE('click'); selSoup = i; renderSoups(); }
-function toggleNod(i){ playSE('click'); var idx = selNod.indexOf(i); if(idx===-1) selNod.push(i); else selNod.splice(idx,1); renderNoodles(); }
+function selectSoup(i){ selSoup = i; renderSoups(); }
+function toggleNod(i){ var idx = selNod.indexOf(i); if(idx===-1) selNod.push(i); else selNod.splice(idx,1); renderNoodles(); }
 
 function go(sid){
-  playSE('click');
   var scs = document.querySelectorAll(".screen");
   for(var i=0; i<scs.length; i++) scs[i].classList.remove("active");
   document.getElementById(sid).classList.add("active");
@@ -799,53 +631,11 @@ function go(sid){
   else if(sid === 'badges'){ renderBadges(); }
 }
 
-/* ガチャシステム */
-function playGacha(){
-  if(myMoney < 200){ alert("⚠️ お小遣いが足りません！"); return; }
-  updateMoney(-200);
-  document.getElementById("gachaIdle").style.display = "none";
-  document.getElementById("gachaAnim").style.display = "block";
-  
-  setTimeout(function(){
-    document.getElementById("gachaAnim").style.display = "none";
-    document.getElementById("gachaResult").style.display = "block";
-    
-    var rItem = gachaItems[Math.floor(Math.random()*gachaItems.length)];
-    unlockedGachaItems.push(rItem);
-    
-    document.getElementById("gachaResultIcon").innerText = rItem.emoji;
-    document.getElementById("gachaResultName").innerText = rItem.name;
-    document.getElementById("gachaResultDesc").innerText = rItem.desc + "（具材画面に追加されたよ！）";
-    
-    playSE('fanfare'); launchConfetti();
-  }, 2000);
-}
-
-function resetGachaUI(){
-  document.getElementById("gachaResult").style.display = "none";
-  document.getElementById("gachaIdle").style.display = "block";
-}
-
-/* ショップ＆丼着せ替え */
 function renderShop(){
-  var bList = document.getElementById("bowlShopList"); var bh = "";
-  for(var i=0; i<bowlDesigns.length; i++){
-    var b = bowlDesigns[i];
-    bh += '<div class="shop-item"><div class="shop-item-info"><b>' + b.name + '</b></div>';
-    if(b.unlocked){
-      if(currentBowlIdx === i) bh += '<button class="btn secondary" disabled style="opacity:0.6">着用中</button>';
-      else bh += '<button class="btn purple-btn" onclick="equipBowl(' + i + ')">着替える</button>';
-    } else {
-      bh += '<button class="btn gold-btn" onclick="buyBowl(' + i + ')">購入 (' + b.cost + '円)</button>';
-    }
-    bh += '</div>';
-  }
-  bList.innerHTML = bh;
-
   var list = document.getElementById("shopItemList"); var h = "";
   for(var i=0; i<shopItems.length; i++){
     var item = shopItems[i];
-    h += '<div class="shop-item"><div class="shop-item-info"><b>' + item.emoji + ' ' + item.name + '</b><small>トッピング: ' + item.price + '円</small></div>';
+    h += '<div class="shop-item"><div class="shop-item-info"><b>' + item.emoji + ' ' + item.name + '</b><small>トッピング価格: ' + item.price + '円</small></div>';
     if(item.unlocked){
       h += '<button class="btn secondary" disabled style="opacity:0.6">解放済み</button>';
     } else {
@@ -856,21 +646,16 @@ function renderShop(){
   list.innerHTML = h;
 }
 
-function equipBowl(i){ currentBowlIdx = i; playSE('click'); renderShop(); }
-function buyBowl(i){
-  var b = bowlDesigns[i];
-  if(myMoney >= b.cost){
-    updateMoney(-b.cost); b.unlocked = true; currentBowlIdx = i;
-    alert("🎉 " + b.name + " をGETしました！"); renderShop();
-  } else { alert("⚠️ お小遣いが足りません！"); }
-}
-
 function buyShopItem(i){
   var item = shopItems[i];
   if(myMoney >= item.unlockCost){
-    updateMoney(-item.unlockCost); item.unlocked = true;
-    alert("🎉 " + item.name + " をアンロックしました！"); renderShop();
-  } else { alert("⚠️ お小遣いが足りません！"); }
+    updateMoney(-item.unlockCost);
+    item.unlocked = true;
+    alert("🎉 " + item.name + " をアンロックしました！具材選択画面からえらべるよ！");
+    renderShop();
+  } else {
+    alert("⚠️ お小遣いが足りません！バイトで稼いできてね！");
+  }
 }
 
 function renderBadges(){
@@ -883,21 +668,14 @@ function renderBadges(){
 }
 
 function renderBasket(){
-  var curBowl = bowlDesigns[currentBowlIdx];
-  var bPrev = document.getElementById("basketBowlPreview");
-  bPrev.style.background = curBowl.bg; bPrev.style.borderColor = curBowl.border;
-
   var ingH = "", ingTot = 0;
   for(var i=0; i<selIng.length; i++){
     var idStr = selIng[i];
     if(idStr.indexOf("norm_") === 0){
       var idx = parseInt(idStr.replace("norm_","")); var item = ingredients[idx];
       ingH += '<div>• '+item[0]+' ('+item[2]+'円)</div>'; ingTot += item[2];
-    } else if(idStr.indexOf("shop_") === 0){
-      var idx = parseInt(idStr.replace("shop_","")); var item = shopItems[idx];
-      ingH += '<div>• '+item.name+' ('+item.price+'円)</div>'; ingTot += item.price;
     } else {
-      var idx = parseInt(idStr.replace("gacha_","")); var item = unlockedGachaItems[idx];
+      var idx = parseInt(idStr.replace("shop_","")); var item = shopItems[idx];
       ingH += '<div>• '+item.name+' ('+item.price+'円)</div>'; ingTot += item.price;
     }
   }
@@ -927,7 +705,8 @@ function renderBasket(){
     warn.innerText = "⚠️ お小遣いが足りません！（所持金: " + myMoney + "円）バイトで稼いできてね！";
     cookBtn.disabled = true; cookBtn.style.opacity = 0.5;
   } else {
-    warn.innerText = ""; cookBtn.disabled = false; cookBtn.style.opacity = 1;
+    warn.innerText = "";
+    cookBtn.disabled = false; cookBtn.style.opacity = 1;
   }
 }
 
@@ -940,7 +719,7 @@ function startCooking(){
   if(timer) clearInterval(timer);
   var elapsed = 0;
   timer = setInterval(function(){
-    elapsed++; playSE('click');
+    elapsed++;
     bar.style.width = ((elapsed / 5) * 100) + "%";
     secText.innerText = "調理中… " + Math.max(0, 5 - elapsed) + "秒";
     if(elapsed >= 5){ clearInterval(timer); showFinish(); }
@@ -948,31 +727,28 @@ function startCooking(){
 }
 
 function showFinish(){
-  go('finish'); playSE('fanfare'); launchConfetti();
+  go('finish');
   var ingL = [], ingTot = 0, vegCount = 0, meatCount = 0, hasShopIng = false;
   for(var i=0; i<selIng.length; i++){
     var idStr = selIng[i];
     if(idStr.indexOf("norm_") === 0){
       var idx = parseInt(idStr.replace("norm_","")); var item = ingredients[idx];
       ingL.push(item[0]); ingTot += item[2];
-      if(item[3] === "野菜") vegCount++; if(item[3] === "肉・魚介") meatCount++;
-    } else if(idStr.indexOf("shop_") === 0){
-      var idx = parseInt(idStr.replace("shop_","")); var item = shopItems[idx];
-      ingL.push(item.name); ingTot += item.price; hasShopIng = true;
+      if(item[3] === "野菜") vegCount++;
+      if(item[3] === "肉・魚介") meatCount++;
     } else {
-      var idx = parseInt(idStr.replace("gacha_","")); var item = unlockedGachaItems[idx];
+      var idx = parseInt(idStr.replace("shop_","")); var item = shopItems[idx];
       ingL.push(item.name); ingTot += item.price;
+      hasShopIng = true;
     }
   }
   var nodL = [], nodTot = 0;
-  for(var i=0; i<selNod.length; i++){ nodL.push(noodles[selNod[i]][0]); nodTot += noodles[selNod[i]][2]; }
+  for(var i=0; i<selNod.length; i++){
+    nodL.push(noodles[selNod[i]][0]); nodTot += noodles[selNod[i]][2];
+  }
   var sItem = soups[selSoup];
   var spiceEl = document.getElementById("spice");
   var spVal = spiceEl ? spiceEl.value : "2辛";
-
-  var fPanel = document.getElementById("finishPanel");
-  if(spVal.indexOf("4辛") !== -1 || spVal.indexOf("5辛") !== -1) fPanel.classList.add("spicy-aura");
-  else fPanel.classList.remove("spicy-aura");
 
   if(spVal.indexOf("5辛") !== -1) checkBadge("spicy", true);
   if(vegCount > 0 && vegCount === selIng.length) checkBadge("healthy", true);
@@ -989,9 +765,9 @@ function showFinish(){
 
   var stars = "★★★★★", comment = "";
   if(selIng.length === 0) { stars = "★★☆☆☆"; comment = "スープだけのシンプル麻辣湯！スープの旨味をダイレクトに感じる一杯！"; }
-  else if(spVal.indexOf("5辛") !== -1) { stars = "★★★★★ 🔥"; comment = "痺れる辛さがたまらない！激辛マニアも唸る、最高の刺激的麻辣湯！"; }
-  else if(vegCount >= 3 && meatCount >= 2) { stars = "★★★★★ 🌟 (120点)"; comment = "最高の組み合わせ！お肉と野菜の旨味が perfectly 溶け合った極上の一杯！"; }
-  else if(hasShopIng) { stars = "★★★★★ 👑 (最高級)"; comment = "贅沢な高級トッピングが輝く至高の麻辣湯！極上の味わいです！"; }
+  else if(spVal.indexOf("5辛") !== -1) { stars = "★★★★★"; comment = "痺れる辛さがたまらない！激辛マニアも唸る、最高の刺激的麻辣湯！"; }
+  else if(vegCount >= 3 && meatCount >= 2) { stars = "★★★★★ 🌟 (120点)"; comment = "最高の組み合わせ！お肉と野菜の旨味が完璧に溶け合った極上の麻辣湯！"; }
+  else if(hasShopIng) { stars = "★★★★★ 👑 (最高級)"; comment = "贅沢な高級トッピングが輝く至高の一杯！極上の味わいです！"; }
   else { stars = "★★★★☆"; comment = "素敵な具材選びで生まれた麻辣湯。とっても美味しい！"; }
 
   document.getElementById("finalStars").innerText = stars;
@@ -1035,9 +811,17 @@ function initOrderGame(){
     targetIngNames.push(ingredients[idx][0]);
   }
 
-  targetOrder = { soupIdx: rSoupIdx, soupName: rSoup, spice: rSpice, ingIds: targetIngIds, ingNames: targetIngNames };
+  targetOrder = {
+    soupIdx: rSoupIdx, soupName: rSoup,
+    spice: rSpice,
+    ingIds: targetIngIds,
+    ingNames: targetIngNames
+  };
 
-  var titleEl = document.getElementById("orderTitle"); var bubble = document.getElementById("orderBubble"); var ingTitle = document.getElementById("g1IngTitle");
+  var titleEl = document.getElementById("orderTitle");
+  var bubble = document.getElementById("orderBubble");
+  var ingTitle = document.getElementById("g1IngTitle");
+
   if(currentEventType === "hurry"){
     titleEl.innerText = "🏃 急いでるお客さん！(報酬2倍)";
     bubble.innerHTML = "🏃 お客さん: 「急いでるんだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>で頼む！」";
@@ -1048,15 +832,17 @@ function initOrderGame(){
     titleEl.innerText = "📋 オーダー取りゲーム";
     bubble.innerHTML = "👤 お客さん: 「注文お願い！スープは<b>"+rSoup+"（"+rSpice+"）</b>で、具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>ね！」";
   }
+
   ingTitle.innerText = "3. 具材を選ぶ（" + targetIngCount + "つタップしてね）";
 
   var pool = targetIngIds.slice();
   var others = [];
   for(var i=0; i<ingredients.length; i++){
-    var idStr = "norm_" + i; if(targetIngIds.indexOf(idStr) === -1) others.push(idStr);
+    var idStr = "norm_" + i;
+    if(targetIngIds.indexOf(idStr) === -1) others.push(idStr);
   }
   for(var i = others.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var temp = others[i]; others[i] = others[j]; others[j] = temp; }
-  for(var i=0; i<others.length && pool.length < 10; i++){ pool.push(others[i]); }
+  for(var i=0; i<others.length && pool.length < 9; i++){ pool.push(others[i]); }
   for(var i = pool.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var temp = pool[i]; pool[i] = pool[j]; pool[j] = temp; }
   displayedIngredients = pool;
 
@@ -1081,7 +867,7 @@ function renderG1SoupUI(){
   }
   grid.innerHTML = h;
 }
-function setG1Soup(i){ playSE('click'); userG1Soup = i; renderG1SoupUI(); }
+function setG1Soup(i){ userG1Soup = i; renderG1SoupUI(); }
 
 function renderG1SpiceUI(){
   var grid = document.getElementById("g1SpiceGrid"); var spices = ["0辛","1辛","2辛","3辛","4辛","5辛"]; var h = "";
@@ -1091,13 +877,14 @@ function renderG1SpiceUI(){
   }
   grid.innerHTML = h;
 }
-function setG1Spice(sp){ playSE('click'); userG1Spice = sp; renderG1SpiceUI(); }
+function setG1Spice(sp){ userG1Spice = sp; renderG1SpiceUI(); }
 
 function renderG1IngUI(){
   var grid = document.getElementById("g1IngGrid"); var h = "";
   for(var idx=0; idx<displayedIngredients.length; idx++){
     var idStr = displayedIngredients[idx];
-    var ingIdx = parseInt(idStr.replace("norm_","")); var item = ingredients[ingIdx];
+    var ingIdx = parseInt(idStr.replace("norm_",""));
+    var item = ingredients[ingIdx];
     var isSel = (userG1Ings.indexOf(idStr) !== -1);
     h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleG1Ing(\''+idStr+'\')">' + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1]) + '<span class="name">'+item[0]+'</span></button>';
   }
@@ -1105,11 +892,13 @@ function renderG1IngUI(){
 }
 
 function toggleG1Ing(idStr){
-  playSE('click');
   var maxIng = (currentEventType === "hungry") ? 4 : 2;
   var idx = userG1Ings.indexOf(idStr);
   if(idx !== -1){ userG1Ings.splice(idx,1); }
-  else { if(userG1Ings.length >= maxIng) userG1Ings.shift(); userG1Ings.push(idStr); }
+  else {
+    if(userG1Ings.length >= maxIng) userG1Ings.shift();
+    userG1Ings.push(idStr);
+  }
   renderG1IngUI();
 }
 
@@ -1119,6 +908,7 @@ function submitOrder(){
   var correct = 0;
   if(userG1Soup === targetOrder.soupIdx) correct++;
   if(userG1Spice === targetOrder.spice) correct++;
+
   for(var i=0; i<targetOrder.ingIds.length; i++){
     if(userG1Ings.indexOf(targetOrder.ingIds[i]) !== -1) correct++;
   }
@@ -1129,9 +919,9 @@ function submitOrder(){
 
   if(correct === totalTarget){
     var totalReward = (baseReward + bonus) * multiplier;
-    playSE('fanfare'); launchConfetti();
     alert("🎉 パーフェクト！お客さん「ぴったりだ！ありがとう！」\n基本報酬: " + baseReward + "円\n⏰ タイムボーナス: +" + bonus + "円" + (multiplier > 1 ? "\n🔥 イベントボーナス: 2倍！" : "") + "\n💰 合計 " + totalReward + "円ゲット！");
-    updateMoney(totalReward); checkBadge("master", true);
+    updateMoney(totalReward);
+    checkBadge("master", true);
   } else if(correct >= Math.floor(totalTarget / 2)){
     var totalReward = Math.floor((baseReward / 2 + bonus) * multiplier);
     alert("😅 おしい！お客さん「ちょっと違うけどまあいいか！」\n💰 合計 " + totalReward + "円ゲット！");
@@ -1150,7 +940,8 @@ var serveTimeLeft = 15;
 
 function initServeGame(){
   if(serveGameTimer) clearInterval(serveGameTimer);
-  serveStage = 0; serveTimeLeft = 15;
+  serveStage = 0;
+  serveTimeLeft = 15;
   document.getElementById("serveTimer").innerText = serveTimeLeft;
 
   serveGameTimer = setInterval(function(){
@@ -1171,9 +962,9 @@ function nextServeStage(){
     if(serveGameTimer) clearInterval(serveGameTimer);
     var bonus = serveTimeLeft;
     var totalReward = 500 + bonus;
-    playSE('fanfare'); launchConfetti();
     alert("🎉 配膳完了！全テーブルへ無事に運べました！\n基本報酬: 500円\n⏰ タイムボーナス: +" + bonus + "円\n💰 合計 " + totalReward + "円ゲット！");
-    updateMoney(totalReward); checkBadge("master", true);
+    updateMoney(totalReward);
+    checkBadge("master", true);
     go('workMenu');
     return;
   }
@@ -1187,12 +978,11 @@ function nextServeStage(){
   var grid = document.getElementById("seatGrid"); grid.innerHTML = "";
   for(var i=0; i<seats.length; i++){
     var sName = seats[i];
-    grid.innerHTML += '<div class="seat-card"><h3>🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')" style="margin-top:8px;">ここに運ぶ！</button></div>';
+    grid.innerHTML += '<div class="seat-card"><h3>🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')" style="margin-top:6px;padding:8px 12px;font-size:12px;">ここに運ぶ！</button></div>';
   }
 }
 
 function checkServe(sName){
-  playSE('click');
   if(sName === targetSeat){
     nextServeStage();
   } else {
@@ -1209,8 +999,7 @@ function copyAIPrompt(){
   for(var i=0; i<selIng.length; i++){
     var idStr = selIng[i];
     if(idStr.indexOf("norm_") === 0) ingL.push(ingredients[parseInt(idStr.replace("norm_",""))][0]);
-    else if(idStr.indexOf("shop_") === 0) ingL.push(shopItems[parseInt(idStr.replace("shop_",""))].name);
-    else ingL.push(unlockedGachaItems[parseInt(idStr.replace("gacha_",""))].name);
+    else ingL.push(shopItems[parseInt(idStr.replace("shop_",""))].name);
   }
   var nodL = []; for(var i=0; i<selNod.length; i++){ nodL.push(noodles[selNod[i]][0]); }
   var sItem = soups[selSoup];
@@ -1222,7 +1011,6 @@ function copyAIPrompt(){
   var note = document.getElementById("shareNote");
   if(navigator.clipboard){
     navigator.clipboard.writeText(promptText).then(function(){
-      playSE('click');
       note.innerText = "✨ AI用の呪文をコピーしたよ！画像生成AIに貼り付けて使ってね！";
     });
   }
@@ -1238,7 +1026,6 @@ function resetGame(){
 
 document.getElementById("startBtn").onclick = function() { go('ingredients'); };
 document.getElementById("workBtn").onclick = function() { go('workMenu'); };
-document.getElementById("gachaMenuBtn").onclick = function() { go('gacha'); };
 document.getElementById("shopMenuBtn").onclick = function() { go('shop'); };
 document.getElementById("badgeMenuBtn").onclick = function() { go('badges'); };
 document.getElementById("game1Btn").onclick = function() { go('orderGame'); };
