@@ -102,6 +102,11 @@ main{max-width: 800px; margin: auto;}
   color: #fff !important;
   box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25) !important;
 }
+.twitter-btn{
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9) !important;
+  color: #fff !important;
+  box-shadow: 0 3px 10px rgba(14, 165, 233, 0.25) !important;
+}
 .secondary{
   background: #ffffff !important;
   color: var(--dark) !important;
@@ -557,7 +562,8 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 
 <p style="margin-top:8px;font-weight:bold;color:#ff4d80;font-size:11px;">✨ できた麻辣湯を共有しよう！ ✨</p>
 <div class="btnrow" style="margin-top:4px;">
-  <button class="btn green-btn" id="saveImgBtn" style="font-size:11px;padding:8px 12px;">📸 画像として保存</button>
+  <button class="btn green-btn" id="shareSheetBtn" style="font-size:11px;padding:8px 12px;">📤 共有（画像・保存・その他）</button>
+  <button class="btn twitter-btn" id="shareTwitterBtn" style="font-size:11px;padding:8px 12px;">🐦 X（Twitter）に共有</button>
   <button class="btn gold-btn" id="shareCopyBtn" style="font-size:11px;padding:8px 12px;">📋 テキストをコピー</button>
   <button class="btn secondary" id="resetBtn" style="font-size:11px;padding:8px 12px;">もう一度つくる ↻</button>
 </div>
@@ -998,20 +1004,75 @@ function copyShareText(){
   }
 }
 
-function saveResultImage(){
+// OS標準の共有シート（iOSの共有メニュー等）を開く処理
+function shareViaWebAPI(){
   var card = document.getElementById("captureArea");
   var note = document.getElementById("shareNote");
-  note.innerText = "⏳ 画像を作成中…";
+  note.innerText = "⏳ 共有メニューを準備中…";
 
   html2canvas(card, { scale: 2, useCORS: true }).then(function(canvas){
-    var link = document.createElement('a');
-    link.download = 'my-malatang-result.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    note.innerText = "✨ 麻辣湯の画像を保存したよ！";
+    canvas.toBlob(function(blob){
+      var file = new File([blob], "my-malatang.png", { type: "png" in navigator ? "image/png" : "image/png" });
+      var shareText = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
+                    + "スープ: " + currentFinishData.soupText + " / 麺: " + currentFinishData.noodleText + "\n"
+                    + "評価: " + currentFinishData.starsText + "\n"
+                    + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          title: "わたしだけの麻辣湯",
+          text: shareText,
+          files: [file]
+        }).then(function(){
+          note.innerText = "✨ 共有しました！";
+        }).catch(function(err){
+          if (err.name !== 'AbortError') {
+            fallbackDownload(canvas);
+          } else {
+            note.innerText = "";
+          }
+        });
+      } else if (navigator.share) {
+        navigator.share({
+          title: "わたしだけの麻辣湯",
+          text: shareText
+        }).then(function(){
+          note.innerText = "✨ 共有しました！";
+        }).catch(function(err){
+          if (err.name !== 'AbortError') {
+            fallbackDownload(canvas);
+          } else {
+            note.innerText = "";
+          }
+        });
+      } else {
+        fallbackDownload(canvas);
+      }
+    }, 'image/png');
   }).catch(function(err){
-    note.innerText = "⚠️ 画像保存に失敗しました。";
+    note.innerText = "⚠️ 共有の準備に失敗しました。";
   });
+}
+
+function fallbackDownload(canvas){
+  var note = document.getElementById("shareNote");
+  var link = document.createElement('a');
+  link.download = 'my-malatang-result.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  note.innerText = "✨ 画像として保存しました！";
+}
+
+// X（Twitter）共有
+function shareToTwitter(){
+  var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
+           + "【スープ】" + currentFinishData.soupText + "\n"
+           + "【 麺 】" + currentFinishData.noodleText + "\n"
+           + "【具 材】" + currentFinishData.ingText + "\n"
+           + "【評価】" + currentFinishData.starsText + "\n"
+           + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n";
+  var url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text);
+  window.open(url, '_blank');
 }
 
 /* ミニゲーム関連 */
@@ -1254,7 +1315,7 @@ function checkServe(sName){
     nextServeStage();
   } else {
     if(serveGameTimer) clearInterval(serveGameTimer);
-    alert("😭 間違えた席に運んじゃった！お客さん「これ僕のじゃないよー！」\n💰 0円（バイト失敗）");
+    alert("😭 間違えた席に運んじゃった！お客さんコール「これ僕のじゃないよー！」\n💰 0円（バイト失敗）");
     go('workMenu');
   }
 }
@@ -1278,13 +1339,14 @@ document.getElementById("game2Btn").onclick = function() { go('serveDiffMenu'); 
 document.getElementById("backFromWorkBtn").onclick = function() { go('start'); };
 document.getElementById("backToStartBtn").onclick = function() { go('start'); };
 document.getElementById("toNoodlesBtn").onclick = function() { go('noodles'); };
-document.getElementById("backToIngBtn").onclick = function() { go('ingredients'); }; /* 修正完了：正しくingredients画面へ戻る */
+document.getElementById("backToIngBtn").onclick = function() { go('ingredients'); };
 document.getElementById("toSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles'); };
 document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
 document.getElementById("backToSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("cookingBtn").onclick = function() { startCooking(); };
-document.getElementById("saveImgBtn").onclick = function() { saveResultImage(); };
+document.getElementById("shareSheetBtn").onclick = function() { shareViaWebAPI(); };
+document.getElementById("shareTwitterBtn").onclick = function() { shareToTwitter(); };
 document.getElementById("shareCopyBtn").onclick = function() { copyShareText(); };
 document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
@@ -1339,7 +1401,6 @@ function renderLiveBowl() {
 
   if (svgLayer) svgLayer.innerHTML = "";
 
-  // 麺の量を22本に大幅増量し、完全ランダムなうねりと向き（不規則性）を持たせてリアルに絡み合わせる
   selNod.forEach(function(index) {
     var nod = noodles[index];
     if (nod && nod[0] !== "なし") {
@@ -1350,7 +1411,6 @@ function renderLiveBowl() {
       for (var i = 0; i < 22; i++) {
         var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         
-        // 丼の至る所に不規則に配置されるアンカーポイント
         var x1 = 20 + Math.random() * 160;
         var y1 = 20 + Math.random() * 160;
         var cx1 = 20 + Math.random() * 160;
@@ -1386,7 +1446,6 @@ function renderLiveBowl() {
     itemsToPlace.push("✨");
   }
 
-  // 特大サイズの具材をお碗全体にダイナミックに配置
   var totalItems = itemsToPlace.length;
   itemsToPlace.forEach(function(emojiStr, idx) {
     var span = document.createElement("span");
@@ -1403,7 +1462,7 @@ function renderLiveBowl() {
     span.style.left = x + "%";
     span.style.top = y + "%";
     span.style.transform = "translate(-50%, -50%) rotate(" + rotate + "deg)";
-    span.style.zIndex = Math.floor(Math.random() * 10) + 30; // 麺より上に重ねる
+    span.style.zIndex = Math.floor(Math.random() * 10) + 30;
 
     toppings.appendChild(span);
   });
