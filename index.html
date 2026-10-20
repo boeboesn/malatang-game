@@ -193,8 +193,6 @@ main{max-width: 800px; margin: auto;}
 .bar div{height: 100%; width: 0; background: linear-gradient(90deg, #ff8fab, #ff4d80); transition: width .3s}
 
 .finished{background: #ffffff; text-align: center; padding: 12px; border-radius: 16px; border: 1px solid var(--line);}
-.finish-img{width: 100%; max-width: 240px; border-radius: 12px; display: block; margin: 6px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.08)}
-
 .rating-box{background: #fff0f5; border-radius: 12px; padding: 8px; margin: 8px 0; text-align: center;}
 .stars{font-size: 18px; color: #fbbf24; margin: 2px 0}
 .comment{font-size: 11px; font-weight: bold; color: var(--dark); margin-top: 2px;}
@@ -246,7 +244,7 @@ main{max-width: 800px; margin: auto;}
 .badge-title{font-size: 10px; font-weight: bold; display: block; color: var(--dark);}
 .badge-desc{font-size: 9px; color: #888;}
 
-/* ★ リアルな麻辣湯丼のデザイン ★ */
+/* ★ 本物のスープ＆ぐるぐる麺デザイン ★ */
 .live-bowl {
   position: relative !important;
   width: 260px !important;
@@ -281,9 +279,9 @@ main{max-width: 800px; margin: auto;}
 }
 .live-topping {
   position: absolute !important;
-  font-size: 42px !important;
+  font-size: 40px !important;
   line-height: 1 !important;
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.35)) !important;
+  filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.4)) !important;
   user-select: none !important;
   transform-origin: center center !important;
   z-index: 2 !important;
@@ -832,7 +830,6 @@ function startCooking(){
   }, 1000);
 }
 
-/* シェフコメント判定 */
 function getRandomComment(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -963,11 +960,6 @@ function showFinish(){
   document.getElementById("finalIngredients").innerHTML = '<b>具材:</b> ' + ingStr;
   document.getElementById("finalTotal").innerText = 'お会計: ' + totalStr;
 
-  var fImg = document.getElementById("finishImage");
-  if(fImg) fImg.style.display = "none";
-  var fEmoji = document.getElementById("bigBowlEmoji");
-  if(fEmoji) fEmoji.style.display = "none";
-
   var chefRes = generateChefComment(vegCount, meatCount, mushroomCount, hasShopIng, selIng.length, spVal, selNod.length);
 
   document.getElementById("finalStars").innerText = chefRes.stars;
@@ -1097,7 +1089,7 @@ function initOrderGame(){
     bubble.innerHTML = "🍖 お客さん: 「お腹ペコペコだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>、<b>')+"</b>の"+targetIngCount+"つ全部入れてくれ！」";
   } else {
     titleEl.innerText = "📋 オーダー取りゲーム";
-    bubble.innerHTML = "👤 お客さん: 「注文お願い！スープは<b>"+rSoup+"（"+rSpice+"）</b>で、具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>ね！」";
+    bubble.innerHTML = "👤 お客さん: 「注文お願い！スープは<b>"+rSoup+"（"+rSpice+"）</b>で、具材は<b>"+targetIngNames.join('</i>と<b>')+"</b>ね！」";
   }
 
   ingTitle.innerText = "3. 具材を選ぶ（" + targetIngCount + "つタップしてね）";
@@ -1185,11 +1177,7 @@ function submitOrder(){
   }
 
   var bonus = orderTimeLeft;
-  
-  var baseReward = 1000;
-  if(orderDiff === 'normal') baseReward = 1500;
-  if(orderDiff === 'hard') baseReward = 2000;
-
+  var baseReward = (orderDiff === 'normal') ? 1500 : (orderDiff === 'hard' ? 2000 : 1000);
   if(currentEventType === "hungry") baseReward += 200;
   var multiplier = (currentEventType === "hurry") ? 2 : 1;
 
@@ -1236,10 +1224,7 @@ function nextServeStage(){
   if(serveStage >= 3){
     if(serveGameTimer) clearInterval(serveGameTimer);
     var bonus = serveTimeLeft;
-    var baseReward = 500;
-    if(serveDiff === 'normal') baseReward = 1000;
-    if(serveDiff === 'hard') baseReward = 1500;
-
+    var baseReward = (serveDiff === 'normal') ? 1000 : (serveDiff === 'hard' ? 1500 : 500);
     var totalReward = baseReward + bonus;
     alert("🎉 配膳完了！全テーブルへ無事に運べました！\n基本報酬: " + baseReward + "円\n⏰ タイムボーナス: +" + bonus + "円\n💰 合計 " + totalReward + "円ゲット！");
     updateMoney(totalReward);
@@ -1269,7 +1254,7 @@ function checkServe(sName){
     nextServeStage();
   } else {
     if(serveGameTimer) clearInterval(serveGameTimer);
-    alert("😭 間違えた席に運んじゃった！お客さん「これ僕のじゃないよー！」\n💰 0円（バイト失敗）");
+    alert("😭 間違えた席に運んじゃった！お客さん<b>これ僕のじゃないよー！</b>\n💰 0円（バイト失敗）");
     go('workMenu');
   }
 }
@@ -1293,7 +1278,7 @@ document.getElementById("game2Btn").onclick = function() { go('serveDiffMenu'); 
 document.getElementById("backFromWorkBtn").onclick = function() { go('start'); };
 document.getElementById("backToStartBtn").onclick = function() { go('start'); };
 document.getElementById("toNoodlesBtn").onclick = function() { go('noodles'); };
-document.getElementById("backToIngBtn").onclick = function() { go('ingredients'); };
+document.getElementById("backToIngBtn").onclick = function() { ingredients(); go('ingredients'); };
 document.getElementById("toSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles'); };
 document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
@@ -1305,7 +1290,7 @@ document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
 renderCats(); renderIngredients(); renderNoodles(); renderSoups();
 
-/* ===== 完成画面：リアルな麺（くねくね線）＆具材の描画処理 ===== */
+/* ===== 完成画面：本格的な「ぐるぐる・うねうね麺」＆「広いランダム配置の具材」 ===== */
 function getSelectedIngredientData() {
   var result = [];
   selIng.forEach(function (id) {
@@ -1315,7 +1300,7 @@ function getSelectedIngredientData() {
       if (item) {
         result.push({
           name: item[0],
-          emoji: item[1] === "circus" ? "🍥" : (item[1] === "noodle" ? "🍜" : item[1])
+          emoji: item[1] === "circus" ? "🍥" : (item[1] === "noodle" ? "🍝" : item[1])
         });
       }
     } else if (id.indexOf("shop_") === 0) {
@@ -1339,12 +1324,12 @@ function renderLiveBowl() {
   var spiceText = spiceSelect ? spiceSelect.value : "2辛";
 
   var soupColors = [
-    "radial-gradient(circle, #fde4ce 0%, #f5be93 100%)",
-    "radial-gradient(circle, #f9bd88 0%, #eb874a 100%)",
-    "radial-gradient(circle, #f18c4f 0%, #d84c24 100%)",
-    "radial-gradient(circle, #e25828 0%, #b82b0e 100%)",
-    "radial-gradient(circle, #cd321b 0%, #8e1507 100%)",
-    "radial-gradient(circle, #9d0b0b 0%, #520407 100%)"
+    "radial-gradient(circle, #ffe5cc 0%, #f6c093 100%)",
+    "radial-gradient(circle, #fbc693 0%, #f09154 100%)",
+    "radial-gradient(circle, #f59656 0%, #e05329 100%)",
+    "radial-gradient(circle, #e65c2b 0%, #b82b0e 100%)",
+    "radial-gradient(circle, #d0351c 0%, #8e1507 100%)",
+    "radial-gradient(circle, #a20d0d 0%, #4d0305 100%)"
   ];
 
   var spiceNumber = parseInt(spiceText, 10);
@@ -1352,43 +1337,42 @@ function renderLiveBowl() {
   spiceNumber = Math.max(0, Math.min(5, spiceNumber));
   toppings.style.background = soupColors[spiceNumber];
 
-  // SVGの麺（くねくね絡み合う線）をクリア
   if (svgLayer) svgLayer.innerHTML = "";
 
-  // 選んだ麺に応じた「くねくね麺曲線」をSVGで描画
+  // 選択された麺ごとに「ぐるぐる渦巻く、うねうねした麺の束」をSVGで自動生成
   selNod.forEach(function(index) {
     var nod = noodles[index];
     if (nod && nod[0] !== "なし") {
       var isHarusame = (nod[0].indexOf("春雨") !== -1);
-      var strokeColor = isHarusame ? "rgba(255, 255, 255, 0.7)" : "rgba(255, 243, 205, 0.85)";
-      var strokeWidth = isHarusame ? "4.5" : "7";
+      var strokeColor = isHarusame ? "rgba(255, 255, 255, 0.75)" : "rgba(255, 243, 205, 0.88)";
+      var strokeWidth = isHarusame ? "5" : "7.5";
 
-      // 何本ものくねくねした曲線（ベジエ曲線）を絡み合わせて描く
-      for (var k = 0; k < 6; k++) {
+      // 丼の中で何本もの「うずまき状・波打つ曲線」を重ね合わせて本物の麺のボリューム感を出す
+      for (var i = 0; i < 5; i++) {
         var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        var startX = 40 + Math.random() * 120;
-        var startY = 30 + Math.random() * 40;
-        var cp1X = 20 + Math.random() * 160;
-        var cp1Y = 70 + Math.random() * 60;
-        var cp2X = 20 + Math.random() * 160;
-        var cp2Y = 120 + Math.random() * 60;
-        var endX = 40 + Math.random() * 120;
-        var endY = 150 + Math.random() * 30;
-
-        var d = "M " + startX + " " + startY + " C " + cp1X + " " + cp1Y + ", " + cp2X + " " + cp2Y + ", " + endX + " " + endY;
         
+        // ぐるぐるとうねるスプライン風ベジエ曲線の座標生成
+        var cx = 100 + (Math.random() * 40 - 20);
+        var cy = 100 + (Math.random() * 40 - 20);
+        var r = 45 + Math.random() * 25;
+        
+        // 渦巻きのうねうねパス
+        var d = "M " + (cx - r) + " " + cy + 
+                " C " + (cx - r) + " " + (cy - r*1.6) + ", " + (cx + r*1.6) + " " + (cy - r*1.6) + ", " + (cx + r) + " " + cy +
+                " C " + (cx + r) + " " + (cy + r*1.6) + ", " + (cx - r*1.6) + " " + (cy + r*1.6) + ", " + (cx - r*0.7) + " " + (cy - r*0.7);
+
         path.setAttribute("d", d);
         path.setAttribute("fill", "none");
         path.setAttribute("stroke", strokeColor);
         path.setAttribute("stroke-width", strokeWidth);
         path.setAttribute("stroke-linecap", "round");
-        path.setAttribute("filter", "drop-shadow(0 2px 2px rgba(0,0,0,0.25))");
+        path.setAttribute("filter", "drop-shadow(0 2px 3px rgba(0,0,0,0.3))");
         svgLayer.appendChild(path);
       }
     }
   });
 
-  // 古い具材を消去
+  // 古い具材の要素を一旦クリア
   var oldToppings = toppings.querySelectorAll(".live-topping");
   oldToppings.forEach(function(el) { el.remove(); });
 
@@ -1402,24 +1386,25 @@ function renderLiveBowl() {
     itemsToPlace.push("✨");
   }
 
-  // ★ 具材をお椀の中にバランスよく配置
-  itemsToPlace.forEach(function(emojiStr) {
+  // ★ 具材が真ん中に固まらず、お碗全体（端から端まで）にダイナミックに散らばる配置
+  var totalItems = itemsToPlace.length;
+  itemsToPlace.forEach(function(emojiStr, idx) {
     var span = document.createElement("span");
     span.className = "live-topping";
     span.textContent = emojiStr;
 
-    var angle = Math.random() * Math.PI * 2;
-    var maxRadius = 32; 
-    var radius = Math.sqrt(Math.random()) * maxRadius;
+    // 黄金比とランダムを組み合わせて、中央に偏らず綺麗に散らばらせる
+    var angle = (idx / totalItems) * Math.PI * 2 + (Math.random() * 0.8);
+    var radius = 20 + Math.random() * 42; // お碗の広範囲に配置（最大62%）
 
     var x = 50 + radius * Math.cos(angle);
     var y = 50 + radius * Math.sin(angle);
-    var rotate = Math.floor(Math.random() * 60) - 30;
+    var rotate = Math.floor(Math.random() * 70) - 35;
 
     span.style.left = x + "%";
     span.style.top = y + "%";
     span.style.transform = "translate(-50%, -50%) rotate(" + rotate + "deg)";
-    span.style.zIndex = Math.floor(Math.random() * 10) + 3; // 麺より上層に配置
+    span.style.zIndex = Math.floor(Math.random() * 10) + 5; // 麺より上層に配置
 
     toppings.appendChild(span);
   });
