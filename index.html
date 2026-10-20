@@ -114,7 +114,6 @@ main{max-width: 800px; margin: auto;}
   box-shadow: none !important;
 }
 .btnrow{display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-top: 8px}
-
 .hero{
   text-align: center;
   padding: 16px 10px;
@@ -191,8 +190,34 @@ main{max-width: 800px; margin: auto;}
 .total{text-align: center; background: #fff0f5; padding: 8px; border-radius: 12px; font-size: 14px; font-weight: 800; color: #ff4d80; border: 1px solid #ffb3c6; margin-top: 6px;}
 
 .cook{text-align: center; padding: 16px 6px}
-.pot{font-size: 60px; animation: bob 1s infinite alternate}
-@keyframes bob{to{transform: translateY(-6px)}}
+
+/* 追加：ぐつぐつ動くお鍋エリアのスタイル */
+.cooking-pot-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+}
+.cooking-pot {
+  font-size: 70px;
+  animation: boil 0.4s infinite alternate ease-in-out;
+}
+@keyframes boil {
+  0% { transform: translateY(0) rotate(-2deg); }
+  100% { transform: translateY(-4px) rotate(2deg); }
+}
+/* ぷかぷか浮かぶ具材や湯気 */
+.floating-bubble {
+  position: absolute;
+  font-size: 20px;
+  animation: floatUp 1.5s infinite linear;
+  opacity: 0;
+}
+@keyframes floatUp {
+  0% { transform: translateY(20px) scale(0.6); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-50px) scale(1.2); opacity: 0; }
+}
 
 .bar{height: 10px; border-radius: 20px; background: #ffeaf0; overflow: hidden; margin: 10px auto; max-width: 280px;}
 .bar div{height: 100%; width: 0; background: linear-gradient(90deg, #ff8fab, #ff4d80); transition: width .3s}
@@ -202,7 +227,6 @@ main{max-width: 800px; margin: auto;}
 .stars{font-size: 18px; color: #fbbf24; margin: 2px 0}
 .comment{font-size: 11px; font-weight: bold; color: var(--dark); margin-top: 2px;}
 .note{font-size: 10px; color: #a07885; margin-top: 4px;}
-
 .share-card-wrapper {
   background: #ffffff;
   border-radius: 14px;
@@ -314,7 +338,6 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 <span>💰 所持金:</span> <span id="myMoney">500</span><span>円</span>
 </div>
 </header>
-
 <main>
 <div class="steps" id="stepList">
 <span class="step on">START</span><span class="step">① 具材</span>
@@ -379,7 +402,6 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </div>
 </section>
-
 <!-- オーダー取りゲーム：難易度選択画面 -->
 <section class="screen" id="orderDiffMenu">
 <div class="panel" style="text-align:center">
@@ -482,7 +504,6 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </div>
 </section>
-
 <section class="screen" id="soups">
 <div class="panel">
 <h2 class="title">③ スープを選ぼう！</h2>
@@ -522,11 +543,18 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </section>
 
+<!-- 修正：ぐつぐつ動くお鍋アニメーション対応の調理画面 -->
 <section class="screen" id="cooking">
 <div class="panel cook">
 <h2 class="title">⑤ つくってもらおう！</h2>
 <p>選んだ材料をお店のスタッフが調理してくれます…</p>
-<div class="pot">🍲</div><h3 id="cookText" style="color:#ff4d80; font-size:15px;">お鍋でぐつぐつ… ♡</h3>
+
+<div class="cooking-pot-container">
+  <div class="cooking-pot" id="cookingPotEmoji">🍲</div>
+  <div id="bubblesContainer"></div>
+</div>
+
+<h3 id="cookText" style="color:#ff4d80; font-size:15px; margin-top:10px;">お鍋でぐつぐつ… ♡</h3>
 <div class="bar"><div id="progress"></div></div>
 <p id="seconds" style="font-size:11px; color:#a07885;">調理中… 5秒</p>
 </div>
@@ -572,7 +600,6 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </section>
 </main>
 <footer>♡ MY MALATANG SHOP ♡</footer>
-
 <script>
 var ingredients=[
 ["白菜","🥬",80,"野菜"],["ほうれん草","🥬",80,"野菜"],["小松菜","🥬",80,"野菜"],["キャベツ","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["大根","🥕",70,"野菜"],["れんこん","🪷",90,"野菜"],["じゃがいも","🥔",80,"野菜"],["さつまいも","🍠",90,"野菜"],["とうもろこし","🌽",90,"野菜"],["トマト","🍅",90,"野菜"],["ブロッコリー","🥦",90,"野菜"],["かぼちゃ","🎃",90,"野菜"],["ニラ","🌿",70,"野菜"],
@@ -614,6 +641,53 @@ var currentFinishData = {
   commentText: ""
 };
 
+// Web Audio APIを使った効果音システム
+var audioCtx = null;
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return audioCtx;
+}
+function playSound(type) {
+  try {
+    var ctx = getAudioContext();
+    if (ctx.state === 'suspended') { ctx.resume(); }
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    var now = ctx.currentTime;
+
+    if (type === 'click') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === 'cook') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.linearRampToValueAtTime(400, now + 0.3);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+      osc.start(now);
+      osc.stop(now + 0.3);
+    } else if (type === 'finish') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, now);
+      osc.frequency.setValueAtTime(659.25, now + 0.1);
+      osc.frequency.setValueAtTime(783.99, now + 0.2);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+      osc.start(now);
+      osc.stop(now + 0.4);
+    }
+  } catch(e) {}
+}
+
 function updateMoney(amt){
   myMoney += amt;
   if(myMoney < 0) myMoney = 0;
@@ -654,7 +728,7 @@ function renderCats(){
   var h = "";
   for(var i=0; i<currentCats.length; i++){
     var c = currentCats[i];
-    h += '<button class="cat '+(c===curCat?'active':'')+'" onclick="setCat(\''+c+'\')">'+c+'</button>';
+    h += '<button class="cat '+(c===curCat?'active':'')+'" onclick="playSound(\'click\'); setCat(\''+c+'\')">'+c+'</button>';
   }
   el.innerHTML = h;
 }
@@ -670,7 +744,7 @@ function renderIngredients(){
     var item = ingredients[i];
     if(curCat === "全部" || item[3] === curCat){
       var isSel = selIng.indexOf("norm_" + i) !== -1;
-      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng(\'norm_' + i + '\')">'
+      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); toggleIng(\'norm_' + i + '\')">'
         + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1])
         + '<span class="name">'+item[0]+'</span><small>'+item[2]+'円</small></button>';
     }
@@ -680,7 +754,7 @@ function renderIngredients(){
     var sItem = shopItems[i];
     if(sItem.unlocked && (curCat === "全部" || curCat === "👑 高級")){
       var isSel = selIng.indexOf("shop_" + i) !== -1;
-      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng(\'shop_' + i + '\')">'
+      h += '<button class="tile '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); toggleIng(\'shop_' + i + '\')">'
         + (isSel?'<span class="check">✓</span>':'') + getIcon(sItem.emoji)
         + '<span class="name">'+sItem.name+'</span><small>'+sItem.price+'円</small></button>';
     }
@@ -701,7 +775,7 @@ function renderNoodles(){
   var grid = document.getElementById("noodleGrid"); if(!grid) return; var h = "";
   for(var i=0; i<noodles.length; i++){
     var item = noodles[i]; var isSel = selNod.indexOf(i) !== -1;
-    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleNod('+i+')">'
+    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); toggleNod('+i+')">'
       + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1])
       + '<span class="name">'+item[0]+'</span><small>'+(item[2]?item[2]+'円':'無料')+'</small></button>';
   }
@@ -712,7 +786,7 @@ function renderSoups(){
   var grid = document.getElementById("soupGrid"); if(!grid) return; var h = "";
   for(var i=0; i<soups.length; i++){
     var item = soups[i]; var isSel = (selSoup === i);
-    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="selectSoup('+i+')">'
+    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); selectSoup('+i+')">'
       + '<span class="emoji">'+item[1]+'</span><b>'+item[0]+'</b><small>'+item[2]+'円<br>'+item[3]+'</small></button>';
   }
   grid.innerHTML = h;
@@ -722,6 +796,7 @@ function selectSoup(i){ selSoup = i; renderSoups(); }
 function toggleNod(i){ var idx = selNod.indexOf(i); if(idx===-1) selNod.push(i); else selNod.splice(idx,1); renderNoodles(); }
 
 function go(sid){
+  playSound('click');
   var scs = document.querySelectorAll(".screen");
   for(var i=0; i<scs.length; i++) scs[i].classList.remove("active");
   document.getElementById(sid).classList.add("active");
@@ -749,7 +824,7 @@ function renderShop(){
     if(item.unlocked){
       h += '<button class="btn secondary" disabled style="opacity:0.6">解放済み</button>';
     } else {
-      h += '<button class="btn gold-btn" onclick="buyShopItem(' + i + ')">解放 (' + item.unlockCost + '円)</button>';
+      h += '<button class="btn gold-btn" onclick="playSound(\'click\'); buyShopItem(' + i + ')">解放 (' + item.unlockCost + '円)</button>';
     }
     h += '</div>';
   }
@@ -819,11 +894,14 @@ function renderBasket(){
     cookBtn.disabled = false; cookBtn.style.opacity = 1;
   }
 }
-
 function startCooking(){
   if(currentCost > myMoney) return;
   updateMoney(-currentCost);
+  playSound('cook');
   go('cooking');
+  
+  startBubbles();
+
   var bar = document.getElementById("progress"); var secText = document.getElementById("seconds");
   bar.style.width = "0%";
   if(timer) clearInterval(timer);
@@ -832,8 +910,40 @@ function startCooking(){
     elapsed++;
     bar.style.width = ((elapsed / 5) * 100) + "%";
     secText.innerText = "調理中… " + Math.max(0, 5 - elapsed) + "秒";
-    if(elapsed >= 5){ clearInterval(timer); showFinish(); }
+    if(elapsed >= 5){ 
+      clearInterval(timer); 
+      stopBubbles();
+      playSound('finish');
+      showFinish(); 
+    }
   }, 1000);
+}
+
+var bubbleTimer = null;
+function startBubbles() {
+  var container = document.getElementById("bubblesContainer");
+  if(!container) return;
+  container.innerHTML = "";
+  
+  var emojis = getSelectedIngredientData().map(function(item){ return item.emoji; });
+  if(emojis.length === 0) emojis = ["✨", "🔥", "🥬"];
+
+  bubbleTimer = setInterval(function(){
+    var span = document.createElement("span");
+    span.className = "floating-bubble";
+    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    span.style.left = (20 + Math.random() * 60) + "%";
+    span.style.bottom = "20px";
+    container.appendChild(span);
+
+    setTimeout(function(){ span.remove(); }, 1500);
+  }, 300);
+}
+
+function stopBubbles() {
+  if(bubbleTimer) clearInterval(bubbleTimer);
+  var container = document.getElementById("bubblesContainer");
+  if(container) container.innerHTML = "";
 }
 
 function getRandomComment(arr) {
@@ -984,6 +1094,7 @@ function showFinish(){
 }
 
 function copyShareText(){
+  playSound('click');
   var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
            + "--------------------------\n"
            + "【スープ】" + currentFinishData.soupText + "\n"
@@ -993,30 +1104,32 @@ function copyShareText(){
            + "--------------------------\n"
            + "【評価】" + currentFinishData.starsText + "\n"
            + "【ひとこと】" + currentFinishData.commentText + "\n\n"
-           + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+           + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n"
+           + window.location.href;
 
   if(navigator.clipboard){
     navigator.clipboard.writeText(text).then(function(){
-      document.getElementById("shareNote").innerText = "✨ 結果と評価をクリップボードにコピーしたよ！";
+      document.getElementById("shareNote").innerText = "✨ 結果と評価をURL付きでクリップボードにコピーしたよ！";
     });
   } else {
     alert(text);
   }
 }
 
-// OS標準の共有シート（iOSの共有メニュー等）を開く処理
 function shareViaWebAPI(){
+  playSound('click');
   var card = document.getElementById("captureArea");
   var note = document.getElementById("shareNote");
   note.innerText = "⏳ 共有メニューを準備中…";
 
   html2canvas(card, { scale: 2, useCORS: true }).then(function(canvas){
     canvas.toBlob(function(blob){
-      var file = new File([blob], "my-malatang.png", { type: "png" in navigator ? "image/png" : "image/png" });
+      var file = new File([blob], "my-malatang.png", { type: "image/png" });
       var shareText = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
                     + "スープ: " + currentFinishData.soupText + " / 麺: " + currentFinishData.noodleText + "\n"
                     + "評価: " + currentFinishData.starsText + "\n"
-                    + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+                    + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n"
+                    + window.location.href;
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
@@ -1026,11 +1139,8 @@ function shareViaWebAPI(){
         }).then(function(){
           note.innerText = "✨ 共有しました！";
         }).catch(function(err){
-          if (err.name !== 'AbortError') {
-            fallbackDownload(canvas);
-          } else {
-            note.innerText = "";
-          }
+          if (err.name !== 'AbortError') { fallbackDownload(canvas); }
+          else { note.innerText = ""; }
         });
       } else if (navigator.share) {
         navigator.share({
@@ -1039,11 +1149,8 @@ function shareViaWebAPI(){
         }).then(function(){
           note.innerText = "✨ 共有しました！";
         }).catch(function(err){
-          if (err.name !== 'AbortError') {
-            fallbackDownload(canvas);
-          } else {
-            note.innerText = "";
-          }
+          if (err.name !== 'AbortError') { fallbackDownload(canvas); }
+          else { note.innerText = ""; }
         });
       } else {
         fallbackDownload(canvas);
@@ -1063,14 +1170,16 @@ function fallbackDownload(canvas){
   note.innerText = "✨ 画像として保存しました！";
 }
 
-// X（Twitter）共有
+// X（Twitter）共有（URL付き）
 function shareToTwitter(){
+  playSound('click');
   var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
            + "【スープ】" + currentFinishData.soupText + "\n"
            + "【 麺 】" + currentFinishData.noodleText + "\n"
            + "【具 材】" + currentFinishData.ingText + "\n"
            + "【評価】" + currentFinishData.starsText + "\n"
-           + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n";
+           + "#わたしだけの麻辣湯 #麻辣湯ゲーム\n"
+           + window.location.href;
   var url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text);
   window.open(url, '_blank');
 }
@@ -1086,12 +1195,14 @@ var orderDiff = "easy";
 var serveDiff = "easy";
 
 function startOrderGameWithDiff(diff){
+  playSound('click');
   orderDiff = diff;
   go('orderGame');
   initOrderGame();
 }
 
 function startServeGameWithDiff(diff){
+  playSound('click');
   serveDiff = diff;
   go('serveGame');
   initServeGame();
@@ -1183,7 +1294,7 @@ function renderG1SoupUI(){
   var grid = document.getElementById("g1SoupGrid"); var h = "";
   for(var i=0; i<soups.length; i++){
     var isSel = (userG1Soup === i);
-    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="setG1Soup('+i+')"><span class="emoji">'+soups[i][1]+'</span><b>'+soups[i][0]+'</b></button>';
+    h += '<button class="soup '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); setG1Soup('+i+')"><span class="emoji">'+soups[i][1]+'</span><b>'+soups[i][0]+'</b></button>';
   }
   grid.innerHTML = h;
 }
@@ -1193,7 +1304,7 @@ function renderG1SpiceUI(){
   var grid = document.getElementById("g1SpiceGrid"); var spices = ["0辛","1辛","2辛","3辛","4辛","5辛"]; var h = "";
   for(var i=0; i<spices.length; i++){
     var sp = spices[i]; var isSel = (userG1Spice === sp);
-    h += '<button class="spice-btn '+(isSel?'selected':'')+'" onclick="setG1Spice(\''+sp+'\')">'+sp+'</button>';
+    h += '<button class="spice-btn '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); setG1Spice(\''+sp+'\')">'+sp+'</button>';
   }
   grid.innerHTML = h;
 }
@@ -1206,7 +1317,7 @@ function renderG1IngUI(){
     var ingIdx = parseInt(idStr.replace("norm_",""));
     var item = ingredients[ingIdx];
     var isSel = (userG1Ings.indexOf(idStr) !== -1);
-    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleG1Ing(\''+idStr+'\')">' + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1]) + '<span class="name">'+item[0]+'</span></button>';
+    h += '<button class="tile '+(isSel?'selected':'')+'" onclick="playSound(\'click\'); toggleG1Ing(\''+idStr+'\')">' + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1]) + '<span class="name">'+item[0]+'</span></button>';
   }
   grid.innerHTML = h;
 }
@@ -1227,6 +1338,7 @@ function toggleG1Ing(idStr){
 }
 
 function submitOrder(){
+  playSound('click');
   if(orderGameTimer) clearInterval(orderGameTimer);
   var totalTarget = 2 + targetOrder.ingIds.length;
   var correct = 0;
@@ -1257,7 +1369,7 @@ function submitOrder(){
   go('workMenu');
 }
 
-function exitOrderGame(){ if(orderGameTimer) clearInterval(orderGameTimer); go('workMenu'); }
+function exitOrderGame(){ playSound('click'); if(orderGameTimer) clearInterval(orderGameTimer); go('workMenu'); }
 
 var serveStage = 0, targetSeat = "";
 var serveTimeLeft = 15;
@@ -1307,7 +1419,7 @@ function nextServeStage(){
   var grid = document.getElementById("seatGrid"); grid.innerHTML = "";
   for(var i=0; i<seats.length; i++){
     var sName = seats[i];
-    grid.innerHTML += '<div class="seat-card"><h3 style="margin:0 0 4px; font-size:13px;">🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')" style="padding:4px 10px;font-size:10px;">ここに運ぶ！</button></div>';
+    grid.innerHTML += '<div class="seat-card"><h3 style="margin:0 0 4px; font-size:13px;">🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="playSound(\'click\'); checkServe(\'' + sName + '\')" style="padding:4px 10px;font-size:10px;">ここに運ぶ！</button></div>';
   }
 }
 
@@ -1316,14 +1428,15 @@ function checkServe(sName){
     nextServeStage();
   } else {
     if(serveGameTimer) clearInterval(serveGameTimer);
-    alert("😭 間違えた席に運んじゃった！お客さんコール「これ僕のじゃないよー！」\n💰 0円（バイト失敗）");
+    alert("😭 間違えた席に運んじゃった！お客さんコール " + '"これ僕のじゃないよー！"' + "\n💰 0円（バイト失敗）");
     go('workMenu');
   }
 }
 
-function exitServeGame(){ if(serveGameTimer) clearInterval(serveGameTimer); go('workMenu'); }
+function exitServeGame(){ playSound('click'); if(serveGameTimer) clearInterval(serveGameTimer); go('workMenu'); }
 
 function resetGame(){
+  playSound('click');
   selIng = []; selNod = []; selSoup = 0; curCat = "全部";
   if(timer) clearInterval(timer);
   if(orderGameTimer) clearInterval(orderGameTimer);
@@ -1353,7 +1466,6 @@ document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
 renderCats(); renderIngredients(); renderNoodles(); renderSoups();
 
-/* ===== 完成画面：不規則で圧倒的な量の麺 ＆ 特大具材の配置 ===== */
 function getSelectedIngredientData() {
   var result = [];
   selIng.forEach(function (id) {
@@ -1635,7 +1747,6 @@ function renderLiveBowl() {
     }
   };
 
-  // 料理完成時に、使用した具材とレシピを図鑑へ記録する
   var originalShowFinish = showFinish;
   showFinish = function () {
     originalShowFinish();
@@ -1660,7 +1771,7 @@ function renderLiveBowl() {
     var noodleNames = selNod.map(function (index) {
       return noodles[index] ? noodles[index][0] : null;
     }).filter(Boolean);
-    // 麺も発見済み素材として記録する
+    
     noodleNames.forEach(function (name) {
       if (extraData.discovered.indexOf(name) === -1) {
         extraData.discovered.push(name);
