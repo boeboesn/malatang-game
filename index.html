@@ -1409,19 +1409,32 @@ function renderLiveBowl() {
       var strokeColor = isHarusame ? "rgba(255, 255, 255, 0.82)" : "rgba(255, 240, 190, 0.9)";
       var strokeWidth = isHarusame ? "5.5" : "8.5";
 
-      for (var i = 0; i < 22; i++) {
+      // 麺をさらに約10cmぶん長く見えるように、丼の中を何度もくねる長い線にする
+      for (var i = 0; i < 30; i++) {
         var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        
-        var x1 = 20 + Math.random() * 160;
-        var y1 = 20 + Math.random() * 160;
-        var cx1 = 20 + Math.random() * 160;
-        var cy1 = 20 + Math.random() * 160;
-        var cx2 = 20 + Math.random() * 160;
-        var cy2 = 20 + Math.random() * 160;
-        var x2 = 20 + Math.random() * 160;
-        var y2 = 20 + Math.random() * 160;
 
-        var d = "M " + x1 + " " + y1 + " C " + cx1 + " " + cy1 + ", " + cx2 + " " + cy2 + ", " + x2 + " " + y2;
+        var x1 = 8 + Math.random() * 184;
+        var y1 = 8 + Math.random() * 184;
+        var x2 = 8 + Math.random() * 184;
+        var y2 = 8 + Math.random() * 184;
+        var cx1 = 5 + Math.random() * 190;
+        var cy1 = 5 + Math.random() * 190;
+        var cx2 = 5 + Math.random() * 190;
+        var cy2 = 5 + Math.random() * 190;
+        var mx = 5 + Math.random() * 190;
+        var my = 5 + Math.random() * 190;
+        var cx3 = 5 + Math.random() * 190;
+        var cy3 = 5 + Math.random() * 190;
+        var cx4 = 5 + Math.random() * 190;
+        var cy4 = 5 + Math.random() * 190;
+        var ex = 5 + Math.random() * 190;
+        var ey = 5 + Math.random() * 190;
+
+        // 3つの大きなカーブをつなぎ、一本ずつの麺を長く見せる
+        var d = "M " + x1 + " " + y1
+          + " C " + cx1 + " " + cy1 + ", " + cx2 + " " + cy2 + ", " + mx + " " + my
+          + " S " + cx3 + " " + cy3 + ", " + x2 + " " + y2
+          + " S " + cx4 + " " + cy4 + ", " + ex + " " + ey;
 
         path.setAttribute("d", d);
         path.setAttribute("fill", "none");
