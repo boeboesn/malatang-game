@@ -77,7 +77,7 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <div class="food">🍜</div>
 <h2>わたしだけの<br>麻辣湯をつくろう！</h2>
 <p>好きな具材も、麺も、スープも自由に選べるよ。<br>自分だけのオリジナル麻辣湯を作っちゃおう！</p>
-<button class="btn" onclick="go('ingredients')">はじめる ❯</button>
+<button class="btn" onclick="goScreen('ingredients')">はじめる ❯</button>
 </div>
 </section>
 
@@ -89,114 +89,5 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <div class="grid" id="ingredientGrid"></div>
 <p class="sub" id="count" style="margin-top:12px;text-align:center;font-weight:bold;"></p>
 <div class="btnrow">
-<button class="btn secondary" onclick="go('start')">戻る</button>
-<button class="btn" onclick="go('noodles')">麺を選ぶ ❯</button>
-</div>
-</div>
-</section>
-
-<section class="screen" id="noodles">
-<div class="panel">
-<h2 class="title">② 麺を選ぼう！</h2>
-<p class="sub">好きな麺を選んでね。複数選んでもOK！</p>
-<div class="grid" id="noodleGrid"></div>
-<div class="btnrow">
-<button class="btn secondary" onclick="go('ingredients')">戻る</button>
-<button class="btn" onclick="go('soups')">スープを選ぶ ❯</button>
-</div>
-</div>
-</section>
-
-<section class="screen" id="soups">
-<div class="panel">
-<h2 class="title">③ スープを選ぼう！</h2>
-<p class="sub">今日の気分にぴったりのスープはどれ？</p>
-<div class="soups" id="soupGrid"></div>
-<div class="panel" style="margin-top:14px">
-<b>🌶️ 辛さを選ぼう！</b>
-<select id="spice" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #edced7;background:white">
-<option>0辛（辛くない）</option><option>1辛</option><option selected>2辛</option><option>3辛</option><option>4辛</option><option>5辛（激辛）</option>
-</select>
-</div>
-<div class="btnrow">
-<button class="btn secondary" onclick="go('noodles')">戻る</button>
-<button class="btn" onclick="go('basket')">カゴを確認 ❯</button>
-</div>
-</div>
-</section>
-
-<section class="screen" id="basket">
-<div class="panel">
-<h2 class="title">④ カゴの中身を確認しよう！</h2>
-<p class="sub">選んだ材料とスープで、あなただけの麻辣湯を作るよ</p>
-<div class="basket">
-<div class="bowl">🍲</div>
-<div><h3>選んだ具材</h3><div id="chosenIngredients"></div>
-<h3>選んだ麺</h3><div id="chosenNoodles"></div>
-<h3>スープ・辛さ</h3><div id="chosenSoup"></div></div>
-</div>
-<div class="total" id="total"></div>
-<p class="note">※価格はゲーム内の設定だよ。</p>
-<div class="btnrow">
-<button class="btn secondary" onclick="go('soups')">戻る</button>
-<button class="btn" onclick="startCooking()">🍲 これで作る！</button>
-</div>
-</div>
-</section>
-
-<section class="screen" id="cooking">
-<div class="panel cook">
-<h2 class="title">⑤ つくってもらおう！</h2>
-<p>選んだ材料をお店のスタッフが調理してくれます…</p>
-<div class="pot">🍲</div><h3 id="cookText">お鍋でぐつぐつ… ♡</h3>
-<div class="bar"><div id="progress"></div></div>
-<p id="seconds">調理中… 10秒</p>
-</div>
-</section>
-
-<section class="screen" id="finish">
-<div class="finished">
-<h2>✨ できあがり！ ♡</h2><p>あなただけのオリジナル麻辣湯</p>
-<div class="bigbowl">🍜</div>
-<div class="panel" style="text-align:left">
-<p id="finalSoup"></p><p id="finalNoodles"></p><p id="finalIngredients"></p>
-<div class="total" id="finalTotal"></div>
-</div>
-<p>おいしく召し上がれ！</p>
-<div class="btnrow">
-<button class="btn" onclick="shareGame()">シェアする ↗</button>
-<button class="btn secondary" onclick="resetGame()">もう一度つくる ↻</button>
-</div>
-<p class="note" id="shareNote"></p>
-</div>
-</section>
-</main>
-<footer>♡ MY MALATANG SHOP ♡</footer>
-
-<script>
-const ingredients=[
-["白菜","🥬",80,"野菜"],["ほうれん草","🥬",80,"野菜"],["小松菜","🥬",80,"野菜"],["キャベツ","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["大根","🥕",70,"野菜"],["れんこん","🪷",90,"野菜"],["じゃがいも","🥔",80,"野菜"],["さつまいも","🍠",90,"野菜"],["とうもろこし","🌽",90,"野菜"],["トマト","🍅",90,"野菜"],["ブロッコリー","🥦",90,"野菜"],["かぼちゃ","🎃",90,"野菜"],["ニラ","🌿",70,"野菜"],
-["きくらげ","🍄",90,"きのこ"],["マッシュルーム","🍄",100,"きのこ"],["えのき","🍄",90,"きのこ"],["しめじ","🍄",90,"きのこ"],["しいたけ","🍄",100,"きのこ"],
-["豚バラ","🥓",180,"肉・魚介"],["牛肉","🥩",200,"肉・魚介"],["鶏肉","🍗",160,"肉・魚介"],["ラム肉","🥩",200,"肉・魚介"],["えび","🦐",180,"肉・魚介"],["イカ","🦑",160,"肉・魚介"],["ホタテ","🐚",200,"肉・魚介"],["白身魚","🐟",150,"肉・魚介"],["あさり","🐚",150,"肉・魚介"],
-["ソーセージ","🌭",120,"練り物・豆腐"],["つくね","🍡",120,"練り物・豆腐"],["魚のすり身","🍥",100,"練り物・豆腐"],["かにかま","🦀",100,"練り物・豆腐"],["うずらの卵","🥚",100,"練り物・豆腐"],["サーカス団子（蟹籽包）","circus",130,"練り物・豆腐"],["湯葉","🥢",100,"練り物・豆腐"],["厚揚げ","🟫",90,"練り物・豆腐"],["豆腐","⬜",80,"練り物・豆腐"],["こんにゃく","◽",80,"練り物・豆腐"],["春巻","🥟",120,"練り物・豆腐"]];
-const noodles=[["春雨","noodle",100],["太い春雨","noodle",120],["中華麺","🍜",130],["刀削麺","🍜",150],["米粉麺","🍝",130],["さつまいも春雨","noodle",120],["インスタント麺","🍜",120],["なし","❌",0]];
-const soups=[["麻辣スープ","🌶️",300,"定番のピリ辛！"],["白湯スープ","🥛",300,"まろやかクリーミー"],["トマトスープ","🍅",300,"さっぱり濃厚"],["酸菜スープ","🥬",320,"酸味がクセになる"],["カレースープ","🍛",350,"スパイス香る"],["和風スープ","🍲",250,"あっさりだし風味"]];
-
-let selected=new Set(), selectedNoodles=new Set(), selectedSoup=0, category="全部", cookTimer=null;
-const cats=["全部","野菜","肉・魚介","練り物・豆腐","きのこ"];
-const screenIds = ["start", "ingredients", "noodles", "soups", "basket", "cooking", "finish"];
-
-function icon(e){
-  if(e==="circus")return '<div class="stripe"></div>';
-  if(e==="noodle")return '<div class="noodle"></div>';
-  return '<span class="emoji">'+e+'</span>';
-}
-
-function makeTile(x,i,type){
-  let set = type==="noodle" ? selectedNoodles : selected;
-  let yes = set.has(i);
-  return `<button class="tile ${yes?'selected':''}" onclick="toggle('${type}',${i})">${yes?'<span class="check">✓</span>':''}${icon(x[1])}<span class="name">${x[0]}</span><small>${x[2]?x[2]+'円':'無料'}</small></button>`;
-}
-
-function renderCats(){
-  const catE
+<button class="btn secondary" onclick="goScreen('start')">戻る</button>
+<button class="btn" onclick="goScreen
