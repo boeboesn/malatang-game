@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>♡ わたしだけの麻辣湯 ♡</title>
+<!-- 画像保存用の軽量ライブラリ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 *{box-sizing:border-box}
 :root{
@@ -28,7 +30,6 @@ body{
 
 button, select{font: inherit; cursor: pointer}
 
-/* ヘッダー＆ゆめかわ所持金バッジ */
 header{
   text-align: center;
   padding: 12px;
@@ -79,7 +80,6 @@ main{max-width: 900px; margin: auto; padding: 10px}
 .title{font-size: 20px; margin: 0 0 4px; color: #ff4d80; font-weight: 800;}
 .sub{font-size: 12px; color: #916879; margin: 0 0 10px}
 
-/* ボタンのゆめかわデザイン */
 .btn{
   border: 0;
   background: linear-gradient(135deg, #ff8fab, #ff6b95);
@@ -102,6 +102,11 @@ main{max-width: 900px; margin: auto; padding: 10px}
   color: #fff !important;
   box-shadow: 0 5px 15px rgba(168, 85, 247, 0.35) !important;
 }
+.green-btn{
+  background: linear-gradient(135deg, #34d399, #10b981) !important;
+  color: #fff !important;
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.35) !important;
+}
 .secondary{
   background: #ffffff !important;
   color: var(--dark) !important;
@@ -110,7 +115,6 @@ main{max-width: 900px; margin: auto; padding: 10px}
 }
 .btnrow{display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px}
 
-/* スタート画面・ヒーロー */
 .hero{
   text-align: center;
   padding: 15px 10px;
@@ -130,17 +134,14 @@ main{max-width: 900px; margin: auto; padding: 10px}
 .hero-fallback h2{margin: 5px 0; font-size: 22px; text-shadow: 0 2px 4px rgba(0,0,0,0.15)}
 .hero-fallback p{margin: 0; font-size: 12px; opacity: 0.95}
 
-/* ステップインジケーター */
 .steps{display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin: 8px 0 12px}
 .step{font-size: 10px; border-radius: 20px; padding: 5px 10px; background: #fce7f0; color: #9b7180; font-weight: bold;}
 .step.on{background: linear-gradient(135deg, #ff8fab, #ff6b95); color: white; box-shadow: 0 3px 10px rgba(255,107,149,0.3)}
 
-/* カテゴリタブ */
 .categories{display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 8px}
 .cat{white-space: nowrap; border: 2px solid var(--line); background: #ffffff; border-radius: 20px; padding: 6px 12px; color: var(--dark); font-weight: bold; font-size: 11px;}
 .cat.active{background: linear-gradient(135deg, #ff8fab, #ff6b95); color: white; border-color: transparent;}
 
-/* グリッド・タイル */
 .grid{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px}
 @media(min-width: 600px){.grid{grid-template-columns: repeat(5, minmax(0, 1fr))}}
 
@@ -171,7 +172,6 @@ main{max-width: 900px; margin: auto; padding: 10px}
 .stripe{width: 44px; height: 32px; border-radius: 10px; margin: 1px auto 4px; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 6px,#f28b49 6px 12px)}
 .noodle{width: 40px; height: 30px; border: 3px solid #e9cfa2; border-radius: 50%; margin: 2px auto 4px; background: repeating-linear-gradient(0deg,#fff3d8 0 3px,#e3ba75 3px 4px)}
 
-/* スープ選択 */
 .soups{display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px}
 @media(min-width: 600px){.soups{grid-template-columns: repeat(3, minmax(0, 1fr))}}
 
@@ -208,9 +208,17 @@ main{max-width: 900px; margin: auto; padding: 10px}
 .rating-box{background: #fff; border: 2px dashed #ff8fab; border-radius: 14px; padding: 10px; margin: 10px 0; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1);}
 .stars{font-size: 22px; color: #fbbf24; margin: 2px 0}
 .comment{font-size: 13px; font-weight: bold; color: var(--dark); margin-top: 4px; line-height: 1.4}
-.note{font-size: 11px; color: #9b7180}
+.note{font-size: 11px; color: #9b7180; margin-top: 8px;}
 
-/* ミニゲーム用共通ヘッダー＆タイマー（コンパクト化対応） */
+/* 共有用カードの囲い枠 */
+.share-card-wrapper {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 12px;
+  border: 2px dashed #ff8fab;
+  box-shadow: 0 4px 15px rgba(255, 143, 171, 0.15);
+}
+
 .game-header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px}
 .timer-badge{background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; box-shadow: 0 3px 10px rgba(244, 63, 94, 0.3);}
 .speech-bubble{background: #ffffff; border: 2px solid #ff8fab; border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; font-size: 13px; line-height: 1.4; box-shadow: 0 4px 15px rgba(255, 143, 171, 0.15);}
@@ -221,11 +229,9 @@ main{max-width: 900px; margin: auto; padding: 10px}
 .spice-btn{border: 2px solid #fbcfe8; background: white; padding: 6px 2px; border-radius: 10px; font-weight: bold; font-size: 11px; color: var(--dark);}
 .spice-btn.selected{background: #ff8fab; color: white; border-color: #ff4d80; box-shadow: 0 3px 8px rgba(255, 143, 171, 0.4);}
 
-/* 配膳ゲーム */
 .seat-grid{display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px}
 .seat-card{background: #ffffff; border: 2px solid #fbcfe8; border-radius: 14px; padding: 12px 8px; text-align: center; box-shadow: 0 4px 12px rgba(255,143,171,0.1)}
 
-/* ショップ＆称号リスト */
 .shop-item{display: flex; align-items: center; justify-content: space-between; background: #fff; border: 2px solid #fbcfe8; border-radius: 14px; padding: 10px 14px; margin-bottom: 8px;}
 .shop-item-info{text-align: left;}
 .shop-item-info b{font-size: 14px; display: block; color: #ff4d80;}
@@ -307,7 +313,7 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 15px}
 <section class="screen" id="workMenu">
 <div class="panel" style="text-align:center">
 <h2 class="title">🧹 麻辣湯屋さんでお手伝い</h2>
-<p class="sub">お手伝いをしてお小遣いを取り返そう！</p>
+<p class="sub">お手伝いをしてお小遣いを稼ごう！</p>
 <div style="display:flex;flex-direction:column;gap:10px;max-width:380px;margin:15px auto;">
 <button class="btn gold-btn" id="game1Btn" style="font-size:15px;padding:13px;">📋 オーダー取りゲーム（イベント客登場！）</button>
 <button class="btn gold-btn" id="game2Btn" style="font-size:15px;padding:13px;">🍲 配膳ゲーム（全3問・15秒制限）</button>
@@ -316,7 +322,7 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 15px}
 </div>
 </section>
 
-<!-- ミニゲーム1：オーダー取り（コンパクト化対応） -->
+<!-- ミニゲーム1：オーダー取り -->
 <section class="screen" id="orderGame">
 <div class="panel">
 <div class="game-header">
@@ -437,28 +443,38 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 15px}
 </div>
 </section>
 
+<!-- 完成画面（共有機能強化） -->
 <section class="screen" id="finish">
 <div class="finished">
 <h2>✨ できあがり！ ♡</h2><p>あなただけのオリジナル麻辣湯</p>
 
-<img id="finishImage" src="start.png" class="finish-img" alt="完成した麻辣湯" onerror="this.style.display='none'; document.getElementById('bigBowlEmoji').style.display='block';">
-<div class="bigbowl" id="bigBowlEmoji" style="display:none; font-size:80px; margin:10px 0;">🍜</div>
+<!-- 画像保存用としてキャプチャされる対象カード -->
+<div id="captureArea" class="share-card-wrapper">
+  <img id="finishImage" src="start.png" class="finish-img" alt="完成した麻辣湯" onerror="this.style.display='none'; document.getElementById('bigBowlEmoji').style.display='block';">
+  <div class="bigbowl" id="bigBowlEmoji" style="display:none; font-size:80px; margin:10px 0;">🍜</div>
 
-<div class="panel" style="text-align:left">
-<p id="finalSoup"></p><p id="finalNoodles"></p><p id="finalIngredients"></p>
-<div class="total" id="finalTotal"></div>
+  <div class="panel" style="text-align:left; margin-bottom:0;">
+    <p id="finalSoup"></p>
+    <p id="finalNoodles"></p>
+    <p id="finalIngredients"></p>
+    <div class="total" id="finalTotal"></div>
 
-<div class="rating-box">
-<div style="font-size:11px;color:#888;">✨ シェフの評価 ✨</div>
-<div class="stars" id="finalStars">★★★★★</div>
-<div class="comment" id="finalComment"></div>
+    <div class="rating-box">
+      <div style="font-size:11px;color:#888;">✨ シェフの評価 ✨</div>
+      <div class="stars" id="finalStars">★★★★★</div>
+      <div class="comment" id="finalComment"></div>
+    </div>
+  </div>
 </div>
-</div>
 
-<p>おいしく召し上がれ！</p>
+<p style="margin-top:14px;font-weight:bold;color:#ff4d80;">✨ つくった麻辣湯をみんなに共有しよう！ ✨</p>
 <div class="btnrow">
-<button class="btn" id="aiPromptBtn">🎨 AI用イラスト呪文をコピー</button>
-<button class="btn secondary" id="resetBtn">もう一度つくる ↻</button>
+  <button class="btn green-btn" id="saveImgBtn">📸 画像として保存</button>
+  <button class="btn gold-btn" id="shareCopyBtn">📋 結果をテキストでコピー</button>
+</div>
+<div class="btnrow" style="margin-top:8px;">
+  <button class="btn purple-btn" id="aiPromptBtn">🎨 AI用呪文をコピー</button>
+  <button class="btn secondary" id="resetBtn">もう一度つくる ↻</button>
 </div>
 <p class="note" id="shareNote"></p>
 </div>
@@ -467,7 +483,7 @@ footer{text-align: center; font-size: 11px; color: #b08998; padding: 15px}
 <footer>♡ MY MALATANG SHOP ♡</footer>
 
 <script>
-/* 具材データ（通常具材＋高級隠し具材） */
+/* 具材データ */
 var ingredients=[
 ["白菜","🥬",80,"野菜"],["ほうれん草","🥬",80,"野菜"],["小松菜","🥬",80,"野菜"],["キャベツ","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["大根","🥕",70,"野菜"],["れんこん","🪷",90,"野菜"],["じゃがいも","🥔",80,"野菜"],["さつまいも","🍠",90,"野菜"],["とうもろこし","🌽",90,"野菜"],["トマト","🍅",90,"野菜"],["ブロッコリー","🥦",90,"野菜"],["かぼちゃ","🎃",90,"野菜"],["ニラ","🌿",70,"野菜"],
 ["きくらげ","🍄",90,"きのこ"],["マッシュルーム","🍄",100,"きのこ"],["えのき","🍄",90,"きのこ"],["しめじ","🍄",90,"きのこ"],["しいたけ","🍄",100,"きのこ"],
@@ -475,7 +491,6 @@ var ingredients=[
 ["ソーセージ","🌭",120,"練り物・豆腐"],["つくね","🍡",120,"練り物・豆腐"],["魚のすり身","🍥",100,"練り物・豆腐"],["かにかま","🦀",100,"練り物・豆腐"],["うずらの卵","🥚",100,"練り物・豆腐"],["サーカス団子（蟹籽包）","circus",130,"練り物・豆腐"],["湯葉","🥢",100,"練り物・豆腐"],["厚揚げ","🟫",90,"練り物・豆腐"],["豆腐","⬜",80,"練り物・豆腐"],["こんにゃく","◽",80,"練り物・豆腐"],["春巻","🥟",120,"練り物・豆腐"]
 ];
 
-/* ショップで解放できる高級具材データ */
 var shopItems=[
   { id: "shark", name: "👑 黄金のフカヒレ", emoji: "🦈", price: 500, unlockCost: 1000, cat: "高級", unlocked: false },
   { id: "wagyu", name: "✨ プレミアム和牛", emoji: "🥩", price: 400, unlockCost: 800, cat: "高級", unlocked: false },
@@ -483,7 +498,6 @@ var shopItems=[
   { id: "truffle", name: "🍄 黒トリュフ", emoji: "🍄", price: 700, unlockCost: 1500, cat: "高級", unlocked: false }
 ];
 
-/* 称号（実績バッジ）データ */
 var badgeList=[
   { id: "spicy", icon: "🌶️", title: "激辛マスター", desc: "5辛の麻辣湯を調理した", unlocked: false },
   { id: "healthy", icon: "🥗", title: "ヘルシーの神", desc: "野菜だけの麻辣湯を調理した", unlocked: false },
@@ -500,7 +514,16 @@ var myMoney = 500;
 var currentCost = 0;
 var selIng = [], selNod = [], selSoup = 0;
 var curCat = "全部", timer = null, orderGameTimer = null, serveGameTimer = null;
-var cats = ["全部", "野菜", "肉・魚介", "練り物・豆腐", "きのこ"];
+
+// 完成情報キャッシュ用
+var currentFinishData = {
+  soupText: "",
+  noodleText: "",
+  ingText: "",
+  totalText: "",
+  starsText: "",
+  commentText: ""
+};
 
 function updateMoney(amt){
   myMoney += amt;
@@ -728,6 +751,7 @@ function startCooking(){
 
 function showFinish(){
   go('finish');
+  document.getElementById("shareNote").innerText = "";
   var ingL = [], ingTot = 0, vegCount = 0, meatCount = 0, hasShopIng = false;
   for(var i=0; i<selIng.length; i++){
     var idStr = selIng[i];
@@ -755,10 +779,15 @@ function showFinish(){
   if(meatCount >= 4) checkBadge("meat", true);
   if(hasShopIng) checkBadge("gorgeous", true);
 
-  document.getElementById("finalSoup").innerHTML = '<b>スープ:</b> ' + sItem[0] + ' (' + spVal + ')';
-  document.getElementById("finalNoodles").innerHTML = '<b>麺:</b> ' + (nodL.length > 0 ? nodL.join(', ') : 'なし');
-  document.getElementById("finalIngredients").innerHTML = '<b>具材:</b> ' + (ingL.length > 0 ? ingL.join(', ') : 'なし');
-  document.getElementById("finalTotal").innerText = 'お会計: ' + currentCost + '円';
+  var soupStr = sItem[0] + ' (' + spVal + ')';
+  var nodStr = (nodL.length > 0 ? nodL.join(', ') : 'なし');
+  var ingStr = (ingL.length > 0 ? ingL.join(', ') : 'なし');
+  var totalStr = currentCost + '円';
+
+  document.getElementById("finalSoup").innerHTML = '<b>スープ:</b> ' + soupStr;
+  document.getElementById("finalNoodles").innerHTML = '<b>麺:</b> ' + nodStr;
+  document.getElementById("finalIngredients").innerHTML = '<b>具材:</b> ' + ingStr;
+  document.getElementById("finalTotal").innerText = 'お会計: ' + totalStr;
 
   var fImg = document.getElementById("finishImage"); var fEmoji = document.getElementById("bigBowlEmoji");
   fImg.style.display = "block"; fEmoji.style.display = "none"; fImg.src = "start.png";
@@ -772,6 +801,55 @@ function showFinish(){
 
   document.getElementById("finalStars").innerText = stars;
   document.getElementById("finalComment").innerText = comment;
+
+  // 共有テキスト用に情報を保存
+  currentFinishData = {
+    soupText: soupStr,
+    noodleText: nodStr,
+    ingText: ingStr,
+    totalText: totalStr,
+    starsText: stars,
+    commentText: comment
+  };
+}
+
+/* 共有機能：結果テキストのコピー */
+function copyShareText(){
+  var text = "🍜♡ わたしだけの麻辣湯 ♡🍜\n"
+           + "--------------------------\n"
+           + "【スープ】" + currentFinishData.soupText + "\n"
+           + "【 麺 】" + currentFinishData.noodleText + "\n"
+           + "【具 材】" + currentFinishData.ingText + "\n"
+           + "【お会計】" + currentFinishData.totalText + "\n"
+           + "--------------------------\n"
+           + "【評価】" + currentFinishData.starsText + "\n"
+           + "【ひとこと】" + currentFinishData.commentText + "\n\n"
+           + "#わたしだけの麻辣湯 #麻辣湯ゲーム";
+
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(text).then(function(){
+      document.getElementById("shareNote").innerText = "✨ 結果と評価をクリップボードにコピーしたよ！SNSに貼り付けて共有してね！";
+    });
+  } else {
+    alert(text);
+  }
+}
+
+/* 共有機能：カードの画像保存 */
+function saveResultImage(){
+  var card = document.getElementById("captureArea");
+  var note = document.getElementById("shareNote");
+  note.innerText = "⏳ 画像を作成中…";
+
+  html2canvas(card, { scale: 2, useCORS: true }).then(function(canvas){
+    var link = document.createElement('a');
+    link.download = 'my-malatang-result.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    note.innerText = "✨ 麻辣湯の画像を保存したよ！";
+  }).catch(function(err){
+    note.innerText = "⚠️ 画像保存に失敗しました。";
+  });
 }
 
 /* ミニゲーム1：オーダー取り */
@@ -1039,6 +1117,8 @@ document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles')
 document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
 document.getElementById("backToSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("cookingBtn").onclick = function() { startCooking(); };
+document.getElementById("saveImgBtn").onclick = function() { saveResultImage(); };
+document.getElementById("shareCopyBtn").onclick = function() { copyShareText(); };
 document.getElementById("aiPromptBtn").onclick = function() { copyAIPrompt(); };
 document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
