@@ -6,24 +6,25 @@
 <title>わたしだけの麻辣湯</title>
 <style>
 *{box-sizing:border-box}
-:root{--pink:#e96c96;--dark:#633044;--line:#edced7}
+:root{--pink:#e96c96;--dark:#633044;--line:#edced7;--gold:#e6a100}
 body{margin:0;background:#fff8f5;color:var(--dark);font-family:system-ui,sans-serif}
 button,select{font:inherit;cursor:pointer}
-header{text-align:center;padding:18px;background:#fff0f4;border-bottom:2px solid var(--line)}
-header h1{margin:0;font-size:clamp(23px,5vw,34px)}
-header p{font-size:13px;margin:6px 0 0}
+header{text-align:center;padding:15px;background:#fff0f4;border-bottom:2px solid var(--line);position:relative}
+header h1{margin:0;font-size:clamp(22px,5vw,32px)}
+header p{font-size:12px;margin:4px 0 0}
+.money-badge{position:absolute;top:12px;right:12px;background:#fff;border:2px solid var(--gold);color:#9e6e00;padding:6px 12px;border-radius:20px;font-weight:bold;font-size:14px;box-shadow:0 2px 5px rgba(0,0,0,0.05)}
 main{max-width:1000px;margin:auto;padding:12px}
 .screen{display:none}
 .screen.active{display:block}
 .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px}
 .title{font-size:22px;margin:0 0 5px}
 .sub{font-size:13px;color:#916879;margin:0 0 14px}
-.btn{border:0;background:var(--pink);color:white;padding:13px 20px;border-radius:30px;font-weight:800}
+.btn{border:0;background:var(--pink);color:white;padding:12px 20px;border-radius:30px;font-weight:800}
+.gold-btn{background:linear-gradient(135deg,#ffcc00,#f09300)!important;color:#fff!important;box-shadow:0 3px 8px rgba(240,147,0,0.3)}
 .secondary{background:white!important;color:var(--dark)!important;border:1px solid var(--line)!important}
 .btnrow{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}
-.hero{text-align:center;padding:30px 12px;background:linear-gradient(145deg,#ffe0e9,#fff4e9);border-radius:20px}
-.hero .food{font-size:clamp(90px,22vw,160px)}
-.hero h2{font-size:clamp(25px,6vw,42px);margin:5px}
+.hero{text-align:center;padding:0;background:none;border-radius:20px;overflow:hidden;position:relative}
+.hero-img{width:100%;max-width:480px;border-radius:20px;display:block;margin:0 auto 15px;box-shadow:0 4px 15px rgba(0,0,0,0.15)}
 .steps{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:10px 0 15px}
 .step{font-size:11px;border-radius:20px;padding:7px 10px;background:#f5e5eb}
 .step.on{background:var(--pink);color:white}
@@ -56,7 +57,14 @@ main{max-width:1000px;margin:auto;padding:12px}
 .bar div{height:100%;width:0;background:linear-gradient(90deg,#f28cae,#c84372);transition:width .3s}
 .finished{background:linear-gradient(140deg,#fff0f5,#ffead7);text-align:center;padding:20px;border-radius:20px}
 .bigbowl{font-size:clamp(100px,25vw,180px)}
+.rating-box{background:#fff;border:2px dashed var(--pink);border-radius:15px;padding:12px;margin:12px 0;text-align:center}
+.stars{font-size:24px;color:#ffb400;margin:4px 0}
+.comment{font-size:14px;font-weight:bold;color:var(--dark);margin-top:6px;line-height:1.5}
 .note{font-size:12px;color:#987481}
+/* ミニゲーム用スタイル */
+.speech-bubble{background:#fff0f5;border:2px solid var(--pink);border-radius:18px;padding:15px;margin-bottom:15px;position:relative;font-size:15px;line-height:1.6}
+.seat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
+.seat-card{background:#fff;border:2px solid var(--line);border-radius:15px;padding:15px;text-align:center}
 footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 </style>
 </head>
@@ -64,6 +72,7 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <header>
 <h1>♡ わたしだけの麻辣湯 ♡</h1>
 <p>好きな具材を選んで、あなただけの一杯を作ろう！</p>
+<div class="money-badge">所持金: <span id="myMoney">500</span>円</div>
 </header>
 <main>
 <div class="steps" id="stepList">
@@ -74,10 +83,63 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 
 <section class="screen active" id="start">
 <div class="hero">
-<div class="food">🍜</div>
-<h2>わたしだけの<br>麻辣湯をつくろう！</h2>
-<p>好きな具材も、麺も、スープも自由に選べるよ。<br>自分だけのオリジナル麻辣湯を作っちゃおう！</p>
-<button class="btn" id="startBtn">はじめる ❯</button>
+<img src="start.png" alt="わたしだけの麻辣湯をつくろう！" class="hero-img" onerror="this.onerror=null; this.src='start.jpg';">
+<div class="btnrow" style="margin-top:10px">
+<button class="btn" id="startBtn" style="font-size:18px;padding:14px 30px;">麻辣湯をつくる ❯</button>
+<button class="btn gold-btn" id="workBtn" style="font-size:16px;padding:14px 24px;">💰 お小遣いを稼ぐ（バイト）</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム選択画面 -->
+<section class="screen" id="workMenu">
+<div class="panel" style="text-align:center">
+<h2 class="title">🧹 麻辣湯屋さんでお手伝い</h2>
+<p class="sub">お手伝いをしてお小遣いを稼ごう！</p>
+<div style="display:flex;flex-direction:column;gap:12px;max-width:400px;margin:20px auto;">
+<button class="btn gold-btn" id="game1Btn" style="font-size:16px;padding:15px;">📋 オーダー取りゲーム（最大500円）</button>
+<button class="btn gold-btn" id="game2Btn" style="font-size:16px;padding:15px;">🍲 配膳ゲーム（最大500円）</button>
+<button class="btn secondary" id="backFromWorkBtn">← スタート画面に戻る</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム1：オーダー取り -->
+<section class="screen" id="orderGame">
+<div class="panel">
+<h2 class="title">📋 オーダー取りゲーム</h2>
+<div class="speech-bubble" id="orderBubble">
+👤 お客さん: 「注文お願い！スープは<b>麻辣スープ（2辛）</b>で、具材は<b>白菜</b>と<b>豚バラ</b>ね！」
+</div>
+<div style="background:#fdf5f7;padding:12px;border-radius:12px;margin-bottom:12px">
+<b>1. スープを選択:</b>
+<select id="g1Soup" style="width:100%;padding:8px;margin:5px 0 10px;border-radius:8px;border:1px solid #ccc"></select>
+<b>2. 辛さを選択:</b>
+<select id="g1Spice" style="width:100%;padding:8px;margin:5px 0 10px;border-radius:8px;border:1px solid #ccc">
+<option>0辛</option><option>1辛</option><option>2辛</option><option>3辛</option><option>4辛</option><option>5辛</option>
+</select>
+<b>3. 具材1を選択:</b>
+<select id="g1Ing1" style="width:100%;padding:8px;margin:5px 0 10px;border-radius:8px;border:1px solid #ccc"></select>
+<b>4. 具材2を選択:</b>
+<select id="g1Ing2" style="width:100%;padding:8px;margin:5px 0 10px;border-radius:8px;border:1px solid #ccc"></select>
+</div>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('workMenu')">やめる</button>
+<button class="btn gold-btn" onclick="submitOrder()">注文を確定する！</button>
+</div>
+</div>
+</section>
+
+<!-- ミニゲーム2：配膳ゲーム -->
+<section class="screen" id="serveGame">
+<div class="panel" style="text-align:center">
+<h2 class="title">🍲 配膳ゲーム</h2>
+<p class="sub">出来上がった麻辣湯を正しく運ぼう！（全3問）</p>
+<div class="speech-bubble" id="serveQuestion" style="font-size:18px;font-weight:bold;"></div>
+<div class="seat-grid" id="seatGrid"></div>
+<div class="btnrow" style="margin-top:20px">
+<button class="btn secondary" onclick="go('workMenu')">やめる</button>
+</div>
 </div>
 </section>
 
@@ -136,7 +198,7 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <h3>スープ・辛さ</h3><div id="chosenSoup"></div></div>
 </div>
 <div class="total" id="total"></div>
-<p class="note">※価格はゲーム内の設定だよ。</p>
+<p class="note" id="moneyWarning" style="color:#d92b2b;font-weight:bold;text-align:center;margin-top:8px;"></p>
 <div class="btnrow">
 <button class="btn secondary" id="backToSoupsBtn">戻る</button>
 <button class="btn" id="cookingBtn">🍲 これで作る！</button>
@@ -161,10 +223,17 @@ footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
 <div class="panel" style="text-align:left">
 <p id="finalSoup"></p><p id="finalNoodles"></p><p id="finalIngredients"></p>
 <div class="total" id="finalTotal"></div>
+
+<div class="rating-box">
+<div style="font-size:12px;color:#888;">✨ シェフの評価 ✨</div>
+<div class="stars" id="finalStars">★★★★★</div>
+<div class="comment" id="finalComment"></div>
 </div>
+</div>
+
 <p>おいしく召し上がれ！</p>
 <div class="btnrow">
-<button class="btn" id="shareBtn">シェアする ↗</button>
+<button class="btn" id="aiPromptBtn">🎨 AI用イラスト呪文をコピー</button>
 <button class="btn secondary" id="resetBtn">もう一度つくる ↻</button>
 </div>
 <p class="note" id="shareNote"></p>
@@ -184,12 +253,17 @@ var noodles=[["春雨","noodle",100],["太い春雨","noodle",120],["中華麺",
 
 var soups=[["麻辣スープ","🌶️",300,"定番のピリ辛！"],["白湯スープ","🥛",300,"まろやかクリーミー"],["トマトスープ","🍅",300,"さっぱり濃厚"],["酸菜スープ","🥬",320,"酸味がクセになる"],["カレースープ","🍛",350,"スパイス香る"],["和風スープ","🍲",250,"あっさりだし風味"]];
 
-var selIng = [];
-var selNod = [];
-var selSoup = 0;
-var curCat = "全部";
-var timer = null;
+var myMoney = 500;
+var currentCost = 0;
+var selIng = [], selNod = [], selSoup = 0;
+var curCat = "全部", timer = null;
 var cats = ["全部", "野菜", "肉・魚介", "練り物・豆腐", "きのこ"];
+
+function updateMoney(amt){
+  myMoney += amt;
+  if(myMoney < 0) myMoney = 0;
+  document.getElementById("myMoney").innerText = myMoney;
+}
 
 function getIcon(e){
   if(e === "circus") return '<div class="stripe"></div>';
@@ -208,11 +282,7 @@ function renderCats(){
   el.innerHTML = h;
 }
 
-function setCat(c){
-  curCat = c;
-  renderCats();
-  renderIngredients();
-}
+function setCat(c){ curCat = c; renderCats(); renderIngredients(); }
 
 function renderIngredients(){
   var grid = document.getElementById("ingredientGrid");
@@ -223,16 +293,12 @@ function renderIngredients(){
     if(curCat === "全部" || item[3] === curCat){
       var isSel = selIng.indexOf(i) !== -1;
       h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleIng('+i+')">'
-        + (isSel?'<span class="check">✓</span>':'')
-        + getIcon(item[1])
-        + '<span class="name">'+item[0]+'</span>'
-        + '<small>'+(item[2]?item[2]+'円':'無料')+'</small>'
-        + '</button>';
+        + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1])
+        + '<span class="name">'+item[0]+'</span><small>'+item[2]+'円</small></button>';
     }
   }
   grid.innerHTML = h;
-  var cnt = document.getElementById("count");
-  if(cnt) cnt.innerText = "選んだ具材: " + selIng.length + "個";
+  document.getElementById("count").innerText = "選んだ具材: " + selIng.length + "個";
 }
 
 function renderNoodles(){
@@ -243,11 +309,8 @@ function renderNoodles(){
     var item = noodles[i];
     var isSel = selNod.indexOf(i) !== -1;
     h += '<button class="tile '+(isSel?'selected':'')+'" onclick="toggleNod('+i+')">'
-      + (isSel?'<span class="check">✓</span>':'')
-      + getIcon(item[1])
-      + '<span class="name">'+item[0]+'</span>'
-      + '<small>'+(item[2]?item[2]+'円':'無料')+'</small>'
-      + '</button>';
+      + (isSel?'<span class="check">✓</span>':'') + getIcon(item[1])
+      + '<span class="name">'+item[0]+'</span><small>'+(item[2]?item[2]+'円':'無料')+'</small></button>';
   }
   grid.innerHTML = h;
 }
@@ -260,51 +323,33 @@ function renderSoups(){
     var item = soups[i];
     var isSel = (selSoup === i);
     h += '<button class="soup '+(isSel?'selected':'')+'" onclick="selectSoup('+i+')">'
-      + '<span class="emoji">'+item[1]+'</span>'
-      + '<b>'+item[0]+'</b>'
-      + '<small>'+item[2]+'円<br>'+item[3]+'</small>'
-      + '</button>';
+      + '<span class="emoji">'+item[1]+'</span><b>'+item[0]+'</b><small>'+item[2]+'円<br>'+item[3]+'</small></button>';
   }
   grid.innerHTML = h;
 }
 
-function selectSoup(i){
-  selSoup = i;
-  renderSoups();
-}
-
-function toggleIng(i){
-  var idx = selIng.indexOf(i);
-  if(idx === -1) selIng.push(i);
-  else selIng.splice(idx, 1);
-  renderIngredients();
-}
-
-function toggleNod(i){
-  var idx = selNod.indexOf(i);
-  if(idx === -1) selNod.push(i);
-  else selNod.splice(idx, 1);
-  renderNoodles();
-}
+function selectSoup(i){ selSoup = i; renderSoups(); }
+function toggleIng(i){ var idx = selIng.indexOf(i); if(idx===-1) selIng.push(i); else selIng.splice(idx,1); renderIngredients(); }
+function toggleNod(i){ var idx = selNod.indexOf(i); if(idx===-1) selNod.push(i); else selNod.splice(idx,1); renderNoodles(); }
 
 function go(sid){
   var scs = document.querySelectorAll(".screen");
   for(var i=0; i<scs.length; i++) scs[i].classList.remove("active");
-  var target = document.getElementById(sid);
-  if(target) target.classList.add("active");
+  document.getElementById(sid).classList.add("active");
 
   var map = { start:0, ingredients:1, noodles:2, soups:3, basket:4, cooking:5, finish:6 };
-  var idx = map[sid] || 0;
+  var idx = map[sid] !== undefined ? map[sid] : 0;
   var stps = document.querySelectorAll("#stepList .step");
   for(var i=0; i<stps.length; i++){
-    if(i === idx) stps[i].classList.add("on");
-    else stps[i].classList.remove("on");
+    if(i === idx) stps[i].classList.add("on"); else stps[i].classList.remove("on");
   }
 
   if(sid === 'ingredients'){ renderCats(); renderIngredients(); }
   else if(sid === 'noodles'){ renderNoodles(); }
   else if(sid === 'soups'){ renderSoups(); }
   else if(sid === 'basket'){ renderBasket(); }
+  else if(sid === 'orderGame'){ initOrderGame(); }
+  else if(sid === 'serveGame'){ initServeGame(); }
 }
 
 function renderBasket(){
@@ -327,88 +372,179 @@ function renderBasket(){
   var sItem = soups[selSoup];
   var spiceEl = document.getElementById("spice");
   var spVal = spiceEl ? spiceEl.value : "2辛";
-  var sH = '<div>• '+sItem[0]+' ('+sItem[2]+'円) / '+spVal+'</div>';
 
-  var gTot = ingTot + nodTot + sItem[2];
+  currentCost = ingTot + nodTot + sItem[2];
 
   document.getElementById("chosenIngredients").innerHTML = ingH;
   document.getElementById("chosenNoodles").innerHTML = nodH;
-  document.getElementById("chosenSoup").innerHTML = sH;
-  document.getElementById("total").innerText = "合計金額: " + gTot + "円";
+  document.getElementById("chosenSoup").innerHTML = '<div>• '+sItem[0]+' ('+sItem[2]+'円) / '+spVal+'</div>';
+  document.getElementById("total").innerText = "合計金額: " + currentCost + "円";
+
+  var warn = document.getElementById("moneyWarning");
+  var cookBtn = document.getElementById("cookingBtn");
+  if(currentCost > myMoney){
+    warn.innerText = "⚠️ お小遣いが足りません！（所持金: " + myMoney + "円）バイトで稼いできてね！";
+    cookBtn.disabled = true; cookBtn.style.opacity = 0.5;
+  } else {
+    warn.innerText = "";
+    cookBtn.disabled = false; cookBtn.style.opacity = 1;
+  }
 }
 
 function startCooking(){
+  if(currentCost > myMoney) return;
+  updateMoney(-currentCost);
   go('cooking');
   var bar = document.getElementById("progress");
   var secText = document.getElementById("seconds");
   bar.style.width = "0%";
-  secText.innerText = "調理中… 5秒";
-
   if(timer) clearInterval(timer);
-
   var elapsed = 0;
   timer = setInterval(function(){
     elapsed++;
     bar.style.width = ((elapsed / 5) * 100) + "%";
     secText.innerText = "調理中… " + Math.max(0, 5 - elapsed) + "秒";
-
-    if(elapsed >= 5){
-      clearInterval(timer);
-      showFinish();
-    }
+    if(elapsed >= 5){ clearInterval(timer); showFinish(); }
   }, 1000);
 }
 
 function showFinish(){
   go('finish');
-  var ingL = [], ingTot = 0;
+  var ingL = [], ingTot = 0, vegCount = 0, meatCount = 0;
   for(var i=0; i<selIng.length; i++){
-    ingL.push(ingredients[selIng[i]][0]);
-    ingTot += ingredients[selIng[i]][2];
+    var item = ingredients[selIng[i]];
+    ingL.push(item[0]); ingTot += item[2];
+    if(item[3] === "野菜") vegCount++;
+    if(item[3] === "肉・魚介") meatCount++;
   }
-
   var nodL = [], nodTot = 0;
   for(var i=0; i<selNod.length; i++){
-    nodL.push(noodles[selNod[i]][0]);
-    nodTot += noodles[selNod[i]][2];
+    nodL.push(noodles[selNod[i]][0]); nodTot += noodles[selNod[i]][2];
   }
-
   var sItem = soups[selSoup];
   var spiceEl = document.getElementById("spice");
   var spVal = spiceEl ? spiceEl.value : "2辛";
-  var gTot = ingTot + nodTot + sItem[2];
 
   document.getElementById("finalSoup").innerHTML = '<b>スープ:</b> ' + sItem[0] + ' (' + spVal + ')';
   document.getElementById("finalNoodles").innerHTML = '<b>麺:</b> ' + (nodL.length > 0 ? nodL.join(', ') : 'なし');
   document.getElementById("finalIngredients").innerHTML = '<b>具材:</b> ' + (ingL.length > 0 ? ingL.join(', ') : 'なし');
-  document.getElementById("finalTotal").innerText = 'お会計: ' + gTot + '円';
-  document.getElementById("shareNote").innerText = "";
+  document.getElementById("finalTotal").innerText = 'お会計: ' + currentCost + '円';
+
+  var stars = "★★★★★", comment = "";
+  if(selIng.length === 0) { stars = "★★☆☆☆"; comment = "スープだけのシンプル麻辣湯！スープの旨味をダイレクトに感じる一杯！"; }
+  else if(spVal.indexOf("5辛") !== -1) { stars = "★★★★★"; comment = "痺れる辛さがたまらない！激辛マニアも唸る、最高の刺激的麻辣湯！"; }
+  else if(vegCount >= 3 && meatCount >= 2) { stars = "★★★★★ 🌟 (120点)"; comment = "最高の組み合わせ！お肉と野菜の旨味が完璧に溶け合った極上の麻辣湯！"; }
+  else if(vegCount >= 4) { stars = "★★★★★"; comment = "ヘルシーでスープの旨味が際立つ至高の一杯！"; }
+  else if(meatCount >= 4) { stars = "★★★★★"; comment = "お肉と魚介のコクが爆発！大満足のボリューム麻辣湯！"; }
+  else { stars = "★★★★☆"; comment = "素敵な具材選びで生まれた麻辣湯。とっても美味しい！"; }
+
+  document.getElementById("finalStars").innerText = stars;
+  document.getElementById("finalComment").innerText = comment;
 }
 
-function shareGame(){
+/* --- ミニゲーム1：オーダー取り --- */
+var targetOrder = {};
+function initOrderGame(){
+  var rSoup = soups[Math.floor(Math.random()*soups.length)][0];
+  var rSpice = Math.floor(Math.random()*6) + "辛";
+  var rIng1 = ingredients[Math.floor(Math.random()*ingredients.length)][0];
+  var rIng2 = ingredients[Math.floor(Math.random()*ingredients.length)][0];
+  while(rIng1 === rIng2) rIng2 = ingredients[Math.floor(Math.random()*ingredients.length)][0];
+
+  targetOrder = { soup:rSoup, spice:rSpice, ing1:rIng1, ing2:rIng2 };
+  document.getElementById("orderBubble").innerHTML = "👤 お客さん: 「注文お願い！スープは<b>"+rSoup+"（"+rSpice+"）</b>で、具材は<b>"+rIng1+"</b>と<b>"+rIng2+"</b>ね！」";
+
+  var sSel = document.getElementById("g1Soup"); sSel.innerHTML = "";
+  for(var i=0; i<soups.length; i++) sSel.innerHTML += "<option>"+soups[i][0]+"</option>";
+  var i1Sel = document.getElementById("g1Ing1"), i2Sel = document.getElementById("g1Ing2");
+  i1Sel.innerHTML = ""; i2Sel.innerHTML = "";
+  for(var i=0; i<ingredients.length; i++){
+    i1Sel.innerHTML += "<option>"+ingredients[i][0]+"</option>";
+    i2Sel.innerHTML += "<option>"+ingredients[i][0]+"</option>";
+  }
+}
+
+function submitOrder(){
+  var uSoup = document.getElementById("g1Soup").value;
+  var uSpice = document.getElementById("g1Spice").value;
+  var uIng1 = document.getElementById("g1Ing1").value;
+  var uIng2 = document.getElementById("g1Ing2").value;
+
+  var correct = 0;
+  if(uSoup === targetOrder.soup) correct++;
+  if(uSpice === targetOrder.spice) correct++;
+  if((uIng1 === targetOrder.ing1 && uIng2 === targetOrder.ing2) || (uIng1 === targetOrder.ing2 && uIng2 === targetOrder.ing1)) correct += 2;
+
+  if(correct === 4){
+    alert("🎉 パーフェクト！お客さん「ぴったりだ！ありがとう！」\n💰 500円ゲット！");
+    updateMoney(500);
+  } else if(correct >= 2){
+    alert("😅 おしい！お客さん「ちょっと違うけどまあいいか！」\n💰 250円ゲット！");
+    updateMoney(250);
+  } else {
+    alert("😭 完全ミス！お客さん「これ頼んでないよ…」\n💰 0円…");
+  }
+  go('workMenu');
+}
+
+/* --- ミニゲーム2：配膳ゲーム --- */
+var serveStage = 0, targetSeat = "";
+function initServeGame(){ serveStage = 0; nextServeStage(); }
+function nextServeStage(){
+  if(serveStage >= 3){
+    alert("🎉 配膳完了！全テーブルへ無事に運べました！\n💰 500円ゲット！");
+    updateMoney(500); go('workMenu'); return;
+  }
+  serveStage++;
+  var seats = ["A席", "B席", "C席"];
+  targetSeat = seats[Math.floor(Math.random()*seats.length)];
+  var rSoup = soups[Math.floor(Math.random()*soups.length)][0];
+  document.getElementById("serveQuestion").innerText = "第" + serveStage + "問: 「" + rSoup + "」はどの席のお客様？ ➔ 【 " + targetSeat + " 】に運ぼう！";
+
+  var grid = document.getElementById("seatGrid"); grid.innerHTML = "";
+  for(var i=0; i<seats.length; i++){
+    var sName = seats[i];
+    grid.innerHTML += '<div class="seat-card"><h3>🪑 ' + sName + '</h3><button class="btn gold-btn" onclick="checkServe(\'' + sName + '\')">ここに運ぶ！</button></div>';
+  }
+}
+
+function checkServe(sName){
+  if(sName === targetSeat){
+    alert("✨ 正解！お待たせしました！"); nextServeStage();
+  } else {
+    alert("😭 間違えた席に運んじゃった！お客さん「これ僕のじゃないよー！」\n💰 0円（バイト失敗）");
+    go('workMenu');
+  }
+}
+
+function copyAIPrompt(){
+  var ingL = []; for(var i=0; i<selIng.length; i++){ ingL.push(ingredients[selIng[i]][0]); }
+  var nodL = []; for(var i=0; i<selNod.length; i++){ nodL.push(noodles[selNod[i]][0]); }
+  var sItem = soups[selSoup];
+  var spiceEl = document.getElementById("spice");
+  var spVal = spiceEl ? spiceEl.value : "2辛";
+
+  var promptText = "美味しそうな麻辣湯のイラスト。どんぶりに入っている。具材は " + (ingL.length > 0 ? ingL.join('、') : "なし") + "、麺は " + (nodL.length > 0 ? nodL.join('、') : "なし") + "、スープは " + sItem[0] + "（" + spVal + "）。ポップでかわいいアニメ風のイラストで描いて。";
+
   var note = document.getElementById("shareNote");
   if(navigator.clipboard){
-    navigator.clipboard.writeText("わたしだけの麻辣湯を作ったよ！おいしそう😋").then(function(){
-      note.innerText = "✨ 結果をクリップボードにコピーしたよ！";
-    }).catch(function(){
-      note.innerText = "コピーに失敗しました";
+    navigator.clipboard.writeText(promptText).then(function(){
+      note.innerText = "✨ AI用の呪文をコピーしたよ！画像生成AIに貼り付けて使ってね！";
     });
-  } else {
-    note.innerText = "シェア機能が非対応です";
   }
 }
 
 function resetGame(){
-  selIng = [];
-  selNod = [];
-  selSoup = 0;
-  curCat = "全部";
+  selIng = []; selNod = []; selSoup = 0; curCat = "全部";
   if(timer) clearInterval(timer);
   go('start');
 }
 
-// ボタンのクリックイベントを確実に関連付け
 document.getElementById("startBtn").onclick = function() { go('ingredients'); };
+document.getElementById("workBtn").onclick = function() { go('workMenu'); };
+document.getElementById("game1Btn").onclick = function() { go('orderGame'); };
+document.getElementById("game2Btn").onclick = function() { go('serveGame'); };
+document.getElementById("backFromWorkBtn").onclick = function() { go('start'); };
 document.getElementById("backToStartBtn").onclick = function() { go('start'); };
 document.getElementById("toNoodlesBtn").onclick = function() { go('noodles'); };
 document.getElementById("backToIngBtn").onclick = function() { go('ingredients'); };
@@ -417,13 +553,10 @@ document.getElementById("backToNoodlesBtn").onclick = function() { go('noodles')
 document.getElementById("toBasketBtn").onclick = function() { go('basket'); };
 document.getElementById("backToSoupsBtn").onclick = function() { go('soups'); };
 document.getElementById("cookingBtn").onclick = function() { startCooking(); };
-document.getElementById("shareBtn").onclick = function() { shareGame(); };
+document.getElementById("aiPromptBtn").onclick = function() { copyAIPrompt(); };
 document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
-renderCats();
-renderIngredients();
-renderNoodles();
-renderSoups();
+renderCats(); renderIngredients(); renderNoodles(); renderSoups();
 </script>
 </body>
 </html>
