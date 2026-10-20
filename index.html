@@ -164,7 +164,6 @@ main{max-width: 800px; margin: auto;}
 .stripe{width: 32px; height: 22px; border-radius: 6px; margin: 2px auto; border: 1px solid #e9b6a4; background: repeating-linear-gradient(0deg,#fff4dc 0 4px,#f28b49 4px 8px)}
 .noodle{width: 30px; height: 20px; border: 2.5px solid #e9cfa2; border-radius: 50%; margin: 2px auto; background: repeating-linear-gradient(0deg,#fff3d8 0 2px,#e3ba75 2px 3px)}
 
-/* オーダー取りゲーム用のコンパクトなスープ・辛さグリッド */
 .soups{display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px}
 .soup{
   border: 1.5px solid var(--line);
@@ -178,7 +177,7 @@ main{max-width: 800px; margin: auto;}
 .soup.selected{border: 2px solid #ff4d80 !important; background: #fff0f5; box-shadow: 0 2px 8px rgba(255, 77, 128, 0.15);}
 .soup .emoji{font-size: 22px}
 .soup b{display: block; font-size: 10px; margin-top: 2px; color: #ff4d80;}
-.soup small{display: none;} /* 省スペースのため説明文を非表示に */
+.soup small{display: none;}
 
 .basket{display: grid; grid-template-columns: 1fr; gap: 8px}
 @media(min-width: 550px){.basket{grid-template-columns: 100px 1fr}}
@@ -246,6 +245,27 @@ main{max-width: 800px; margin: auto;}
 .badge-icon{font-size: 22px; display: block; margin-bottom: 2px;}
 .badge-title{font-size: 10px; font-weight: bold; display: block; color: var(--dark);}
 .badge-desc{font-size: 9px; color: #888;}
+
+.diff-box{
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+.diff-btn{
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 11px;
+  color: var(--dark);
+}
+.diff-btn.selected{
+  background: #ff4d80;
+  color: #ffffff;
+  border-color: #ff4d80;
+}
 
 footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </style>
@@ -332,6 +352,12 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 <div class="timer-badge">⏳ 残り <span id="orderTimer">15</span> 秒</div>
 </div>
 
+<div class="diff-box">
+  <button class="diff-btn selected" id="oDiffEasy" onclick="setOrderDiff('easy')">かんたん (1000円)</button>
+  <button class="diff-btn" id="oDiffNormal" onclick="setOrderDiff('normal')">ふつう (1500円)</button>
+  <button class="diff-btn" id="oDiffHard" onclick="setOrderDiff('hard')">むずかしい (2000円)</button>
+</div>
+
 <div class="speech-bubble" id="orderBubble"></div>
 
 <div class="select-section">
@@ -363,6 +389,13 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 <h2 class="title" style="margin:0;font-size:15px;">🍲 配膳ゲーム</h2>
 <div class="timer-badge">⏳ 残り <span id="serveTimer">15</span> 秒</div>
 </div>
+
+<div class="diff-box">
+  <button class="diff-btn selected" id="sDiffEasy" onclick="setServeDiff('easy')">かんたん (500円)</button>
+  <button class="diff-btn" id="sDiffNormal" onclick="setServeDiff('normal')">ふつう (1000円)</button>
+  <button class="diff-btn" id="sDiffHard" onclick="setServeDiff('hard')">むずかしい (1500円)</button>
+</div>
+
 <p class="sub">出来上がった麻辣湯を正しく運ぼう！（全3問・制限時間15秒）</p>
 <div class="speech-bubble" id="serveQuestion" style="font-size:13px;font-weight:bold;text-align:center;"></div>
 <div class="seat-grid" id="seatGrid"></div>
@@ -941,6 +974,31 @@ var orderTimeLeft = 15;
 var displayedIngredients = [];
 var currentEventType = "normal";
 
+var orderDiff = "easy";
+var serveDiff = "easy";
+
+function setOrderDiff(diff){
+  orderDiff = diff;
+  document.getElementById("oDiffEasy").classList.remove("selected");
+  document.getElementById("oDiffNormal").classList.remove("selected");
+  document.getElementById("oDiffHard").classList.remove("selected");
+  if(diff === 'easy') document.getElementById("oDiffEasy").classList.add("selected");
+  if(diff === 'normal') document.getElementById("oDiffNormal").classList.add("selected");
+  if(diff === 'hard') document.getElementById("oDiffHard").classList.add("selected");
+  initOrderGame();
+}
+
+function setServeDiff(diff){
+  serveDiff = diff;
+  document.getElementById("sDiffEasy").classList.remove("selected");
+  document.getElementById("sDiffNormal").classList.remove("selected");
+  document.getElementById("sDiffHard").classList.remove("selected");
+  if(diff === 'easy') document.getElementById("sDiffEasy").classList.add("selected");
+  if(diff === 'normal') document.getElementById("sDiffNormal").classList.add("selected");
+  if(diff === 'hard') document.getElementById("sDiffHard").classList.add("selected");
+  initServeGame();
+}
+
 function initOrderGame(){
   if(orderGameTimer) clearInterval(orderGameTimer);
   userG1Soup = -1; userG1Spice = "2辛"; userG1Ings = [];
@@ -950,7 +1008,11 @@ function initOrderGame(){
   else if(rand < 0.40) currentEventType = "hungry";
   else currentEventType = "normal";
 
-  var targetIngCount = (currentEventType === "hungry") ? 4 : 2;
+  var baseCount = 2;
+  if(orderDiff === 'normal') baseCount = 3;
+  if(orderDiff === 'hard') baseCount = 4;
+
+  var targetIngCount = (currentEventType === "hungry") ? (baseCount + 2) : baseCount;
   orderTimeLeft = (currentEventType === "hurry") ? 10 : 15;
   document.getElementById("orderTimer").innerText = orderTimeLeft;
 
@@ -987,7 +1049,7 @@ function initOrderGame(){
     bubble.innerHTML = "🏃 お客さん: 「急いでるんだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>で頼む！」";
   } else if(currentEventType === "hungry"){
     titleEl.innerText = "🍖 大食いのお客さん！(高額報酬)";
-    bubble.innerHTML = "🍖 お客さん: 「お腹ペコペコだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>、<b>')+"</b>の4つ全部入れてくれ！」";
+    bubble.innerHTML = "🍖 お客さん: 「お腹ペコペコだ！スープは<b>"+rSoup+"（"+rSpice+"）</b>！具材は<b>"+targetIngNames.join('</b>、<b>')+"</b>の"+targetIngCount+"つ全部入れてくれ！」";
   } else {
     titleEl.innerText = "📋 オーダー取りゲーム";
     bubble.innerHTML = "👤 お客さん: 「注文お願い！スープは<b>"+rSoup+"（"+rSpice+"）</b>で、具材は<b>"+targetIngNames.join('</b>と<b>')+"</b>ね！」";
@@ -1002,7 +1064,7 @@ function initOrderGame(){
     if(targetIngIds.indexOf(idStr) === -1) others.push(idStr);
   }
   for(var i = others.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var temp = others[i]; others[i] = others[j]; others[j] = temp; }
-  for(var i=0; i<others.length && pool.length < 9; i++){ pool.push(others[i]); }
+  for(var i=0; i<others.length && pool.length < Math.max(9, targetIngCount + 5); i++){ pool.push(others[i]); }
   for(var i = pool.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var temp = pool[i]; pool[i] = pool[j]; pool[j] = temp; }
   displayedIngredients = pool;
 
@@ -1052,7 +1114,11 @@ function renderG1IngUI(){
 }
 
 function toggleG1Ing(idStr){
-  var maxIng = (currentEventType === "hungry") ? 4 : 2;
+  var baseCount = 2;
+  if(orderDiff === 'normal') baseCount = 3;
+  if(orderDiff === 'hard') baseCount = 4;
+  var maxIng = (currentEventType === "hungry") ? (baseCount + 2) : baseCount;
+
   var idx = userG1Ings.indexOf(idStr);
   if(idx !== -1){ userG1Ings.splice(idx,1); }
   else {
@@ -1074,7 +1140,12 @@ function submitOrder(){
   }
 
   var bonus = orderTimeLeft;
-  var baseReward = (currentEventType === "hungry") ? 700 : 500;
+  
+  var baseReward = 1000;
+  if(orderDiff === 'normal') baseReward = 1500;
+  if(orderDiff === 'hard') baseReward = 2000;
+
+  if(currentEventType === "hungry") baseReward += 200;
   var multiplier = (currentEventType === "hurry") ? 2 : 1;
 
   if(correct === totalTarget){
@@ -1120,8 +1191,12 @@ function nextServeStage(){
   if(serveStage >= 3){
     if(serveGameTimer) clearInterval(serveGameTimer);
     var bonus = serveTimeLeft;
-    var totalReward = 500 + bonus;
-    alert("🎉 配膳完了！全テーブルへ無事に運べました！\n基本報酬: 500円\n⏰ タイムボーナス: +" + bonus + "円\n💰 合計 " + totalReward + "円ゲット！");
+    var baseReward = 500;
+    if(serveDiff === 'normal') baseReward = 1000;
+    if(serveDiff === 'hard') baseReward = 1500;
+
+    var totalReward = baseReward + bonus;
+    alert("🎉 配膳完了！全テーブルへ無事に運べました！\n基本報酬: " + baseReward + "円\n⏰ タイムボーナス: +" + bonus + "円\n💰 合計 " + totalReward + "円ゲット！");
     updateMoney(totalReward);
     checkBadge("master", true);
     go('workMenu');
@@ -1130,6 +1205,9 @@ function nextServeStage(){
   serveStage++;
 
   var seats = ["A席", "B席", "C席"];
+  if(serveDiff === 'normal') seats = ["A席", "B席", "C席", "D席", "E席", "F席"];
+  if(serveDiff === 'hard') seats = ["A席", "B席", "C席", "D席", "E席", "F席", "G席", "H席", "I席"];
+
   targetSeat = seats[Math.floor(Math.random()*seats.length)];
   var rSoup = soups[Math.floor(Math.random()*soups.length)][0];
   document.getElementById("serveQuestion").innerText = "第" + serveStage + "問: 「" + rSoup + "」はどの席のお客様？ ➔ 【 " + targetSeat + " 】に運ぼう！";
