@@ -351,7 +351,7 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </section>
 
-<!-- ミニゲーム1：オーダー取り プレイ画面（※難易度切り替えボタン削除済み） -->
+<!-- ミニゲーム1：オーダー取り プレイ画面 -->
 <section class="screen" id="orderGame">
 <div class="panel">
 <div class="game-header">
@@ -383,7 +383,7 @@ footer{text-align: center; font-size: 10px; color: #b08998; padding: 10px 0}
 </div>
 </section>
 
-<!-- ミニゲーム2：配膳ゲーム プレイ画面（※難易度切り替えボタン削除済み） -->
+<!-- ミニゲーム2：配膳ゲーム プレイ画面 -->
 <section class="screen" id="serveGame">
 <div class="panel">
 <div class="game-header">
@@ -774,7 +774,7 @@ function startCooking(){
   }, 1000);
 }
 
-/* 30種類以上の豊富なシェフコメント判定システム */
+/* シェフコメント判定 */
 function getRandomComment(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -906,7 +906,7 @@ function showFinish(){
   document.getElementById("finalTotal").innerText = 'お会計: ' + totalStr;
 
   var fImg = document.getElementById("finishImage"); var fEmoji = document.getElementById("bigBowlEmoji");
-  fImg.style.display = "block"; fEmoji.style.display = "none"; fImg.src = "start.png";
+  fImg.style.display = "none"; fEmoji.style.display = "none";
 
   var chefRes = generateChefComment(vegCount, meatCount, mushroomCount, hasShopIng, selIng.length, spVal, selNod.length);
 
@@ -1242,7 +1242,8 @@ document.getElementById("shareCopyBtn").onclick = function() { copyShareText(); 
 document.getElementById("resetBtn").onclick = function() { resetGame(); };
 
 renderCats(); renderIngredients(); renderNoodles(); renderSoups();
-/* ===== 追加機能：セーブ・料理の見た目・具材図鑑 ===== */
+
+/* ===== 追加機能：セーブ・リアルな料理の見た目・具材図鑑 ===== */
 (function () {
   "use strict";
 
@@ -1302,11 +1303,8 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
         });
       }
 
-      extraData.discovered = Array.isArray(data.discovered)
-        ? data.discovered : [];
-
-      extraData.recipes = Array.isArray(data.recipes)
-        ? data.recipes : [];
+      extraData.discovered = Array.isArray(data.discovered) ? data.discovered : [];
+      extraData.recipes = Array.isArray(data.recipes) ? data.recipes : [];
 
     } catch (error) {
       console.error("セーブデータを読み込めませんでした", error);
@@ -1315,17 +1313,15 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
 
   loadGame();
 
-  /* 所持金が変わったら自動保存 */
+  /* 所持金変更時保存 */
   var originalUpdateMoney = updateMoney;
-
   updateMoney = function (amount) {
     originalUpdateMoney(amount);
     saveGame();
   };
 
-  /* 高級具材の購入後も保存 */
+  /* 高級具材購入時保存 */
   var originalBuyShopItem = buyShopItem;
-
   buyShopItem = function (index) {
     originalBuyShopItem(index);
     saveGame();
@@ -1333,47 +1329,56 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     renderIngredients();
   };
 
-  /* 称号の獲得後も保存 */
+  /* 称号獲得時保存 */
   var originalCheckBadge = checkBadge;
-
   checkBadge = function (id, condition) {
     originalCheckBadge(id, condition);
     saveGame();
   };
 
-  /* ---------- 料理の見た目 ---------- */
+  /* ---------- 料理の見た目（スタイル＆拡大表示） ---------- */
 
   var bowlStyle = document.createElement("style");
   bowlStyle.textContent = `
     .live-bowl {
-      width: min(100%, 260px);
-      aspect-ratio: 1;
-      margin: 8px auto;
-      padding: 13px;
+      position: relative;
+      width: 260px;
+      height: 260px;
+      aspect-ratio: 1 / 1;
+      margin: 12px auto;
+      padding: 12px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #fff, #f5dce4);
-      border: 4px solid #f4d7df;
-      box-shadow: 0 5px 14px #58313e20;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f4d0dc 70%, #e28ca7 100%);
+      border: 7px solid #f2a8be;
+      box-shadow: 0 10px 25px rgba(88, 49, 62, 0.22), inset 0 4px 8px rgba(255, 255, 255, 0.9);
+      overflow: hidden;
+      flex-shrink: 0;
     }
     .live-soup {
+      position: relative;
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      border: 5px solid #fff3e8;
-      display: flex;
-      flex-wrap: wrap;
-      align-content: center;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      padding: 10px;
-      overflow: hidden;
+      border: 5px solid #fffdfa;
+      box-shadow: inset 0 6px 14px rgba(0, 0, 0, 0.25);
       transition: background .3s;
+      overflow: hidden;
+    }
+    .noodle-texture {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.45;
+      mix-blend-mode: overlay;
     }
     .live-topping {
-      font-size: 29px;
-      line-height: 1.2;
-      filter: drop-shadow(0 2px 1px #0002);
+      position: absolute;
+      font-size: 42px; /* 具材を大きく表示 */
+      line-height: 1;
+      filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.35));
+      user-select: none;
+      transform-origin: center center;
     }
     .book-entry {
       background: #fff;
@@ -1400,7 +1405,7 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
   `;
   document.head.appendChild(bowlStyle);
 
-  /* 完成画面の画像の場所に、具材入りの丼を表示 */
+  /* 完成画面にどんぶり要素を用意 */
   var captureArea = document.getElementById("captureArea");
   var finishImage = document.getElementById("finishImage");
   var bowl = document.createElement("div");
@@ -1412,28 +1417,29 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
   soupCircle.id = "liveSoup";
   soupCircle.className = "live-soup";
 
+  var noodleLayer = document.createElement("div");
+  noodleLayer.id = "noodleLayer";
+  noodleLayer.className = "noodle-texture";
+
+  soupCircle.appendChild(noodleLayer);
   bowl.appendChild(soupCircle);
   captureArea.insertBefore(bowl, finishImage);
 
   function getSelectedIngredientData() {
     var result = [];
-
     selIng.forEach(function (id) {
       if (id.indexOf("norm_") === 0) {
         var index = Number(id.replace("norm_", ""));
         var item = ingredients[index];
-
         if (item) {
           result.push({
             name: item[0],
-            emoji: item[1] === "circus" ? "🦀" :
-                   item[1] === "noodle" ? "🍜" : item[1]
+            emoji: item[1] === "circus" ? "🍥" : (item[1] === "noodle" ? "🍝" : item[1])
           });
         }
       } else if (id.indexOf("shop_") === 0) {
         var shopIndex = Number(id.replace("shop_", ""));
         var shopItem = shopItems[shopIndex];
-
         if (shopItem) {
           result.push({
             name: shopItem.name,
@@ -1442,19 +1448,24 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
         }
       }
     });
-
     return result;
   }
 
   function renderLiveBowl() {
     var selected = getSelectedIngredientData();
     var toppings = document.getElementById("liveSoup");
+    var noodleTex = document.getElementById("noodleLayer");
     var spiceSelect = document.getElementById("spice");
     var spiceText = spiceSelect ? spiceSelect.value : "2辛";
 
+    // 辛さごとのスープ背景色
     var soupColors = [
-      "#f2d6a2", "#e8a15b", "#d96b43",
-      "#c94338", "#a92c31", "#741c32"
+      "radial-gradient(circle, #fde4ce 0%, #f5be93 100%)", // 0辛
+      "radial-gradient(circle, #f9bd88 0%, #eb874a 100%)", // 1辛
+      "radial-gradient(circle, #f18c4f 0%, #d84c24 100%)", // 2辛
+      "radial-gradient(circle, #e25828 0%, #b82b0e 100%)", // 3辛
+      "radial-gradient(circle, #cd321b 0%, #8e1507 100%)", // 4辛
+      "radial-gradient(circle, #9d0b0b 0%, #520407 100%)"  // 5辛
     ];
 
     var spiceNumber = parseInt(spiceText, 10);
@@ -1462,50 +1473,70 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     spiceNumber = Math.max(0, Math.min(5, spiceNumber));
 
     toppings.style.background = soupColors[spiceNumber];
-    toppings.replaceChildren();
 
-    if (selected.length === 0 && selNod.length === 0) {
-      var empty = document.createElement("span");
-      empty.className = "live-topping";
-      empty.textContent = "🍜";
-      toppings.appendChild(empty);
+    // 選んだ麺による質感（テクスチャ）の表現
+    var hasNoodle = false;
+    var noodleStyleBackground = "";
+    selNod.forEach(function(index) {
+      var nod = noodles[index];
+      if (nod && nod[0] !== "なし") {
+        hasNoodle = true;
+        if (nod[0].indexOf("春雨") !== -1) {
+          noodleStyleBackground = "repeating-linear-gradient(45deg, rgba(255,255,255,0.6) 0px, rgba(255,255,255,0.6) 3px, transparent 3px, transparent 10px)";
+        } else if (nod[0].indexOf("刀削麺") !== -1) {
+          noodleStyleBackground = "repeating-linear-gradient(25deg, rgba(255,245,220,0.8) 0px, rgba(255,245,220,0.8) 8px, transparent 8px, transparent 18px)";
+        } else {
+          noodleStyleBackground = "repeating-linear-gradient(60deg, rgba(255,220,130,0.7) 0px, rgba(255,220,130,0.7) 5px, transparent 5px, transparent 12px)";
+        }
+      }
+    });
+
+    noodleTex.style.background = hasNoodle ? noodleStyleBackground : "none";
+
+    // 以前配置したトッピングをクリア（麺レイヤーは維持）
+    var oldToppings = toppings.querySelectorAll(".live-topping");
+    oldToppings.forEach(function(el) { el.remove(); });
+
+    // 具材のリスト化
+    var itemsToPlace = [];
+    selected.forEach(function(item) {
+      itemsToPlace.push(item.emoji);
+    });
+
+    if (itemsToPlace.length === 0 && !hasNoodle) {
+      itemsToPlace.push("✨");
     }
 
-    selected.forEach(function (item) {
+    // ★ お椀の内側（円形）に大きくランダム配置
+    itemsToPlace.forEach(function(emojiStr) {
       var span = document.createElement("span");
       span.className = "live-topping";
-      span.textContent = item.emoji;
-      span.title = item.name;
+      span.textContent = emojiStr;
+
+      // 極座標（半径・角度）による配置計算
+      var angle = Math.random() * Math.PI * 2;
+      var maxRadius = 30; // 具材が大きいため、端にはみ出さないよう30%以内に収める
+      var radius = Math.sqrt(Math.random()) * maxRadius;
+
+      var x = 50 + radius * Math.cos(angle);
+      var y = 50 + radius * Math.sin(angle);
+      var rotate = Math.floor(Math.random() * 60) - 30;
+
+      span.style.left = x + "%";
+      span.style.top = y + "%";
+      span.style.transform = "translate(-50%, -50%) rotate(" + rotate + "deg)";
+      span.style.zIndex = Math.floor(Math.random() * 10) + 1;
+
       toppings.appendChild(span);
     });
-
-    selNod.forEach(function (index) {
-      var noodle = noodles[index];
-      if (!noodle || noodle[0] === "なし") return;
-
-      var span = document.createElement("span");
-      span.className = "live-topping";
-      span.textContent =
-        noodle[1] === "noodle" ? "🍜" : noodle[1];
-      span.title = noodle[0];
-      toppings.appendChild(span);
-    });
-
-    /* 選んだスープの絵文字も表示 */
-    var soupEmoji = document.createElement("span");
-    soupEmoji.className = "live-topping";
-    soupEmoji.textContent = soups[selSoup][1];
-    soupEmoji.title = soups[selSoup][0];
-    toppings.appendChild(soupEmoji);
 
     bowl.style.display = "block";
     finishImage.style.display = "none";
     document.getElementById("bigBowlEmoji").style.display = "none";
   }
 
-  /* 元の完成処理をそのまま実行してから、追加機能を動かす */
+  /* 完成画面呼び出し時のフック */
   var originalShowFinish = showFinish;
-
   showFinish = function () {
     originalShowFinish();
     renderLiveBowl();
@@ -1528,16 +1559,11 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     var recipe = {
       soup: soups[selSoup][0],
       spice: spiceSelect ? spiceSelect.value : "2辛",
-      noodles: selNod.map(function (index) {
-        return noodles[index][0];
-      }),
-      ingredients: selected.map(function (item) {
-        return item.name;
-      })
+      noodles: selNod.map(function (index) { return noodles[index][0]; }),
+      ingredients: selected.map(function (item) { return item.name; })
     };
 
     var key = JSON.stringify(recipe);
-
     var alreadyExists = extraData.recipes.some(function (item) {
       return JSON.stringify(item) === key;
     });
@@ -1549,7 +1575,7 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     saveGame();
   }
 
-  /* 図鑑画面とボタンを自動追加。既存の画面デザインは変更しない */
+  /* 図鑑画面・ボタンの自動構築 */
   var bookSection = document.createElement("section");
   bookSection.className = "screen";
   bookSection.id = "recipeBook";
@@ -1573,8 +1599,7 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
   var bookButton = document.createElement("button");
   bookButton.className = "btn secondary";
   bookButton.textContent = "📖 具材・レシピ図鑑";
-  bookButton.style.cssText =
-    "font-size:11px;padding:6px 14px;margin-top:6px;";
+  bookButton.style.cssText = "font-size:11px;padding:6px 14px;margin-top:6px;";
   bookButton.onclick = function () {
     go("recipeBook");
   };
@@ -1590,21 +1615,20 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     var progress = document.getElementById("ingredientProgress");
     var recipeList = document.getElementById("recipeList");
 
+    if (!ingredientBook || !progress || !recipeList) return;
+
     ingredientBook.replaceChildren();
     recipeList.replaceChildren();
 
     var allIngredients = ingredients.map(function (item) {
-      return { name: item[0], emoji: item[1] === "circus" ? "🦀" :
-        item[1] === "noodle" ? "🍜" : item[1] };
+      return { name: item[0], emoji: item[1] === "circus" ? "🦀" : (item[1] === "noodle" ? "🍜" : item[1]) };
     });
 
     shopItems.forEach(function (item) {
       allIngredients.push({ name: item.name, emoji: item.emoji });
     });
 
-    progress.textContent =
-      extraData.discovered.length + " / " +
-      allIngredients.length + " 種類発見！";
+    progress.textContent = extraData.discovered.length + " / " + allIngredients.length + " 種類発見！";
 
     allIngredients.forEach(function (item) {
       var found = extraData.discovered.indexOf(item.name) !== -1;
@@ -1624,8 +1648,7 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     });
 
     if (extraData.recipes.length === 0) {
-      recipeList.textContent =
-        "まだレシピがないよ。麻辣湯を作ってみよう！";
+      recipeList.textContent = "まだレシピがないよ。麻辣湯を作ってみよう！";
       return;
     }
 
@@ -1648,9 +1671,7 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     });
   }
 
-  /* 図鑑を開くたびに最新の内容を表示 */
   var originalGo = go;
-
   go = function (screenId) {
     originalGo(screenId);
     if (screenId === "recipeBook") {
@@ -1658,9 +1679,8 @@ renderCats(); renderIngredients(); renderNoodles(); renderSoups();
     }
   };
 
-/* 初期化後の状態を保存 */
-saveGame();
-renderRecipeBook();
+  saveGame();
+  renderRecipeBook();
 
 })();
 </script>
