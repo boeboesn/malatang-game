@@ -8,13 +8,13 @@
 *{box-sizing:border-box}
 :root{--pink:#e96c96;--dark:#633044;--line:#edced7}
 body{margin:0;background:#fff8f5;color:var(--dark);font-family:system-ui,sans-serif}
-button,select{font:inherit}button{cursor:pointer}
+button,select{font:inherit;cursor:pointer}
 header{text-align:center;padding:18px;background:#fff0f4;border-bottom:2px solid var(--line)}
 header h1{margin:0;font-size:clamp(23px,5vw,34px)}
 header p{font-size:13px;margin:6px 0 0}
 main{max-width:1000px;margin:auto;padding:12px}
 .screen{display:none}.screen.active{display:block}
-.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 3px 10px #8b435010}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:13px}
 .title{font-size:22px;margin:0 0 5px}
 .sub{font-size:13px;color:#916879;margin:0 0 14px}
 .btn{border:0;background:var(--pink);color:white;padding:13px 20px;border-radius:30px;font-weight:800}
@@ -23,7 +23,6 @@ main{max-width:1000px;margin:auto;padding:12px}
 .hero{text-align:center;padding:30px 12px;background:linear-gradient(145deg,#ffe0e9,#fff4e9);border-radius:20px}
 .hero .food{font-size:clamp(90px,22vw,160px)}
 .hero h2{font-size:clamp(25px,6vw,42px);margin:5px}
-.hero p{line-height:1.8}
 .steps{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:10px 0 15px}
 .step{font-size:11px;border-radius:20px;padding:7px 10px;background:#f5e5eb}
 .step.on{background:var(--pink);color:white}
@@ -35,7 +34,7 @@ main{max-width:1000px;margin:auto;padding:12px}
 .tile{position:relative;border:2px solid #f0dce1;background:#fffaf9;border-radius:13px;padding:9px 3px;color:var(--dark);min-width:0}
 .tile.selected{border-color:var(--pink);background:#fff0f5}
 .emoji{font-size:35px;display:block;line-height:1.4}
-.name{font-size:12px;font-weight:750;display:block;overflow-wrap:anywhere}
+.name{font-size:12px;font-weight:750;display:block}
 .tile small{font-size:11px;color:#9b7180}
 .check{position:absolute;top:4px;right:5px;background:var(--pink);color:white;border-radius:50%;font-size:12px;width:19px;height:19px;display:grid;place-items:center}
 .stripe{width:52px;height:37px;border-radius:12px;margin:1px auto 5px;border:1px solid #e9b6a4;background:repeating-linear-gradient(0deg,#fff4dc 0 7px,#f28b49 7px 14px)}
@@ -43,4 +42,180 @@ main{max-width:1000px;margin:auto;padding:12px}
 .soups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 @media(min-width:600px){.soups{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .soup{border:2px solid var(--line);background:white;border-radius:15px;padding:12px 5px;color:var(--dark)}
-.soup.selected{border-color:var
+.soup.selected{border-color:var(--pink);background:#fff0f5}
+.soup .emoji{font-size:42px}.soup b{display:block;font-size:14px}.soup small{font-size:11px}
+.basket{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:650px){.basket{grid-template-columns:1fr 1fr}}
+.bowl{font-size:100px;text-align:center;padding:15px;background:linear-gradient(#fff7f0,#ffe8dc);border-radius:16px}
+.total{text-align:center;background:#fff0f4;padding:12px;border-radius:12px;font-size:23px;font-weight:850;color:#bd416b}
+.cook{text-align:center;padding:25px 10px}
+.pot{font-size:100px;animation:bob 1s infinite alternate}
+@keyframes bob{to{transform:translateY(-8px) rotate(4deg)}}
+.bar{height:14px;border-radius:20px;background:#f1dce3;overflow:hidden;margin:15px auto;max-width:400px}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,#f28cae,#c84372);transition:width .3s}
+.finished{background:linear-gradient(140deg,#fff0f5,#ffead7);text-align:center;padding:20px;border-radius:20px}
+.bigbowl{font-size:clamp(100px,25vw,180px)}
+.note{font-size:12px;color:#987481}
+footer{text-align:center;font-size:11px;color:#a88b96;padding:18px}
+</style>
+</head>
+<body>
+<header>
+<h1>♡ わたしだけの麻辣湯 ♡</h1>
+<p>好きな具材を選んで、あなただけの一杯を作ろう！</p>
+</header>
+<main>
+<div class="steps" id="stepList">
+<span class="step on">START</span><span class="step">① 具材</span>
+<span class="step">② 麺</span><span class="step">③ スープ</span>
+<span class="step">④ カゴ</span><span class="step">⑤ 調理</span><span class="step">⑥ 完成</span>
+</div>
+
+<section class="screen active" id="start">
+<div class="hero">
+<div class="food">🍜</div>
+<h2>わたしだけの<br>麻辣湯をつくろう！</h2>
+<p>好きな具材も、麺も、スープも自由に選べるよ。<br>自分だけのオリジナル麻辣湯を作っちゃおう！</p>
+<button class="btn" onclick="go('ingredients')">はじめる ❯</button>
+</div>
+</section>
+
+<section class="screen" id="ingredients">
+<div class="panel">
+<h2 class="title">① 材料を選ぼう！</h2>
+<p class="sub">好きな具材をタップしてカゴに入れてね（制限なし）</p>
+<div class="categories" id="categories"></div>
+<div class="grid" id="ingredientGrid"></div>
+<p class="sub" id="count" style="margin-top:12px;text-align:center;font-weight:bold;"></p>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('start')">戻る</button>
+<button class="btn" onclick="go('noodles')">麺を選ぶ ❯</button>
+</div>
+</div>
+</section>
+
+<section class="screen" id="noodles">
+<div class="panel">
+<h2 class="title">② 麺を選ぼう！</h2>
+<p class="sub">好きな麺を選んでね。複数選んでもOK！</p>
+<div class="grid" id="noodleGrid"></div>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('ingredients')">戻る</button>
+<button class="btn" onclick="go('soups')">スープを選ぶ ❯</button>
+</div>
+</div>
+</section>
+
+<section class="screen" id="soups">
+<div class="panel">
+<h2 class="title">③ スープを選ぼう！</h2>
+<p class="sub">今日の気分にぴったりのスープはどれ？</p>
+<div class="soups" id="soupGrid"></div>
+<div class="panel" style="margin-top:14px">
+<b>🌶️ 辛さを選ぼう！</b>
+<select id="spice" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;border:1px solid #edced7;background:white">
+<option>0辛（辛くない）</option><option>1辛</option><option selected>2辛</option><option>3辛</option><option>4辛</option><option>5辛（激辛）</option>
+</select>
+</div>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('noodles')">戻る</button>
+<button class="btn" onclick="go('basket')">カゴを確認 ❯</button>
+</div>
+</div>
+</section>
+
+<section class="screen" id="basket">
+<div class="panel">
+<h2 class="title">④ カゴの中身を確認しよう！</h2>
+<p class="sub">選んだ材料とスープで、あなただけの麻辣湯を作るよ</p>
+<div class="basket">
+<div class="bowl">🍲</div>
+<div><h3>選んだ具材</h3><div id="chosenIngredients"></div>
+<h3>選んだ麺</h3><div id="chosenNoodles"></div>
+<h3>スープ・辛さ</h3><div id="chosenSoup"></div></div>
+</div>
+<div class="total" id="total"></div>
+<p class="note">※価格はゲーム内の設定だよ。</p>
+<div class="btnrow">
+<button class="btn secondary" onclick="go('soups')">戻る</button>
+<button class="btn" onclick="startCooking()">🍲 これで作る！</button>
+</div>
+</div>
+</section>
+
+<section class="screen" id="cooking">
+<div class="panel cook">
+<h2 class="title">⑤ つくってもらおう！</h2>
+<p>選んだ材料をお店のスタッフが調理してくれます…</p>
+<div class="pot">🍲</div><h3 id="cookText">お鍋でぐつぐつ… ♡</h3>
+<div class="bar"><div id="progress"></div></div>
+<p id="seconds">調理中… 5秒</p>
+</div>
+</section>
+
+<section class="screen" id="finish">
+<div class="finished">
+<h2>✨ できあがり！ ♡</h2><p>あなただけのオリジナル麻辣湯</p>
+<div class="bigbowl">🍜</div>
+<div class="panel" style="text-align:left">
+<p id="finalSoup"></p><p id="finalNoodles"></p><p id="finalIngredients"></p>
+<div class="total" id="finalTotal"></div>
+</div>
+<p>おいしく召し上がれ！</p>
+<div class="btnrow">
+<button class="btn" onclick="shareGame()">シェアする ↗</button>
+<button class="btn secondary" onclick="resetGame()">もう一度つくる ↻</button>
+</div>
+<p class="note" id="shareNote"></p>
+</div>
+</section>
+</main>
+<footer>♡ MY MALATANG SHOP ♡</footer>
+
+<script>
+var ingredients=[
+["白菜","🥬",80,"野菜"],["ほうれん草","🥬",80,"野菜"],["小松菜","🥬",80,"野菜"],["キャベツ","🥬",80,"野菜"],["もやし","🌱",60,"野菜"],["大根","🥕",70,"野菜"],["れんこん","🪷",90,"野菜"],["じゃがいも","🥔",80,"野菜"],["さつまいも","🍠",90,"野菜"],["とうもろこし","🌽",90,"野菜"],["トマト","🍅",90,"野菜"],["ブロッコリー","🥦",90,"野菜"],["かぼちゃ","🎃",90,"野菜"],["ニラ","🌿",70,"野菜"],
+["きくらげ","🍄",90,"きのこ"],["マッシュルーム","🍄",100,"きのこ"],["えのき","🍄",90,"きのこ"],["しめじ","🍄",90,"きのこ"],["しいたけ","🍄",100,"きのこ"],
+["豚バラ","🥓",180,"肉・魚介"],["牛肉","🥩",200,"肉・魚介"],["鶏肉","🍗",160,"肉・魚介"],["ラム肉","🥩",200,"肉・魚介"],["えび","🦐",180,"肉・魚介"],["イカ","🦑",160,"肉・魚介"],["ホタテ","🐚",200,"肉・魚介"],["白身魚","🐟",150,"肉・魚介"],["あさり","🐚",150,"肉・魚介"],
+["ソーセージ","🌭",120,"練り物・豆腐"],["つくね","🍡",120,"練り物・豆腐"],["魚のすり身","🍥",100,"練り物・豆腐"],["かにかま","🦀",100,"練り物・豆腐"],["うずらの卵","🥚",100,"練り物・豆腐"],["サーカス団子（蟹籽包）","circus",130,"練り物・豆腐"],["湯葉","🥢",100,"練り物・豆腐"],["厚揚げ","🟫",90,"練り物・豆腐"],["豆腐","⬜",80,"練り物・豆腐"],["こんにゃく","◽",80,"練り物・豆腐"],["春巻","🥟",120,"練り物・豆腐"]];
+
+var noodles=[["春雨","noodle",100],["太い春雨","noodle",120],["中華麺","🍜",130],["刀削麺","🍜",150],["米粉麺","🍝",130],["さつまいも春雨","noodle",120],["インスタント麺","🍜",120],["なし","❌",0]];
+
+var soups=[["麻辣スープ","🌶️",300,"定番のピリ辛！"],["白湯スープ","🥛",300,"まろやかクリーミー"],["トマトスープ","🍅",300,"さっぱり濃厚"],["酸菜スープ","🥬",320,"酸味がクセになる"],["カレースープ","🍛",350,"スパイス香る"],["和風スープ","🍲",250,"あっさりだし風味"]];
+
+var selIng = [];
+var selNod = [];
+var selSoup = 0;
+var curCat = "全部";
+var timer = null;
+var cats = ["全部", "野菜", "肉・魚介", "練り物・豆腐", "きのこ"];
+
+function getIcon(e){
+  if(e === "circus") return '<div class="stripe"></div>';
+  if(e === "noodle") return '<div class="noodle"></div>';
+  return '<span class="emoji">'+e+'</span>';
+}
+
+function renderCats(){
+  var el = document.getElementById("categories");
+  if(!el) return;
+  var h = "";
+  for(var i=0; i<cats.length; i++){
+    var c = cats[i];
+    h += '<button class="cat '+(c===curCat?'active':'')+'" onclick="setCat(\''+c+'\')">'+c+'</button>';
+  }
+  el.innerHTML = h;
+}
+
+function setCat(c){
+  curCat = c;
+  renderCats();
+  renderIngredients();
+}
+
+function renderIngredients(){
+  var grid = document.getElementById("ingredientGrid");
+  if(!grid) return;
+  var h = "";
+  for(var i=0; i<ingredients.length; i++){
+    var item = ingre
